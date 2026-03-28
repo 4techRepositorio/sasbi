@@ -1,16 +1,42 @@
+# Monorepo 4Pro_BI — raiz (venv QA, Python, segredos, artefactos)
+
+# Python / QA (F5: scripts/run-qa-gates.sh usa .venv na raiz)
 .venv/
+venv/
+apps/api/.venv/
+apps/worker/.venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
+.eggs/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-dist/
-build/
+.coverage
+htmlcov/
+
+# Segredos e ambiente local
 .env
-# Stack Portainer (dev): ficheiro versionado com credenciais de laboratório
-!infra/portainer/.env
-!infra/compose/.env
-*.log
+.env.*
+!.env.example
+!e2e/.env.example
+!e2e/.env.e2e.example
+
+# Node (se existir na raiz ou em e2e)
 node_modules/
-.angular/
+
+# E2E / Playwright (futuro)
+e2e/node_modules/
+e2e/test-results/
+e2e/playwright-report/
+e2e/.cache/
+
+# IDE / SO
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Artefactos locais diversos
+*.log
+.pipeline_uploads/

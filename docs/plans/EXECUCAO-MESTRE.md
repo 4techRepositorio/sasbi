@@ -39,7 +39,7 @@ Nenhum trilho é “exclusivo” de um papel: **todos executam o mesmo plano**, 
 | **G1** | [001](../../tickets/TICKET-001-auth-core.md) com login + tokens | **002, 003 e 004** podem avançar **em paralelo** (coordenar migrations) |
 | **G2** | [004](../../tickets/TICKET-004-tenant-foundation.md) + [005](../../tickets/TICKET-005-rbac.md) | **006** e UI autenticada multitenant; **010** (modelagem de planos) em paralelo com 006–007 |
 | **G3** | [008](../../tickets/TICKET-008-parser-pipeline.md) | **009** + refinamentos de UI catálogo/dashboard em paralelo |
-| **G4** | MVP dados fechado (até **009**) | **010** enforcement final; **011–014** conforme capacidade (ADR + CI + observabilidade) |
+| **G4** | Dados da fase base fechados (até **009**) | **010** enforcement final; **011–014** conforme capacidade (ADR + CI + observabilidade) |
 
 ### 0.4 Diagrama de dependências (paralelismo após G1)
 
@@ -102,7 +102,7 @@ Após **001**, os nós em azul claro (**002, 003, 004**) são o **primeiro leque
 - Modelagem de **010** (tabelas `plans`) após **004**; **enforcement** de quotas amarra com **006–008**.
 - **014 (CI)** pode avançar em paralelo assim que existir repositório remoto e testes mínimos (**001**), sem bloquear features.
 
-### 1.1 Fase pós-MVP (tickets 011–014)
+### 1.1 Fase seguinte (tickets 011–014)
 
 | Ordem | ID | Nome | Marco / nota |
 |------|-----|------|----------------|
@@ -113,7 +113,7 @@ Após **001**, os nós em azul claro (**002, 003, 004**) são o **primeiro leque
 
 Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Planos detalhados: `docs/plans/TICKET-011-*` … `TICKET-014-*`.
 
-**Paralelismo pós-MVP:** **011** e **012** podem evoluir em paralelo após ADRs alinhados; **013** (observabilidade) e **014** (CI) são transversais e podem avançar com qualquer trilho que toque API/worker/web.
+**Paralelismo (011+):** **011** e **012** podem evoluir em paralelo após ADRs alinhados; **013** (observabilidade) e **014** (CI) são transversais e podem avançar com qualquer trilho que toque API/worker/web.
 
 ---
 
@@ -122,7 +122,7 @@ Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Plano
 | Marco | Após | Demonstrável |
 |-------|------|--------------|
 | **A — Laboratório** | 008 + UI upload/histórico | Arquivo sobe, job processa, status visível |
-| **B — Dados governados** | Evolução pós-MVP (transformações SQL versionadas / camadas se ADR) | Bronze/silver/gold ou equivalente na API |
+| **B — Dados governados** | Evolução pós-fase-base (transformações SQL versionadas / camadas se ADR) | Bronze/silver/gold ou equivalente na API |
 | **C — BI utilizável** | Roadmap Fase 3 + ADR (analytics incorporado ou canvas próprio) | Dashboard multitenant, UX unificada |
 | **D — SaaS fechável** | 010 enforcement | Quotas bloqueiam uso |
 | **E — Enterprise** | MFA forte, auditoria, observabilidade | Checklist security |
@@ -153,6 +153,9 @@ Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Plano
 
 ## 6. Próximo passo imediato
 
-1. Subir stack: `cd infra/compose && docker compose up -d` **ou** implantar stack no Portainer.
-2. Migrações: ver `apps/api/README.md`.
-3. Endurecer produção: enviar MFA/reset por email real (SMTP), testes e2e da stack Portainer e uso de MinIO no upload (opcional).
+1. Dev local (host partilhado): `./scripts/dev-local.sh` — sobe Postgres/Redis/MinIO e lista comandos para `uvicorn --reload` + `ng serve` (portas em `.env`, ex. API **7418**, front **4200**).
+2. Subir stack completa: `docker compose -f infra/compose/docker-compose.yml up -d` **ou** implantar stack no Portainer (`infra/portainer/`).
+3. Migrações: ver `apps/api/README.md`.
+4. QA antes de PR: `./scripts/run-qa-gates.sh`.
+5. Opcional: `./scripts/run-qa-optional.sh` (Alembic em Postgres Docker efémero + suite Playwright; `E2E_INSTALL_BROWSERS=1` na 1.ª vez; `cp e2e/.env.e2e.example e2e/.env.e2e`).
+6. Endurecer produção: MFA/reset por email real (SMTP), e2e contra stack Portainer, MinIO no upload (opcional).
