@@ -1,0 +1,18 @@
+{
+  "name": "fourpro-bi-e2e",
+  "private": true,
+  "description": "Smoke E2E (Playwright) — executar com stack web+API no ar",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:api": "playwright test tests/smoke-api.spec.ts",
+    "test:login": "playwright test tests/smoke-login.spec.ts",
+    "test:rbac": "playwright test tests/rbac-upload-banner.spec.ts",
+    "test:audit": "playwright test tests/tenant-audit.spec.ts",
+    "test:html": "PLAYWRIGHT_HTML_REPORT=1 playwright test",
+    "install:browsers": "playwright install --with-deps chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1"
+  }
+}
