@@ -6,6 +6,7 @@
 # Uso:
 #   ./scripts/run-qa-optional.sh
 #   E2E_INSTALL_BROWSERS=1 ./scripts/run-qa-optional.sh   # primeira vez / CI self-hosted
+#   QA_OPTIONAL_E2E_ONE_SHOT=1 ./scripts/run-qa-optional.sh # após gates acima: stack Docker + suite Playwright completa
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -14,7 +15,7 @@ echo "==> [opcional] Alembic + Postgres efémero (Docker, paridade CI alembic-po
 ALEMBIC_PG_PORT="${ALEMBIC_PG_PORT:-55432}" bash "$ROOT/scripts/run-alembic-postgres-local.sh"
 
 if [[ ! -f "$ROOT/e2e/.env.e2e" ]]; then
-  echo "==> [opcional] E2E browser — omitido (sem e2e/.env.e2e). Copie: cp e2e/.env.example e2e/.env.e2e"
+  echo "==> [opcional] E2E browser — omitido (sem e2e/.env.e2e). Copie: cp e2e/.env.e2e.example e2e/.env.e2e"
   echo "==> QA opcional concluída (só Alembic)."
   exit 0
 fi
@@ -24,3 +25,9 @@ export E2E_INSTALL_BROWSERS="${E2E_INSTALL_BROWSERS:-0}"
 bash "$ROOT/scripts/run-e2e-all-local.sh"
 
 echo "==> QA opcional OK (Alembic Postgres + E2E browser)."
+
+if [[ "${QA_OPTIONAL_E2E_ONE_SHOT:-0}" == "1" ]]; then
+  echo "==> [opcional] E2E one-shot (Docker + API + ng em portas livres + Playwright — vários minutos)"
+  bash "$ROOT/scripts/run-e2e-one-shot-stack.sh"
+  echo "==> E2E one-shot concluído."
+fi
