@@ -14,4 +14,4 @@ Na raiz do repositório ou nesta pasta:
 docker compose -f docker-compose.yml up -d postgres redis
 ```
 
-Variáveis opcionais: ver comentários em `docker-compose.yml` e `.env.example` na raiz.
+Primeiro: `cp .env.example .env` nesta pasta e edita passwords. Variáveis: comentários em `docker-compose.yml` e `.env.example`.
