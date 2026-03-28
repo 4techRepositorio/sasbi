@@ -21,7 +21,7 @@ jobs:
       - name: Python deps (monorepo)
         run: python -m pip install -r requirements-dev.txt
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "20"
           cache: npm
