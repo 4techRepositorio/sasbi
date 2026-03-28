@@ -3,23 +3,29 @@
 Testes **Playwright** contra stack **web + API** (Portainer, ou `uvicorn` + `ng serve` com proxy).
 
 - Não duplicar contratos já cobertos em `apps/api/tests/`.
-- Fluxos: health da API, login, RBAC (consumer → `/app/upload` → banner), auditoria admin (`/app/tenant-audit`).
+- Fluxos: health da API, login, RBAC (consumer → `/app/upload` → banner), auditoria admin (`/app/tenant-audit`), quotas na shell (`context-storage-ui`).
+
+## Notas de robustez (dev)
+
+- Botão de login: usar **«Entrar»** exacto nos testes — «Entrar com SSO» também casa com `/entrar/i`.
+- Título da página de login: **«Bem-vindo de volta»**.
+- `ng serve`: o overlay `vite-error-overlay` pode bloquear cliques; os testes usam `dismissViteOverlayIfAny` (`e2e/helpers/vite-overlay.ts`).
 
 ## Configuração
 
 ```bash
-cp e2e/.env.example e2e/.env.e2e
+cp e2e/.env.e2e.example e2e/.env.e2e
 # editar URLs e credenciais (alinhadas a `fourpro_api.dev_seed` em dev)
 ```
 
-Ficheiros: `e2e/.env.example` (modelo), `e2e/.env.e2e` (local, **ignorado pelo Git**).
+Ficheiros: `e2e/.env.e2e.example` (modelo), `e2e/.env.e2e` (local, **ignorado pelo Git**).
 
 ## Scripts na raiz do repo (`scripts/`)
 
 | Script | O que faz |
 |--------|-----------|
 | `run-e2e-api-smoke-local.sh` | Sobe **uvicorn** com SQLite em memória, corre smoke API, encerra. Sem Docker nem Alembic; exporta `E2E_API_BASE_URL`. Porta: `E2E_LOCAL_API_PORT` (default `18765`). |
-| `run-e2e-api-smoke.sh` | Só HTTP: `/api/v1/health` e `/api/v1/health/ready`. Lê `e2e/.env.e2e` se existir. Default API `http://127.0.0.1:6418`. |
+| `run-e2e-api-smoke.sh` | Só HTTP: `/api/v1/health` e `/api/v1/health/ready`. Lê `e2e/.env.e2e` se existir. Default API = `API_PUBLISH` no `.env` raiz (**7418** dev local); Portainer: `E2E_API_BASE_URL=http://127.0.0.1:6418`. |
 | `run-e2e-ui-login-smoke.sh` | Login até `/app`. Exige `E2E_USER_*` + front em `PLAYWRIGHT_BASE_URL`. `E2E_INSTALL_BROWSERS=1` instala Chromium. |
 | `run-e2e-audit-smoke.sh` | Login → `/app/tenant-audit` (admin). Mesmas variáveis que login; corre `tenant-audit.spec.ts`. |
 | `run-e2e-rbac-smoke.sh` | RBAC upload (consumer). Exige `E2E_CONSUMER_*`, define `E2E_RUN=1`. |
@@ -78,7 +84,7 @@ Linux: se faltar `.so` no Chromium, na pasta `e2e/`: `sudo npx playwright instal
 
 ## CI
 
-- **PR/push:** `.github/workflows/ci.yml` — job `e2e-api-smoke-local` (Playwright `smoke-api` + uvicorn SQLite).
+- **PR/push:** `.github/workflows/ci.yml` — job `e2e-api-smoke-local` chama **`reusable-e2e-api-smoke.yml`** (Playwright `smoke-api` + uvicorn SQLite).
 - **Manual completo (browser):** *Actions* → **E2E (manual)** → *Run workflow* (`.github/workflows/e2e-dispatch.yml`; credenciais `admin@local.dev` / `consumer@local.dev` no YAML).
 
 ### Artefactos (após E2E manual)
