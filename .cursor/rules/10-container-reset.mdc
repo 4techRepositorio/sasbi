@@ -1,0 +1,17 @@
+---
+description: Quando o utilizador pedir reset/rebuild da stack Docker, executar comandos reais (não só instruções).
+alwaysApply: true
+---
+
+# Reset de containers / stack 4Pro_BI
+
+Quando o utilizador pedir explicitamente **reset do container**, **reiniciar a stack**, **subir de novo com build**, **redeploy**, ou expressões equivalentes:
+
+1. **Executar no terminal** (não limitar a dizer o que correr). Preferir caminho absoluto `/opt/4Pro_BI`.
+2. **Stack completa (recomendado, alinhada ao Portainer):**
+   - `cd /opt/4Pro_BI/infra/portainer && docker compose -f stack-4pro-bi.yml --env-file .env down && docker compose -f stack-4pro-bi.yml --env-file .env up -d --build`
+3. **Só se o contexto for compose local mínimo:** `cd /opt/4Pro_BI/infra/compose && docker compose down && docker compose up -d --build`
+4. **Volumes:** só usar `down -v` ou remover volumes se o utilizador **pedir limpar dados**; reset normal = sem `-v`.
+5. Após o comando, verificar saída (erros de build, portas em uso) e reportar objectivamente.
+
+Deploy apenas via **Portainer UI** sem Docker local: explicar que o agente não tem acesso ao Portainer e listar os passos (redeploy stack / pull & redeploy), a menos que exista CLI/API documentada no repo.

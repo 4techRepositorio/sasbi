@@ -1,0 +1,17 @@
+---
+description: Regras de QA
+alwaysApply: true
+---
+
+Toda entrega deve validar:
+- fluxo feliz
+- tratamento de erro
+- tenant isolation
+- permissão por perfil
+- impacto nos contratos
+- impacto em billing se aplicável
+
+Antes de considerar pronto:
+1. Teste unitário mínimo.
+2. Smoke do fluxo principal.
+3. Checklist preenchido em docs/CHECKLISTS.

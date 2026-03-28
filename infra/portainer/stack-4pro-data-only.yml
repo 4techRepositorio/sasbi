@@ -1,0 +1,54 @@
+# Stack apenas dados: Postgres + Redis + MinIO.
+# Use quando quiser separar ciclo de vida da aplicação (stack app com network externa).
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-fourpro}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-K8mpQ4wxN2vR7sFourProBIdev2026}
+      POSTGRES_DB: ${POSTGRES_DB:-fourpro}
+    volumes:
+      - fourpro_pg:/var/lib/postgresql/data
+    networks:
+      - fourpro_data
+    ports:
+      - "${POSTGRES_PUBLISH:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fourpro} -d ${POSTGRES_DB:-fourpro}"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - fourpro_redis:/data
+    networks:
+      - fourpro_data
+    ports:
+      - "${REDIS_PUBLISH:-6379}:6379"
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-fourpro}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-M9nqR5syO3tS8uFourProMinio2026}
+    volumes:
+      - fourpro_minio:/data
+    networks:
+      - fourpro_data
+    ports:
+      - "${MINIO_PUBLISH_9000:-7291}:9000"
+      - "${MINIO_PUBLISH_9001:-7292}:9001"
+
+networks:
+  fourpro_data:
+    name: fourpro_data
+    driver: bridge
+
+volumes:
+  fourpro_pg:
+  fourpro_redis:
+  fourpro_minio:

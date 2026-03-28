@@ -1,0 +1,9 @@
+# Instalação do monorepo Python (API + pacotes locais)
+-e ./packages/contracts
+-e ./packages/shared
+-e ./apps/api
+-e ./apps/worker
+
+# Testes (API)
+pytest>=8.0
+httpx>=0.27

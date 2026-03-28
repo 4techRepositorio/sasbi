@@ -1,0 +1,20 @@
+---
+description: Regras de segurança
+alwaysApply: true
+---
+
+Itens obrigatórios:
+- hash de senha seguro
+- MFA
+- reset token com expiração
+- rate limiting em login
+- audit log para ações críticas
+- segredo fora do código
+- validação de upload
+- limite por tipo/tamanho de arquivo
+
+Nunca:
+- expor segredo em código
+- confiar apenas no frontend
+- permitir tenant_id vindo sem validação de sessão
+- processar arquivo sem validação mínima

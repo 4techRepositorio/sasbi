@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fourpro-worker"
+version = "0.1.0"
+description = "Worker Celery — ingestão e jobs"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "celery[redis]>=5.4",
+    "redis>=5.0",
+    "fourpro-shared",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["fourpro_worker"]

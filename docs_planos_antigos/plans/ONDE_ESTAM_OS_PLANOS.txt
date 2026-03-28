@@ -1,0 +1,6 @@
+docs/plans/README.md — índice
+docs/plans/INSTRUCOES-USO-DOS-PLANOS.md — como pedir cada passo
+docs/plans/PLANO-MULTI-AGENTES.md — trilhas paralelas + S1–S5
+docs/plans/sub-planos/P*.md — 46 sub-planos
+
+Windows: C:\\Desenvolvimento\\Data_4tech\\docs\\plans\\

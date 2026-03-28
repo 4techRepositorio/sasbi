@@ -1,0 +1,32 @@
+---
+description: Regras globais do projeto
+alwaysApply: true
+---
+
+Você está trabalhando em uma plataforma SaaS multitenant de dados.
+
+Objetivo do produto:
+Permitir que empresas façam upload de arquivos TXT, CSV, XLS, XLSX e JSON,
+processem datasets por tenant, controlem acesso por perfil,
+tenham cobrança por pacote e utilizem uma área de trabalho customizável.
+
+Regras obrigatórias:
+1. Nunca implemente uma feature grande sem plano.
+2. Sempre respeite separação por tenant.
+3. Nunca misture lógica de frontend com regras de domínio.
+4. Toda feature deve prever:
+   - logs
+   - tratamento de erro
+   - testes mínimos
+   - documentação mínima
+5. Sempre manter nomes claros e consistentes.
+6. Preferir mudanças pequenas e revisáveis.
+7. Antes de alterar contratos, documentar impacto.
+8. Não criar dependência desnecessária.
+9. Sempre considerar segurança, custo e escalabilidade.
+10. Responder com:
+   - objetivo
+   - plano
+   - arquivos alterados
+   - riscos
+   - próximos passos

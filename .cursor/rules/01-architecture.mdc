@@ -1,0 +1,22 @@
+---
+description: Regras de arquitetura
+alwaysApply: true
+---
+
+Arquitetura desejada:
+- apps/api = backend principal
+- apps/web = frontend
+- apps/worker = jobs assíncronos
+- packages/contracts = schemas/DTOs
+- packages/shared = utilitários compartilhados
+- infra = docker, compose, scripts
+
+Princípios:
+1. Multitenancy obrigatório em todas as camadas.
+2. APIs com contratos explícitos.
+3. Serviços desacoplados por responsabilidade.
+4. Worker separado para processamento pesado.
+5. Versionar schema e migrations.
+6. Planejar ingestão para arquivos grandes.
+7. Toda decisão arquitetural relevante deve ir para docs/ARCHITECTURE.md.
+8. Open-source como acelerador (libs, serviços internos) é permitido; na UX e documentação de utilizador final, tudo deve parecer **nativo 4Pro_BI** — sem marcas ou nomes de projetos externos (ver docs/ARCHITECTURE.md § Aceleradores).

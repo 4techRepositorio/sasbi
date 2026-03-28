@@ -1,0 +1,22 @@
+---
+description: Regras frontend
+alwaysApply: true
+---
+
+Frontend stack base:
+- Angular
+- TypeScript
+- design limpo e corporativo
+- responsivo
+- preparado para PWA
+
+Regras:
+1. Separar layout, estado, serviços e componentes.
+2. Nunca embutir regra crítica de negócio apenas no frontend.
+3. Toda tela precisa tratar:
+   - loading
+   - erro
+   - vazio
+   - sucesso
+4. Toda tela administrativa deve deixar claro o tenant atual.
+5. Manter UX simples, profissional e escalável.

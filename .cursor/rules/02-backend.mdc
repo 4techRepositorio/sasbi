@@ -1,0 +1,30 @@
+---
+description: Regras backend
+alwaysApply: true
+---
+
+Backend stack base:
+- Python
+- FastAPI
+- SQLAlchemy
+- Alembic
+- PostgreSQL
+- Redis
+- Celery ou worker equivalente
+
+Regras:
+1. Endpoints sempre com validação.
+2. Nunca acessar banco diretamente do controller se houver regra de negócio.
+3. Separar:
+   - routers
+   - services
+   - repositories
+   - schemas
+4. Toda tabela sensível deve conter tenant_id.
+5. Auth precisa prever:
+   - login
+   - refresh
+   - MFA
+   - recuperação de senha
+   - auditoria
+6. Toda feature deve ter teste mínimo.

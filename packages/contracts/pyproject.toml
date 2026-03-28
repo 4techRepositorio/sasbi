@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fourpro-contracts"
+version = "0.1.0"
+description = "4Pro_BI — DTOs e contratos partilhados (API ↔ web)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["pydantic[email]>=2.6"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["fourpro_contracts"]

@@ -1,0 +1,30 @@
+---
+description: Regras de ingestão e dados
+alwaysApply: true
+---
+
+Tipos iniciais suportados:
+- txt
+- csv
+- xls
+- xlsx
+- json
+
+Regras:
+1. Upload não significa ingestão concluída.
+2. Sempre separar:
+   - upload
+   - validação
+   - parsing
+   - normalização
+   - persistência
+   - catálogo
+3. Registrar status da ingestão:
+   - uploaded
+   - validating
+   - parsing
+   - processed
+   - failed
+4. Sempre guardar logs técnicos e mensagem amigável.
+5. Nunca permitir acesso cruzado entre tenants.
+6. Sempre prever reprocessamento e versionamento básico.
