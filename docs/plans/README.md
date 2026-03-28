@@ -8,6 +8,7 @@
 | [PLANOS-POR-TICKET-000-001.md](./PLANOS-POR-TICKET-000-001.md) | Resumo executável dos tickets 000–001 |
 | [PLANOS-POR-TICKET-002-010.md](./PLANOS-POR-TICKET-002-010.md) | Resumo executável dos tickets 002–010 |
 | [PLANOS-POR-TICKET-011-014.md](./PLANOS-POR-TICKET-011-014.md) | Resumo pós-MVP (Marcos B/C/E + CI) |
+| [MVP-GESTAO-PARALELA.md](./MVP-GESTAO-PARALELA.md) | **5 frentes paralelas**, agentes e prompts (gestão técnica MVP) |
 | [../wireframes/](../wireframes/) | Validação de wireframes e referências |
 
 ## Planos detalhados por ticket

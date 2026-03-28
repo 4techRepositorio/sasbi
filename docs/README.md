@@ -20,6 +20,7 @@
 |------|----------|
 | [plans/README.md](./plans/README.md) | Plano mestre, resumos por ticket, planos detalhados TICKET-000–014 |
 | [plans/EXECUCAO-MESTRE.md](./plans/EXECUCAO-MESTRE.md) | Ordem de trabalho, **execução paralela** (§0), marcos A–E |
+| [plans/MVP-GESTAO-PARALELA.md](./plans/MVP-GESTAO-PARALELA.md) | Frentes, agentes e prompts para o MVP |
 | [`../tickets/`](../tickets/README.md) | Cartões curtos por ticket |
 
 ## UX e validação
