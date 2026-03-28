@@ -177,7 +177,7 @@ jobs:
 
       - name: Artefactos E2E (relatório HTML, test-results, logs)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e-artifacts-${{ github.event.inputs.mode || 'full' }}
           path: |
