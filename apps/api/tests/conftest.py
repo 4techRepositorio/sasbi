@@ -32,16 +32,6 @@ def _pytest_disable_rate_limits() -> Generator[None, None, None]:
     limiter.enabled = prev
 
 
-@pytest.fixture(autouse=True)
-def _pytest_skip_parse_enqueue(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Evita Celery/sync parse com outra conexão SQLite nos testes (uploads)."""
-
-    def _noop(_ingestion_id: str) -> None:
-        return None
-
-    monkeypatch.setattr("fourpro_api.routers.uploads.enqueue_ingestion_parse", _noop)
-
-
 @pytest.fixture
 def db_session() -> Generator[Session, None, None]:
     reset_settings_cache()

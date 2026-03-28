@@ -32,8 +32,8 @@ if ! docker run -d --name "$NAME" \
   exit 1
 fi
 
-# Arranque inicial em hosts lentos / I/O partilhado
-sleep 2
+# Arranque inicial em hosts lentos / I/O partilhado (initdb + CREATE DATABASE)
+sleep 3
 
 if [[ -n "${ALEMBIC_PG_PORT:-}" ]]; then
   PORT="${ALEMBIC_PG_PORT}"
@@ -41,15 +41,19 @@ else
   PORT=$(docker port "$NAME" 5432 | head -1 | awk -F: '{print $NF}')
 fi
 
-for _ in $(seq 1 100); do
-  if docker exec "$NAME" pg_isready -U fourpro -d fourpro >/dev/null 2>&1; then
+postgres_accepting() {
+  docker exec "$NAME" psql -U fourpro -d fourpro -tAc "select 1" >/dev/null 2>&1
+}
+
+for _ in $(seq 1 120); do
+  if postgres_accepting; then
     break
   fi
   sleep 0.5
 done
-if ! docker exec "$NAME" pg_isready -U fourpro -d fourpro >/dev/null 2>&1; then
-  echo "Erro: Postgres não ficou pronto a tempo (últimos logs):" >&2
-  docker logs "$NAME" 2>&1 | tail -30 >&2 || true
+if ! postgres_accepting; then
+  echo "Erro: Postgres não aceitou ligações em fourpro a tempo (últimos logs):" >&2
+  docker logs "$NAME" 2>&1 | tail -40 >&2 || true
   exit 1
 fi
 

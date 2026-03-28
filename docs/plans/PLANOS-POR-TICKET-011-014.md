@@ -1,4 +1,4 @@
-# Planos por ticket (011–014) — fase pós-MVP
+# Planos por ticket (011–014) — fases seguintes do projeto
 
 Resumo executável; planos detalhados em `docs/plans/TICKET-01X-*-detailed-plan.md`. Marcos em `EXECUCAO-MESTRE.md` §2.
 
@@ -10,7 +10,7 @@ Resumo executável; planos detalhados em `docs/plans/TICKET-01X-*-detailed-plan.
 
 **Plano:** Modelos `dashboards`; APIs com `tenant_id`; UI lista/editor; export snapshot; wireframes `validation-workspace-dashboards.md`.
 
-**Saída:** ADR escrito; critérios W1–D5 do wireframe endereçados no MVP escolhido.
+**Saída:** ADR escrito; critérios W1–D5 do wireframe endereçados no escopo acordado.
 
 ---
 

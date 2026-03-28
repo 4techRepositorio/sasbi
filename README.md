@@ -4,6 +4,8 @@ Monorepo com API **FastAPI**, frontend **Angular**, worker **Celery**, contratos
 
 ## Início rápido
 
+Em máquina partilhada (portas não clássicas no `.env`): **`./scripts/dev-local.sh`** sobe Postgres/Redis/MinIO e mostra os comandos para API (**7418**) + **`ng serve`** (**4200**).
+
 1. **Infra local**
    ```bash
    cd infra/compose && docker compose up -d postgres redis
@@ -22,7 +24,7 @@ Monorepo com API **FastAPI**, frontend **Angular**, worker **Celery**, contratos
    Credenciais padrão já estão em `.env` e `.env.example` (sincronizadas).
 4. **API**
    ```bash
-   cd apps/api && uvicorn fourpro_api.main:app --reload --port 6418
+   cd apps/api && uvicorn fourpro_api.main:app --reload --port 7418
    ```
 5. **Web**
    ```bash
@@ -42,6 +44,25 @@ Definições em [infra/portainer/](infra/portainer/README.md): stack completa `s
 
 Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 
+## Qualidade, migrações e paridade com CI
+
+Índice dos scripts: [scripts/README.md](scripts/README.md).
+
+| Objectivo | Comando |
+|-----------|---------|
+| Gates iguais ao GitHub Actions (Ruff, pytest API, Angular, Playwright) | `./scripts/run-qa-gates.sh` ou `make qa` |
+| Acima + Alembic em Postgres efémero (Docker), como o job `alembic-postgres` | `RUN_ALEMBIC_PG_LOCAL=1 ./scripts/run-qa-gates.sh` ou `make qa-alembic` |
+| Opcional: Alembic smoke + E2E browser (se `e2e/.env.e2e`) | `make qa-optional` |
+| Só smoke API Playwright + uvicorn SQLite (rápido) | `make e2e-api-local` |
+| Disparar **E2E (manual)** no GitHub (`gh`) | `make e2e-dispatch` |
+| `alembic upgrade head` com `DATABASE_URL` do `.env` | `./scripts/run-db-migrate.sh` ou `make migrate` |
+| Só Postgres Docker + head único + upgrade (smoke rápido) | `./scripts/run-alembic-postgres-local.sh` ou `make alembic-pg-local` |
+| CI manual no GitHub | *Actions* → workflow **CI** → **Run workflow** (`workflow_dispatch`) |
+| Smoke API semanal (cron + dispatch) | *Actions* → **E2E API smoke (semanal)** |
+| Lint workflows (opcional, [actionlint](https://github.com/rhysd/actionlint)) | `make lint-actions` |
+
+**Pre-commit (opcional):** `pip install pre-commit && pre-commit install` — usa `.pre-commit-config.yaml` (Ruff na API).
+
 ## Documentação
 
 | Documento | Conteúdo |
@@ -51,12 +72,17 @@ Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 | [docs/plans/README.md](docs/plans/README.md) | Planos de execução e tickets |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Blocos e domínios |
 | [docs/VISION.md](docs/VISION.md) | Visão de produto |
-| [tickets/](tickets/) | Tickets do MVP |
+| [tickets/](tickets/) | Tickets do projeto 4Pro_BI |
 | [docs_planos_antigos/](docs_planos_antigos/plans/README.md) | Planos OSS históricos (P0–P8) |
 
 ## Variáveis
 
 Copie [.env.example](.env.example) e ajuste. Nunca commite `.env` com segredos reais.
+
+## Contribuir e segurança
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) — gates locais, frentes do monorepo, migrações.
+- [docs/SECURITY.md](docs/SECURITY.md) — política de segurança (reporte + controlos); [SECURITY.md](SECURITY.md) na raiz é o atalho para o GitHub.
 
 ## Licença
 

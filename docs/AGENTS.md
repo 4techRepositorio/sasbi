@@ -17,6 +17,7 @@ Responsável por:
 - convenções
 - escalabilidade
 - decisões técnicas
+- mapa **Core vs Data** (quem expõe cada rota/domínio HTTP): ver [docs/ARCHITECTURE.md](./ARCHITECTURE.md) (secção *Backend Core vs Backend Data*).
 Não deve implementar grandes features sem plano validado.
 
 ## 3. Backend Core

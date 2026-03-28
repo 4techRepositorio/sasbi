@@ -1,16 +1,19 @@
 # Validação de wireframe — Workspace e dashboards (visão Power BI–like)
 
-**Versão:** 0.3  
+**Versão:** 0.6  
 **Roadmap:** Fase 3 em `docs/ROADMAP.md`; antecipar validação para alinhar contratos (datasets, permissões, export).
 
 **Referência visual:** `Data Analytics Solution.pdf` (raiz do repo) e protótipo `https://dig-wired-11893301.figma.site/`. O Marco **C** no plano mestre corresponde a BI multitenant **incorporado à solução** (sem superfície de marcas de terceiros ao utilizador — ver `docs/ARCHITECTURE.md`); detalhe de implementação em ADR. Contexto histórico: [REFERENCIAS-MATERIAIS-LEGADOS.md](./REFERENCIAS-MATERIAIS-LEGADOS.md).
 
 ## 0. Evidências visuais (exports)
 
+**PDF raster (repo):** páginas do ficheiro raiz `Data Analytics Solution.pdf` como `data-analytics-solution-p-*.png` em [`../assets/wireframes/exports/`](../assets/wireframes/exports/) — regenerar com [`scripts/export-wireframes-from-pdf.sh`](../../scripts/export-wireframes-from-pdf.sh) ou `make wireframes-export`.  
+**Capturas da app:** `E2E_WIREFRAME_CAPTURES=1` + `npm run test:wireframe-captures` em `e2e/` → `workspace-shell-v1-*.png` (só a sidebar `aside.da-shell__aside`) e `workspace-dashboard-v1-*.png` (página completa em `/app/dashboard`).
+
 | Sugestão de ficheiro | Conteúdo |
 |----------------------|----------|
 | `workspace-shell-v1-YYYYMMDD.png` | Shell com sidebar + tenant (estado atual) |
-| `workspace-dashboard-mvp-v1-YYYYMMDD.png` | `/app/dashboard` (KPIs + gráfico de barras + tabela) |
+| `workspace-dashboard-v1-YYYYMMDD.png` | `/app/dashboard` (KPIs + gráfico de barras + tabela) |
 | `workspace-editor-v1-YYYYMMDD.png` | *Fase 3:* editor canvas D1–D5 |
 | `workspace-export-v1-YYYYMMDD.png` | *Fase 3:* fluxo de export E1–E3 |
 
@@ -51,7 +54,7 @@ Definir, antes do desenho pixel-perfect, como será o **workspace customizável*
 | # | Elemento | Critério |
 |---|----------|----------|
 | D1 | Barra de ferramentas | Adicionar widget, desfazer/refazer mínimo, alinhar grade, camadas (ordem Z) |
-| D2 | Tipos iniciais | Gráfico de barras/linha, KPI, tabela simples — lista fechada no MVP avançado |
+| D2 | Tipos iniciais | Gráfico de barras/linha, KPI, tabela simples — lista fechada até evolução do workspace (011+) |
 | D3 | Painel de propriedades | Título, dataset vinculado, campo de eixo/valores, cores |
 | D4 | Filtros globais | Filtros que afetam todos os widgets compatíveis; estado salvo no dashboard |
 | D5 | Erro de dados | Dataset indisponível ou vazio: placeholder no widget, não quebrar canvas |
@@ -73,7 +76,7 @@ Definir, antes do desenho pixel-perfect, como será o **workspace customizável*
 ## 5. Fora de escopo explícito na visão inicial (`docs/VISION.md`)
 
 - BI semântico avançado, marketplace público de dashboards.  
-→ Wireframes devem **não** prometer relacionamentos complexos entre datasets no MVP.
+→ Wireframes devem **não** prometer relacionamentos complexos entre datasets na fase base do produto.
 
 ## 6. Sign-off
 

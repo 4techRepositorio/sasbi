@@ -1,0 +1,11 @@
+# Opcional: pip install pre-commit && pre-commit install
+# Corresponde ao gate Ruff do CI em apps/api/fourpro_api e apps/api/tests.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^apps/api/(fourpro_api|tests)/
+      - id: ruff-format
+        files: ^apps/api/(fourpro_api|tests)/

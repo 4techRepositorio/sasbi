@@ -26,5 +26,28 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "httpx>=0.27"]
 
+[tool.pytest.ini_options]
+# passlib/argon2-cffi: avisos de bibliotecas até migração (ex. hash directo com argon2-cffi).
+filterwarnings = [
+    "ignore:'crypt' is deprecated and slated for removal in Python 3.13:DeprecationWarning:passlib.utils",
+    "ignore:Accessing argon2.__version__ is deprecated:DeprecationWarning:passlib.handlers.argon2",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+# Variáveis de ambiente antes de importar fourpro_api (settings na importação).
+"tests/conftest.py" = ["E402"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["fourpro_api"]

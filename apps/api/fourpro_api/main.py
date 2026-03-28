@@ -4,9 +4,9 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
 from fourpro_api.config import get_settings
-from fourpro_api.logging_config import setup_logging
 from fourpro_api.limiter import limiter
-from fourpro_api.routers import auth, datasets, health, ingestions, me, uploads
+from fourpro_api.logging_config import setup_logging
+from fourpro_api.routers import auth, datasets, health, ingestions, me, tenant, uploads
 
 
 def _cors_origins() -> list[str]:
@@ -38,6 +38,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/api/v1")
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(me.router, prefix="/api/v1")
+    app.include_router(tenant.router, prefix="/api/v1")
     app.include_router(uploads.router, prefix="/api/v1")
     app.include_router(datasets.router, prefix="/api/v1")
     app.include_router(ingestions.router, prefix="/api/v1")

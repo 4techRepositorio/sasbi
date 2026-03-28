@@ -42,6 +42,34 @@ export const routes: Routes = [
         data: { shellTitle: 'Ingestões' },
         loadComponent: () => import('./pages/ingestions/ingestions.component').then((m) => m.IngestionsComponent),
       },
+      {
+        path: 'tenant-users',
+        canActivate: [roleGuard(['admin'])],
+        data: { shellTitle: 'Equipa' },
+        loadComponent: () =>
+          import('./pages/tenant-users/tenant-users.component').then((m) => m.TenantUsersComponent),
+      },
+      {
+        path: 'tenant-audit',
+        canActivate: [roleGuard(['admin'])],
+        data: { shellTitle: 'Auditoria' },
+        loadComponent: () =>
+          import('./pages/tenant-audit-log/tenant-audit-log.component').then((m) => m.TenantAuditLogComponent),
+      },
+      {
+        path: 'billing',
+        data: { shellTitle: 'Cobrança' },
+        loadComponent: () =>
+          import('./pages/billing-overview/billing-overview.component').then((m) => m.BillingOverviewComponent),
+      },
+      {
+        path: 'settings',
+        data: { shellTitle: 'Configurações' },
+        loadComponent: () =>
+          import('./pages/settings-placeholder/settings-placeholder.component').then(
+            (m) => m.SettingsPlaceholderComponent,
+          ),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'app' },

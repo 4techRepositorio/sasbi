@@ -1,0 +1,16 @@
+# CODEOWNERS — definir equipas no GitHub e descomentar as linhas aplicáveis.
+# Repositório: https://github.com/4techRepositorio/sasbi
+# Guia: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Exemplos (substituir @organizacao/equipa pelos vossos handles; ex.: @4techRepositorio/nome-da-equipa):
+#
+# * @organizacao/squad-4pro-bi
+# /apps/api/ @organizacao/backend
+# /apps/web/ @organizacao/frontend
+# /packages/contracts/ @organizacao/architect
+# /.github/ @organizacao/devops
+# /.github/workflows/ @organizacao/devops
+# /e2e/ @organizacao/qa
+# /scripts/run-e2e*.sh @organizacao/qa
+# /scripts/run-qa*.sh @organizacao/qa
+# /docs/ @organizacao/architect

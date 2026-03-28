@@ -20,4 +20,4 @@
 | TICKET-013 | [TICKET-013-observability-enterprise.md](./TICKET-013-observability-enterprise.md) | Observabilidade / enterprise (Marco E) |
 | TICKET-014 | [TICKET-014-ci-quality-gates.md](./TICKET-014-ci-quality-gates.md) | CI e quality gates |
 
-**Ordem e paralelismo:** o plano é executado por **toda a equipa em paralelo** onde as dependências o permitem — ver [`docs/plans/EXECUCAO-MESTRE.md`](../docs/plans/EXECUCAO-MESTRE.md) §0; pós-MVP: [`PLANOS-POR-TICKET-011-014.md`](../docs/plans/PLANOS-POR-TICKET-011-014.md).
+**Ordem e paralelismo:** o plano é executado por **toda a equipa em paralelo** onde as dependências o permitem — ver [`docs/plans/EXECUCAO-MESTRE.md`](../docs/plans/EXECUCAO-MESTRE.md) §0; evolução (011+): [`PLANOS-POR-TICKET-011-014.md`](../docs/plans/PLANOS-POR-TICKET-011-014.md).

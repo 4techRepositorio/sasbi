@@ -16,7 +16,7 @@ O conteúdo das folhas `validation-*.md` permanece alinhado a `docs/VISION.md`, 
 |-----------|---------|
 | [validation-admin-identity.md](./validation-admin-identity.md) | Login, MFA, reset, admin (fluxos + mapa para rotas Angular + exports) |
 | [validation-data-pipeline.md](./validation-data-pipeline.md) | Upload, ingestão, catálogo (+ dashboard resumo + exports) |
-| [validation-workspace-dashboards.md](./validation-workspace-dashboards.md) | Workspace alvo Fase 3 vs MVP atual (`/app/dashboard`) + exports |
+| [validation-workspace-dashboards.md](./validation-workspace-dashboards.md) | Workspace alvo Fase 3 vs implementação atual (`/app/dashboard`) + exports |
 
 ## Mapa de navegação (app atual)
 
@@ -32,8 +32,12 @@ flowchart LR
   subgraph app_authenticated["/app — shell"]
     D[dashboard]
     U[upload]
-    DS[datasets]
     IN[ingestions]
+    DS[datasets]
+    TU[tenant-users]
+    TA[tenant-audit]
+    B[billing]
+    S[settings]
   end
   L --> app_authenticated
   F
@@ -47,18 +51,24 @@ flowchart LR
 │ SIDEBAR          │  TOPBAR (título área)                      │
 │ · Dashboard      ├───────────────────────────────────────────┤
 │ · Upload*        │                                            │
-│ · Catálogo       │  CONTEÚDO (router-outlet)                  │
-│ · Ingestões      │                                            │
-│                  │                                            │
+│ · Ingestões      │  CONTEÚDO (router-outlet)                  │
+│ · Catálogo       │                                            │
+│ · Equipa†        │                                            │
+│ · Auditoria†     │                                            │
+│ · Cobrança       │                                            │
+│ · Configurações  │                                            │
 │ Tenant + papel   │                                            │
 │ [Sair]           │                                            │
 └─────────────────────────────────────────────────────────────┘
-  * Upload só admin/analyst (roleGuard)
+  * Upload: admin/analyst  † Equipa/Auditoria: admin
 ```
 
 ## Imagens e evidências visuais
 
 Capturas ou exports que comprovem o sign-off devem seguir a convenção em **[`docs/assets/README.md`](../assets/README.md)** (pasta `docs/assets/wireframes/exports/`). Nos próprios `validation-*.md`, use links para esses ficheiros quando existirem.
+
+- **PDF → PNG:** `make wireframes-export` ou [`scripts/export-wireframes-from-pdf.sh`](../../scripts/export-wireframes-from-pdf.sh) → `data-analytics-solution-p-*.png`.
+- **Capturas da app (Playwright, opcional):** `e2e/tests/wireframe-validation-captures.spec.ts` com `E2E_WIREFRAME_CAPTURES=1` — ver [`e2e/README.md`](../../e2e/README.md).
 
 ## Como usar
 

@@ -154,8 +154,8 @@ Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Plano
 ## 6. Próximo passo imediato
 
 1. Dev local (host partilhado): `./scripts/dev-local.sh` — sobe Postgres/Redis/MinIO e lista comandos para `uvicorn --reload` + `ng serve` (portas em `.env`, ex. API **7418**, front **4200**).
-2. Subir stack completa: `docker compose -f infra/compose/docker-compose.yml up -d` **ou** implantar stack no Portainer (`infra/portainer/`).
+2. Subir stack completa: `docker compose -f infra/compose/docker-compose.yml up -d` **ou** implantar stack no Portainer (`infra/portainer/`). Atalhos: `./scripts/stack-up.sh`, `make stack-up`; parar: `./scripts/stack-down.sh` (volumes: `STACK_DOWN_VOLUMES=1`); estado/logs: `./scripts/stack-ps.sh`, `./scripts/stack-logs.sh`.
 3. Migrações: ver `apps/api/README.md`.
 4. QA antes de PR: `./scripts/run-qa-gates.sh`.
 5. Opcional: `./scripts/run-qa-optional.sh` (Alembic em Postgres Docker efémero + suite Playwright; `E2E_INSTALL_BROWSERS=1` na 1.ª vez; `cp e2e/.env.e2e.example e2e/.env.e2e`).
-6. Endurecer produção: MFA/reset por email real (SMTP), e2e contra stack Portainer, MinIO no upload (opcional).
+6. Endurecer produção: MFA/reset por email real (SMTP), e2e contra stack Portainer, MinIO no upload (opcional). Após bootstrap: `RUN_SEED=false` no `.env` da stack; `RATE_LIMIT_TRUST_PROXY` só com proxy de confiança (ver `infra/portainer/README.md`).

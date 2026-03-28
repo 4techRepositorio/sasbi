@@ -4,6 +4,19 @@ import { Router } from '@angular/router';
 
 import { API_V1 } from './api-base';
 
+const KEYS = ['access_token', 'refresh_token', 'tenant_role'] as const;
+
+function clearAllStores(): void {
+  for (const k of KEYS) {
+    sessionStorage.removeItem(k);
+    localStorage.removeItem(k);
+  }
+}
+
+function pickStorageForSession(remember: boolean): Storage {
+  return remember ? localStorage : sessionStorage;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
@@ -31,29 +44,45 @@ export class AuthService {
     });
   }
 
-  setSession(body: { access_token: string; refresh_token: string; role?: string | null }): void {
-    sessionStorage.setItem('access_token', body.access_token);
-    sessionStorage.setItem('refresh_token', body.refresh_token);
+  /**
+   * Guarda tokens no sessionStorage ou localStorage (Lembrar-me), nunca em ambos.
+   */
+  setSession(
+    body: { access_token: string; refresh_token: string; role?: string | null },
+    remember = false,
+  ): void {
+    clearAllStores();
+    const st = pickStorageForSession(remember);
+    st.setItem('access_token', body.access_token);
+    st.setItem('refresh_token', body.refresh_token);
     if (body.role) {
-      sessionStorage.setItem('tenant_role', body.role);
-    } else {
-      sessionStorage.removeItem('tenant_role');
+      st.setItem('tenant_role', body.role);
     }
   }
 
   logout(): void {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('refresh_token');
-    sessionStorage.removeItem('tenant_role');
+    clearAllStores();
     void this.router.navigateByUrl('/login');
   }
 
-  /** Papel no tenant atual (após login). */
+  getAccessToken(): string | null {
+    return localStorage.getItem('access_token') ?? sessionStorage.getItem('access_token');
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token') ?? sessionStorage.getItem('refresh_token');
+  }
+
+  /** Onde persistir após refresh — mesmo storage que tinha o refresh. */
+  tokenTargetStore(): Storage {
+    return localStorage.getItem('refresh_token') != null ? localStorage : sessionStorage;
+  }
+
   tenantRole(): string | null {
-    return sessionStorage.getItem('tenant_role');
+    return localStorage.getItem('tenant_role') ?? sessionStorage.getItem('tenant_role');
   }
 
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('access_token');
+    return !!this.getAccessToken();
   }
 }

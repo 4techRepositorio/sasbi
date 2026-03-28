@@ -13,7 +13,7 @@ def validate_upload_content(*, declared_name: str, body: bytes) -> None:
 
     ext = Path(declared_name or "").suffix.lower().lstrip(".")
     if ext == "json":
-        text = body[:512 * 1024].decode("utf-8", errors="strict").lstrip()
+        text = body[: 512 * 1024].decode("utf-8", errors="strict").lstrip()
         if not text.startswith("{") and not text.startswith("["):
             raise UploadContentError("JSON inválido: esperado objeto ou array")
         try:
@@ -22,7 +22,7 @@ def validate_upload_content(*, declared_name: str, body: bytes) -> None:
             raise UploadContentError("JSON inválido") from e
     elif ext in ("csv", "txt"):
         try:
-            body[:64 * 1024].decode("utf-8", errors="strict")
+            body[: 64 * 1024].decode("utf-8", errors="strict")
         except UnicodeDecodeError as e:
             raise UploadContentError("Conteúdo não é texto UTF-8 válido para CSV/TXT") from e
     elif ext == "xlsx":

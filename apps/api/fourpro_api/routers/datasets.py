@@ -1,9 +1,9 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
+from fourpro_contracts.dataset import DatasetItem, PaginatedDatasetList
 from sqlalchemy.orm import Session
 
-from fourpro_contracts.dataset import DatasetItem, PaginatedDatasetList
 from fourpro_api.core.principal import Principal
 from fourpro_api.db.session import get_db
 from fourpro_api.dependencies.auth import get_current_principal

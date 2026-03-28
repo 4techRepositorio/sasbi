@@ -1,0 +1,188 @@
+# E2E completo: Postgres + Redis + API + ng serve (proxy) + Playwright.
+# Disparo manual — não bloqueia PRs.
+# Credenciais = saída de `python -m fourpro_api.dev_seed` (admin@local.dev / consumer@local.dev, password changeme).
+#
+# Modo `api_stack`: sem Angular — só smoke HTTP (health + health/ready) via Playwright; mais rápido para validar API real.
+
+name: E2E (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "full = API + ng + suite browser; api_stack = só API + smoke HTTP (sem Angular)"
+        type: choice
+        default: full
+        options:
+          - full
+          - api_stack
+
+concurrency:
+  group: e2e-dispatch-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: fourpro
+          POSTGRES_PASSWORD: fourpro
+          POSTGRES_DB: fourpro
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fourpro -d fourpro"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+    env:
+      DATABASE_URL: postgresql+psycopg2://fourpro:fourpro@localhost:5432/fourpro
+      JWT_SECRET: e2e-github-workflow-jwt-secret-at-least-32-chars
+      REDIS_URL: redis://localhost:6379/0
+      ACCESS_TOKEN_EXPIRE_MINUTES: "15"
+      REFRESH_TOKEN_EXPIRE_DAYS: "7"
+      REFRESH_RATE_LIMIT: "120/minute"
+      RATE_LIMIT_TRUST_PROXY: "false"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install Python deps (monorepo)
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-dev.txt
+
+      - name: Upload dir + Alembic + seed
+        working-directory: apps/api
+        env:
+          UPLOAD_DIR: ${{ runner.temp }}/fourpro_uploads
+        run: |
+          mkdir -p "$UPLOAD_DIR"
+          alembic upgrade head
+          python -m fourpro_api.dev_seed
+
+      - name: Start API (background)
+        working-directory: apps/api
+        env:
+          UPLOAD_DIR: ${{ runner.temp }}/fourpro_uploads
+        run: |
+          mkdir -p "$UPLOAD_DIR"
+          nohup python -m uvicorn fourpro_api.main:app --host 127.0.0.1 --port 8000 > /tmp/fourpro-api.log 2>&1 &
+          for _ in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:8000/api/v1/health && curl -sf http://127.0.0.1:8000/api/v1/health/ready; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "=== API log ==="
+          cat /tmp/fourpro-api.log
+          exit 1
+
+      - uses: actions/setup-node@v4
+        if: ${{ github.event.inputs.mode != 'api_stack' }}
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: ng serve + proxy (background)
+        if: ${{ github.event.inputs.mode != 'api_stack' }}
+        working-directory: apps/web
+        run: |
+          npm ci
+          nohup npm run start -- --host 127.0.0.1 --port 4200 --proxy-config proxy.conf.ci.json > /tmp/fourpro-ng.log 2>&1 &
+          for _ in $(seq 1 90); do
+            curl -sf http://127.0.0.1:4200/ >/dev/null && exit 0
+            sleep 2
+          done
+          echo "=== ng log ==="
+          cat /tmp/fourpro-ng.log
+          exit 1
+
+      - uses: actions/setup-node@v4
+        if: ${{ github.event.inputs.mode == 'api_stack' }}
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+
+      - name: Cache Playwright browsers
+        if: ${{ github.event.inputs.mode != 'api_stack' }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('e2e/package-lock.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-
+
+      - name: Playwright (suite completa)
+        if: ${{ github.event.inputs.mode != 'api_stack' }}
+        working-directory: e2e
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:4200
+          E2E_RUN: "1"
+          E2E_CONSUMER_EMAIL: consumer@local.dev
+          E2E_CONSUMER_PASSWORD: changeme
+          E2E_USER_EMAIL: admin@local.dev
+          E2E_USER_PASSWORD: changeme
+          E2E_API_BASE_URL: http://127.0.0.1:8000
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test
+
+      - name: Playwright (smoke API apenas)
+        if: ${{ github.event.inputs.mode == 'api_stack' }}
+        working-directory: e2e
+        env:
+          CI: true
+          E2E_API_BASE_URL: http://127.0.0.1:8000
+        run: |
+          npm ci
+          npx playwright install-deps chromium || true
+          npx playwright install chromium
+          npx playwright test tests/smoke-api.spec.ts
+
+      - name: Copiar logs dos serviços para o workspace
+        if: always()
+        run: |
+          mkdir -p e2e/_ci_logs
+          cp /tmp/fourpro-api.log e2e/_ci_logs/ 2>/dev/null || true
+          cp /tmp/fourpro-ng.log e2e/_ci_logs/ 2>/dev/null || true
+
+      - name: Artefactos E2E (relatório HTML, test-results, logs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-artifacts-${{ github.event.inputs.mode || 'full' }}
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+            e2e/_ci_logs
+          if-no-files-found: ignore
+          retention-days: 7

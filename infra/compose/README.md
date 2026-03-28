@@ -2,9 +2,9 @@
 
 ## Serviços
 
-- **postgres** — porta `5432` (credenciais padrão em `.env.example` na raiz).
-- **redis** — porta `6379`.
-- **minio** — no host: API `7291`→9000, consola `7292`→9001 (ver `infra/compose/.env`).
+- **postgres** — no host: `15432`→5432 (defeito; evita colisão com Postgres na 5432 do host). Ajuste `POSTGRES_PORT` no `.env`.
+- **redis** — no host: `16379`→6379 (defeito; evita colisão com Redis na 6379 do host). Ajuste `REDIS_PORT` no `.env`.
+- **minio** — no host: API `17291`→9000, consola `17292`→9001 (defeito; ajuste `MINIO_*` no `.env`).
 
 ## Uso
 

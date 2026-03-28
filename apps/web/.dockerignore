@@ -1,0 +1,9 @@
+# Crítico: sem isto, `COPY . .` substitui o `node_modules` do `npm ci` pelo do host (quebra intermitente / ajv).
+node_modules
+dist
+.angular
+coverage
+.git
+*.md
+.env
+.env.*

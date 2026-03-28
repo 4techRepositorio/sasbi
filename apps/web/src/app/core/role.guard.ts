@@ -1,14 +1,21 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
-/** RBAC (TICKET-005): só papéis listados acedem à rota. */
+import { RbacNoticeService } from './rbac-notice.service';
+import { TenantContextService } from './tenant-context.service';
+
+/** RBAC: papel da API (/me/context) quando já carregado; senão fallback ao login (sessionStorage). */
 export function roleGuard(allowed: readonly string[]): CanActivateFn {
   return () => {
     const router = inject(Router);
-    const role = sessionStorage.getItem('tenant_role');
+    const tenantCtx = inject(TenantContextService);
+    const rbacNotice = inject(RbacNoticeService);
+    const fromApi = tenantCtx.context()?.role;
+    const role = fromApi ?? sessionStorage.getItem('tenant_role');
     if (role && allowed.includes(role)) {
       return true;
     }
-    return router.createUrlTree(['/app/datasets']);
+    rbacNotice.showAccessDenied();
+    return router.createUrlTree(['/app/dashboard']);
   };
 }

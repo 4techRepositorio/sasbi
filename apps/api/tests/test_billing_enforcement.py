@@ -6,14 +6,15 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.models.plan import Plan
 from fourpro_api.models.subscription import TenantSubscription
-
 from tests.test_auth import _bind_tenant, _create_user
 
 
 def test_second_upload_blocked_when_plan_limit_one(client: TestClient, db_session: Session) -> None:
     u = _create_user(db_session, "bill@example.com", "pw")
     tid = _bind_tenant(db_session, u, role="admin")
-    sub = db_session.scalars(select(TenantSubscription).where(TenantSubscription.tenant_id == tid)).first()
+    sub = db_session.scalars(
+        select(TenantSubscription).where(TenantSubscription.tenant_id == tid)
+    ).first()
     assert sub is not None
     plan = db_session.get(Plan, sub.plan_id)
     assert plan is not None
@@ -21,9 +22,9 @@ def test_second_upload_blocked_when_plan_limit_one(client: TestClient, db_sessio
     db_session.add(plan)
     db_session.commit()
 
-    token = client.post("/api/v1/auth/login", json={"email": "bill@example.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token = client.post(
+        "/api/v1/auth/login", json={"email": "bill@example.com", "password": "pw"}
+    ).json()["access_token"]
     files1 = {"file": ("a.csv", b"x\n1\n", "text/csv")}
     r1 = client.post(
         "/api/v1/uploads",

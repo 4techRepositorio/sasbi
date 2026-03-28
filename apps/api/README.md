@@ -18,7 +18,7 @@ Ver `.env.example` na raiz do monorepo. Mínimo para subir:
 ```bash
 cd infra/compose && docker compose up -d postgres
 cd ../../apps/api
-export DATABASE_URL=postgresql+psycopg2://fourpro:K8mpQ4wxN2vR7sFourProBIdev2026@127.0.0.1:5432/fourpro
+export DATABASE_URL=postgresql+psycopg2://fourpro:K8mpQ4wxN2vR7sFourProBIdev2026@127.0.0.1:15432/fourpro
 export JWT_SECRET=fourpro-bi-dev-jwt-hs256-2026-substituir-em-producao-64chars___
 alembic upgrade head
 python -m fourpro_api.dev_seed
@@ -29,11 +29,11 @@ python -m fourpro_api.dev_seed
 ```bash
 cd apps/api
 export DATABASE_URL=... JWT_SECRET=...
-uvicorn fourpro_api.main:app --reload --host 0.0.0.0 --port 6418
+uvicorn fourpro_api.main:app --reload --host 0.0.0.0 --port 7418
 ```
 
-- Health: `GET http://localhost:6418/api/v1/health` (porta alinhada a `API_PUBLISH` em `.env`)
-- Login: `POST http://localhost:6418/api/v1/auth/login`
+- Health: `GET http://localhost:7418/api/v1/health` (porta = `API_PUBLISH` em `.env`; **7418** evita choque com Portainer em **6418** no mesmo host)
+- Login: `POST http://localhost:7418/api/v1/auth/login`
 
 ## Testes
 

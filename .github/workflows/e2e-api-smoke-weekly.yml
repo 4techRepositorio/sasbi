@@ -1,0 +1,24 @@
+# Opcional: smoke API (Playwright + uvicorn SQLite) semanal.
+# Implementação: reutiliza reusable-e2e-api-smoke.yml (paridade com job e2e-api-smoke-local em ci.yml).
+
+name: E2E API smoke (semanal)
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: e2e-api-weekly-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  e2e-api-smoke:
+    uses: ./.github/workflows/reusable-e2e-api-smoke.yml
+    with:
+      artifact-name: e2e-api-weekly-debug
+      artifact-retention-days: 5

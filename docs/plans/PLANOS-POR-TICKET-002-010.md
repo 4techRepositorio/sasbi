@@ -122,7 +122,7 @@ Resumo executável; **planos detalhados** (modelo TICKET-001) em `docs/plans/TIC
 
 **Plano:** CRUD admin planos; vínculo tenant; middleware de enforcement em upload/job.
 
-**Riscos:** Billing sem gateway no MVP — documentar que é “interno” até ADR de pagamento.
+**Riscos:** Billing sem gateway na fase inicial — documentar que é “interno” até ADR de pagamento.
 
 **Saída:** Limite artificial dispara 402/403 com mensagem clara.
 
@@ -134,5 +134,5 @@ Resumo executável; **planos detalhados** (modelo TICKET-001) em `docs/plans/TIC
 2. `PLANOS-POR-TICKET-000-001.md` (000–001)  
 3. `TICKET-001-auth-core-detailed-plan.md`  
 4. Este arquivo, ticket atual  
-5. Pós-MVP: `PLANOS-POR-TICKET-011-014.md`  
+5. Evolução (011+): `PLANOS-POR-TICKET-011-014.md`  
 6. `docs/wireframes/` para UX

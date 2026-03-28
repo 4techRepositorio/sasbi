@@ -1,0 +1,124 @@
+# Manual: SQLite + seed quota ~91.5% + uvicorn :8765 + ng serve (proxy) + Playwright context-storage-ui.
+# Nao corre em PR. Credenciais alinhadas a fourpro_api.dev_seed (admin@local.dev / changeme).
+
+name: E2E storage warn browser
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  playwright-storage-warn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      DATABASE_URL: sqlite:////tmp/fourpro_e2e_warn_browser.db
+      JWT_SECRET: ci-browser-storage-warn-jwt-secret-32chars-min
+      UPLOAD_DIR: /tmp/fourpro_uploads_warn_browser
+      PLAYWRIGHT_BASE_URL: http://127.0.0.1:4200
+      E2E_USER_EMAIL: admin@local.dev
+      E2E_USER_PASSWORD: changeme
+      E2E_EXPECT_STORAGE_WARN: "1"
+      CI: "true"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install Python deps
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-dev.txt
+
+      - name: Prepare DB and seed quota warn
+        working-directory: apps/api
+        run: |
+          mkdir -p "$UPLOAD_DIR"
+          rm -f /tmp/fourpro_e2e_warn_browser.db
+          alembic upgrade head
+          python -m fourpro_api.dev_seed
+        env:
+          UPLOAD_DIR: /tmp/fourpro_uploads_warn_browser
+
+      - name: Seed storage warn script
+        run: python scripts/seed_e2e_storage_warn.py
+        env:
+          UPLOAD_DIR: /tmp/fourpro_uploads_warn_browser
+
+      - name: Web npm ci
+        working-directory: apps/web
+        run: npm ci
+
+      - name: E2E npm ci + Chromium
+        working-directory: e2e
+        run: |
+          npm ci
+          npx playwright install-deps chromium || true
+          npx playwright install chromium
+
+      - name: Start API (background)
+        working-directory: apps/api
+        env:
+          UPLOAD_DIR: /tmp/fourpro_uploads_warn_browser
+        run: |
+          nohup python -m uvicorn fourpro_api.main:app --host 127.0.0.1 --port 8765 > /tmp/fourpro-api-warn.log 2>&1 &
+          echo $! > /tmp/fourpro-api-warn.pid
+          for _ in $(seq 1 40); do
+            curl -sf http://127.0.0.1:8765/api/v1/health && exit 0
+            sleep 1
+          done
+          echo "API failed to start"; cat /tmp/fourpro-api-warn.log; exit 1
+
+      - name: Start ng serve (background)
+        working-directory: apps/web
+        run: |
+          nohup node node_modules/@angular/cli/bin/ng.js serve --host 127.0.0.1 --port 4200 --proxy-config proxy.conf.e2e-storage-warn.json > /tmp/fourpro-ng-warn.log 2>&1 &
+          echo $! > /tmp/fourpro-ng-warn.pid
+          for _ in $(seq 1 90); do
+            curl -sf http://127.0.0.1:4200/api/v1/health && exit 0
+            sleep 2
+          done
+          echo "ng serve failed"; cat /tmp/fourpro-ng-warn.log; exit 1
+
+      - name: Playwright context-storage-ui
+        working-directory: e2e
+        run: npx playwright test tests/context-storage-ui.spec.ts
+
+      - name: Stop servers
+        if: always()
+        run: |
+          kill "$(cat /tmp/fourpro-ng-warn.pid 2>/dev/null)" 2>/dev/null || true
+          kill "$(cat /tmp/fourpro-api-warn.pid 2>/dev/null)" 2>/dev/null || true
+
+      - name: Cleanup E2E seed rows
+        if: always()
+        run: python scripts/cleanup_e2e_storage_seed.py
+        env:
+          DATABASE_URL: sqlite:////tmp/fourpro_e2e_warn_browser.db
+          JWT_SECRET: ci-browser-storage-warn-jwt-secret-32chars-min
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-storage-warn-browser-logs
+          path: |
+            /tmp/fourpro-api-warn.log
+            /tmp/fourpro-ng-warn.log
+            e2e/playwright-report
+            e2e/test-results
+          if-no-files-found: ignore
+          retention-days: 5

@@ -7,10 +7,12 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.config import get_settings
 from fourpro_api.core.security import hash_password, hash_refresh_token
+from fourpro_api.repositories.audit_repository import AuditAction, AuditRepository
+from fourpro_api.repositories.membership_repository import MembershipRepository
 from fourpro_api.repositories.password_reset_repository import PasswordResetRepository
-from fourpro_api.services.mail_service import send_plain_email
 from fourpro_api.repositories.refresh_token_repository import RefreshTokenRepository
 from fourpro_api.repositories.user_repository import UserRepository
+from fourpro_api.services.mail_service import send_plain_email
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +23,8 @@ class PasswordResetService:
         self._users = UserRepository(db)
         self._tokens = PasswordResetRepository(db)
         self._refresh = RefreshTokenRepository(db)
+        self._members = MembershipRepository(db)
+        self._audit = AuditRepository(db)
 
     def request_reset(self, email: str) -> None:
         user = self._users.get_by_email(email)
@@ -45,10 +49,14 @@ class PasswordResetService:
             subject="4Pro_BI — redefinição de senha",
             body=body,
         )
-        logger.warning(
-            "password_reset_issued",
-            extra={"email": email, "reset_token": raw},
+        m = self._members.get_default_membership(user.id)
+        self._audit.record(
+            action=AuditAction.AUTH_PASSWORD_RESET_REQUESTED,
+            actor_user_id=user.id,
+            tenant_id=m.tenant_id if m else None,
+            context=None,
         )
+        logger.info("password_reset_email_sent", extra={"user_id": str(user.id)})
 
     def reset_password(self, raw_token: str, new_password: str) -> None:
         th = hash_refresh_token(raw_token)
@@ -65,4 +73,11 @@ class PasswordResetService:
         self._users.update_password_hash(user, hash_password(new_password))
         self._tokens.mark_used(row)
         self._refresh.revoke_all_for_user(user.id)
+        m = self._members.get_default_membership(user.id)
+        self._audit.record(
+            action=AuditAction.AUTH_PASSWORD_RESET_COMPLETED,
+            actor_user_id=user.id,
+            tenant_id=m.tenant_id if m else None,
+            context=None,
+        )
         logger.info("password_reset_ok", extra={"user_id": str(user.id)})

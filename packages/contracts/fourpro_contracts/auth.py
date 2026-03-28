@@ -1,6 +1,8 @@
-from typing import Literal
+from typing import Literal, TypeAlias
 
 from pydantic import BaseModel, EmailStr, Field
+
+TokenTypeBearer: TypeAlias = Literal["bearer"]
 
 
 class LoginRequest(BaseModel):
@@ -16,7 +18,7 @@ class TokenResponse(BaseModel):
     mfa_required: Literal[False] = False
     access_token: str
     refresh_token: str
-    token_type: str = "bearer"
+    token_type: TokenTypeBearer = "bearer"
     expires_in: int
     tenant_id: str | None = None
     tenant_name: str | None = None

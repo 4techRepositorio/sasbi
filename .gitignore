@@ -21,6 +21,13 @@ htmlcov/
 !.env.example
 !e2e/.env.example
 !e2e/.env.e2e.example
+!infra/compose/.env.example
+!infra/portainer/.env.example
+!infra/portainer/.env.production.example
+
+# Infra local (nunca commitar passwords/JWT)
+infra/compose/.env
+infra/portainer/.env
 
 # Node (se existir na raiz ou em e2e)
 node_modules/

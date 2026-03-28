@@ -1,8 +1,7 @@
 import logging
 
-from fastapi import APIRouter, Depends, Request, status as http_status
-from sqlalchemy.orm import Session
-
+from fastapi import APIRouter, Depends, Request
+from fastapi import status as http_status
 from fourpro_contracts.auth import (
     ForgotPasswordRequest,
     ForgotPasswordResponse,
@@ -13,6 +12,9 @@ from fourpro_contracts.auth import (
     ResetPasswordRequest,
     TokenResponse,
 )
+from sqlalchemy.orm import Session
+
+from fourpro_api.config import get_settings
 from fourpro_api.db.session import get_db
 from fourpro_api.limiter import limiter
 from fourpro_api.services.auth_service import AuthService
@@ -31,12 +33,20 @@ def get_password_service(db: Session = Depends(get_db)) -> PasswordResetService:
     return PasswordResetService(db)
 
 
+def _refresh_rate_limit() -> str:
+    return get_settings().refresh_rate_limit
+
+
+def _login_rate_limit() -> str:
+    return get_settings().login_rate_limit
+
+
 @router.post(
     "/login",
     response_model=None,
     summary="Login (TICKET-001 + tenant + tenant context + MFA opcional)",
 )
-@limiter.limit("10/minute")
+@limiter.limit(_login_rate_limit)
 def login(
     request: Request,
     body: LoginRequest,
@@ -45,7 +55,7 @@ def login(
     result = svc.login(body.email, body.password)
     if isinstance(result, MfaChallengeResponse):
         return result
-    logger.info("login_ok", extra={"email": body.email, "tenant_id": result.tenant_id})
+    logger.info("login_ok", extra={"tenant_id": result.tenant_id})
     return result
 
 
@@ -74,6 +84,7 @@ def forgot_password(
 
 
 @router.post("/reset-password", status_code=http_status.HTTP_200_OK)
+@limiter.limit("30/minute")
 def reset_password(
     request: Request,
     body: ResetPasswordRequest,
@@ -84,7 +95,9 @@ def reset_password(
 
 
 @router.post("/refresh", response_model=TokenResponse)
+@limiter.limit(_refresh_rate_limit)
 def refresh_tokens(
+    request: Request,
     body: RefreshRequest,
     svc: AuthService = Depends(get_auth_service),
 ) -> TokenResponse:

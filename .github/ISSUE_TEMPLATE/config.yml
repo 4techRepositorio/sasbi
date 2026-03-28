@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: Política de segurança (4Pro_BI)
+    url: https://github.com/4techRepositorio/sasbi/blob/main/docs/SECURITY.md
+    about: Como reportar e boas práticas documentadas no repositório.
+  - name: Reportar vulnerabilidade (advisory privado)
+    url: https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability
+    about: Como abrir um relatório privado no GitHub (Security tab do repositório).

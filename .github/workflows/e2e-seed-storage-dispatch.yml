@@ -1,0 +1,53 @@
+# Manual: valida seed + cleanup de quota E2E (Postgres; Alembic não suporta SQLite nas migrações actuais).
+name: E2E seed storage scripts
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  seed-cleanup-scripts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: fourpro
+          POSTGRES_PASSWORD: fourpro_ci_test
+          POSTGRES_DB: fourpro
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fourpro -d fourpro"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      DATABASE_URL: postgresql+psycopg2://fourpro:fourpro_ci_test@localhost:5432/fourpro
+      JWT_SECRET: ci-seed-storage-jwt-secret-at-least-32-chars
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - name: Install Python deps
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements-dev.txt
+      - name: Alembic and dev_seed
+        working-directory: apps/api
+        run: |
+          set -euo pipefail
+          alembic upgrade head
+          python -m fourpro_api.dev_seed
+      - name: Seed storage warn
+        run: python scripts/seed_e2e_storage_warn.py
+      - name: Cleanup dry-run
+        run: python scripts/cleanup_e2e_storage_seed.py --dry-run
+      - name: Cleanup
+        run: python scripts/cleanup_e2e_storage_seed.py
+      - name: Cleanup dry-run after
+        run: python scripts/cleanup_e2e_storage_seed.py --dry-run

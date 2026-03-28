@@ -18,6 +18,22 @@ class Settings(BaseSettings):
     refresh_token_expire_days: int = Field(default=7, alias="REFRESH_TOKEN_EXPIRE_DAYS")
 
     login_rate_limit: str = Field(default="10/minute", alias="LOGIN_RATE_LIMIT")
+    refresh_rate_limit: str = Field(
+        default="120/minute",
+        alias="REFRESH_RATE_LIMIT",
+        description=(
+            "Limite slowapi em POST /auth/refresh "
+            "(ajustar atrás de proxy com muitos clientes por IP)."
+        ),
+    )
+    rate_limit_trust_proxy: bool = Field(
+        default=False,
+        alias="RATE_LIMIT_TRUST_PROXY",
+        description=(
+            "Se true, slowapi usa o IP mais à esquerda de X-Forwarded-For. "
+            "Activar só com reverse proxy de confiança."
+        ),
+    )
 
     redis_url: str | None = Field(default=None, alias="REDIS_URL")
     upload_dir: str = Field(default="/data/uploads", alias="UPLOAD_DIR")

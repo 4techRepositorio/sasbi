@@ -1,0 +1,58 @@
+# Reutilizável: Playwright smoke-api + uvicorn SQLite (scripts/run-e2e-api-smoke-local.sh).
+# Chamado por: ci.yml (job e2e-api-smoke-local), e2e-api-smoke-weekly.yml.
+
+on:
+  workflow_call:
+    inputs:
+      artifact-name:
+        description: Nome do artefacto Playwright quando o job falha
+        required: false
+        type: string
+        default: e2e-api-smoke-debug
+      artifact-retention-days:
+        description: Dias de retenção do artefacto
+        required: false
+        type: number
+        default: 3
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  e2e-api-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+      - name: Python deps (monorepo)
+        run: python -m pip install -r requirements-dev.txt
+      - name: e2e npm + Chromium
+        working-directory: e2e
+        run: |
+          npm ci
+          npx playwright install-deps chromium || true
+          npx playwright install chromium
+      - name: Smoke API (uvicorn efémero)
+        env:
+          CI: true
+        run: E2E_SKIP_NPM_CI=1 bash scripts/run-e2e-api-smoke-local.sh
+      - name: Artefacto Playwright (falha)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: |
+            e2e/playwright-report
+            e2e/test-results
+          if-no-files-found: ignore
+          retention-days: ${{ inputs.artifact-retention-days }}

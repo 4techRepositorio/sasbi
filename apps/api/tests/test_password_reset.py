@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.core.security import hash_refresh_token, verify_password
 from fourpro_api.models.password_reset import PasswordResetToken
-
 from tests.test_auth import _create_user
 
 
@@ -41,7 +40,9 @@ def test_reset_password_invalid_token(client: TestClient) -> None:
     assert r.status_code == 400
 
 
-def test_reset_password_token_single_use(client: TestClient, db_session: Session, monkeypatch) -> None:
+def test_reset_password_token_single_use(
+    client: TestClient, db_session: Session, monkeypatch
+) -> None:
     monkeypatch.setattr(
         "fourpro_api.services.password_reset_service.secrets.token_urlsafe",
         lambda _n: "second_use_tokenbbbbbbb",

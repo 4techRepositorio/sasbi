@@ -5,3 +5,9 @@
 - repository criado se necessário
 - tenant isolation validado
 - testes mínimos criados
+- rotas Core novas registadas só em `main.py` (Frente 2); contratos em `packages/contracts` (Frente 1)
+- `GET /api/v1/tenant/members`: admin-only; resposta alinhada a `TenantMemberListResponse`
+- `GET /api/v1/me/context`: resposta alinhada a `MeContextResponse` / `PlanSummary` / `StorageContext` (`fourpro_contracts.billing`)
+- Upload: `BillingService.ensure_upload_allowed` + `ensure_storage_for_new_upload` antes de persistir ingestão (cotas plano / utilizador / grupo)
+- `GET /api/v1/health/ready`: readiness com ping à BD (orquestração)
+- Migrações Alembic: revisões Core com prefixo `core__` no nome do ficheiro; dados/pipeline com `data__`; uma única head; validar com job CI `alembic-postgres` ou `./scripts/run-alembic-postgres-local.sh`

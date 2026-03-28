@@ -1,4 +1,9 @@
-"""Cria plano, tenant, assinatura, usuário admin e membership. Executar após migrações."""
+"""Cria plano, tenant, assinatura, usuário admin e membership. Executar após migrações.
+
+Credenciais de desenvolvimento (também usadas em `.github/workflows/e2e-dispatch.yml`):
+- admin@local.dev / changeme (papel admin)
+- consumer@local.dev / changeme (papel consumer)
+"""
 
 import uuid
 from datetime import UTC, datetime
@@ -100,6 +105,39 @@ def main() -> None:
             print("Membership admin vinculada ao tenant demo.")
         else:
             print("Membership já existia.")
+
+        consumer_email = "consumer@local.dev"
+        cuser = urepo.get_by_email(consumer_email)
+        if cuser is None:
+            cuser = urepo.create(consumer_email, hash_password("changeme"))
+            print(f"Usuário consumer {consumer_email} / changeme")
+        else:
+            print(f"Usuário consumer já existe: {consumer_email}")
+
+        mc = db.scalars(
+            select(TenantMembership).where(
+                TenantMembership.user_id == cuser.id,
+                TenantMembership.tenant_id == tenant.id,
+            ),
+        ).first()
+        if mc is None:
+            db.add(
+                TenantMembership(
+                    id=uuid.uuid4(),
+                    user_id=cuser.id,
+                    tenant_id=tenant.id,
+                    role="consumer",
+                    created_at=now,
+                ),
+            )
+            db.commit()
+            print("Membership consumer vinculada ao tenant demo.")
+        elif mc.role != "consumer":
+            mc.role = "consumer"
+            db.commit()
+            print("Membership consumer: papel atualizado para consumer.")
+        else:
+            print("Consumer já no tenant demo.")
     finally:
         db.close()
 

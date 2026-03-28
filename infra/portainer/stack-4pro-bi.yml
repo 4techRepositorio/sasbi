@@ -3,6 +3,7 @@
 # Build: exige repositório completo como contexto (raiz do 4Pro_BI).
 #
 # Variáveis: infra/portainer/.env — host: API 6418, MinIO 7291/7292, Web 8081 (sem 8000/9000 no host).
+# Pós-bootstrap: RUN_SEED=false (ver .env.production.example). RATE_LIMIT_TRUST_PROXY=true só se API não for pública sem proxy de confiança.
 # No Stack Editor do Portainer: defina o nome da stack como «4Pro_BI» ou «fourpro-bi» (evita prefixo «portainer» nos containers).
 name: fourpro-bi
 
@@ -61,6 +62,9 @@ services:
       JWT_ALGORITHM: HS256
       ACCESS_TOKEN_EXPIRE_MINUTES: "15"
       REFRESH_TOKEN_EXPIRE_DAYS: "7"
+      REFRESH_RATE_LIMIT: ${REFRESH_RATE_LIMIT:-120/minute}
+      # true só com reverse proxy que defina X-Forwarded-For de forma segura (ver apps/web/nginx.conf).
+      RATE_LIMIT_TRUST_PROXY: ${RATE_LIMIT_TRUST_PROXY:-false}
       UPLOAD_DIR: /data/uploads
       MAX_UPLOAD_MB: "50"
       ENVIRONMENT: ${ENVIRONMENT:-production}

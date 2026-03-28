@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, DateTime, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from fourpro_api.db.base import Base
+
+if TYPE_CHECKING:
+    from fourpro_api.models.refresh_token import RefreshToken
 
 
 class User(Base):

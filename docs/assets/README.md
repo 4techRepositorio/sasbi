@@ -22,7 +22,7 @@ Pasta: [`diagrams/`](./diagrams/) contém subpastas `exports/` (raster/vector ge
 | Aspeto | Política |
 |--------|----------|
 | **Objectivo** | Comprovar que a implementação ou o desenho validado cumpre critérios das folhas `docs/wireframes/validation-*.md`. |
-| **Como gerar** | (a) Export PNG/SVG/PDF a partir da **ferramenta de design** aprovada internamente; (b) **captura de ecrã** da app (staging) com viewport definida; (c) futuro: **screenshots automáticos** (ex.: Playwright) numa pasta de artefactos de CI, não obrigatoriamente no Git. |
+| **Como gerar** | (a) Export PNG/SVG/PDF a partir da **ferramenta de design** aprovada internamente; (b) **captura de ecrã** da app (staging) com viewport definida; (c) **raster do PDF** de wireframe: [`scripts/export-wireframes-from-pdf.sh`](../../scripts/export-wireframes-from-pdf.sh) → `data-analytics-solution-p-*.png`; (d) futuro: **screenshots automáticos** (ex.: Playwright) em artefactos de CI. |
 | **Nomenclatura** | `wireframes/exports/<área>-<tela>-v<versão>-YYYYMMDD.png` (ex.: `workspace-dashboard-editor-v1-20260327.png`). |
 | **Referência no texto** | Nos `validation-*.md`, ligar para ficheiros nesta pasta quando existir evidência (markdown: `![descrição](./wireframes/exports/...)`). |
 
@@ -37,7 +37,7 @@ Pasta: [`wireframes/exports/`](./wireframes/exports/).
 | **Exemplos** | Export PNG/PDF de dashboards, relatórios, gráficos (Fase 3 / TICKET-011). |
 | **Como geram** | **Servidor ou worker** (bibliotecas de renderização, headless browser, ou motor de relatórios incorporado), por pedido autenticado; ficheiros podem ser **efémeros** (download directo) ou guardados em **object storage** com `tenant_id` no caminho. |
 | **Não vão para** | `docs/assets/` — não são documentação estática; são dados de utilizador ou artefactos operacionais. |
-| **Retenção** | Definir por política de billing e ADR de governança (TICKET-012); default MVP: só stream ao cliente, sem arquivo longo, salvo feature explícita. |
+| **Retenção** | Definir por política de billing e ADR de governança (TICKET-012); default atual: só stream ao cliente, sem arquivo longo, salvo feature explícita. |
 
 ---
 

@@ -57,6 +57,6 @@ Fluxo padrão:
 Tarefa inicial:
 1. Leia todos os arquivos de contexto.
 2. Revise os tickets em `tickets/`.
-3. Proponha a ordem exata dos 10 primeiros passos do MVP.
+3. Proponha a ordem exata dos 10 primeiros passos do projeto 4Pro_BI (tickets 000–010 / fase base).
 4. Comece pelo `tickets/TICKET-001-auth-core.md`.
 5. Gere um plano detalhado antes de escrever código.

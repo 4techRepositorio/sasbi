@@ -13,7 +13,12 @@ export class TenantContextService {
 
   load(): Observable<MeContext> {
     return this.http.get<MeContext>(`${API_V1}/me/context`).pipe(
-      tap((c) => this._context.set(c)),
+      tap((c) => {
+        this._context.set(c);
+        if (c.role) {
+          sessionStorage.setItem('tenant_role', c.role);
+        }
+      }),
     );
   }
 

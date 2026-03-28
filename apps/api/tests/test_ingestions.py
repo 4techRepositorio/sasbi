@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.models.ingestion import FileIngestion
 from fourpro_api.repositories.ingestion_repository import IngestionRepository
-
 from tests.test_auth import _bind_tenant, _create_user
 
 
@@ -98,9 +97,9 @@ def test_get_ingestion_detail(client: TestClient, db_session: Session) -> None:
         size_bytes=3,
         status="uploaded",
     )
-    token = client.post("/api/v1/auth/login", json={"email": "det@example.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token = client.post(
+        "/api/v1/auth/login", json={"email": "det@example.com", "password": "pw"}
+    ).json()["access_token"]
     r = client.get(
         f"/api/v1/ingestions/{ing.id}",
         headers={"Authorization": f"Bearer {token}"},
@@ -124,9 +123,9 @@ def test_get_ingestion_other_tenant_returns_404(client: TestClient, db_session: 
         size_bytes=1,
         status="uploaded",
     )
-    token1 = client.post("/api/v1/auth/login", json={"email": "g1@example.com", "password": "pw"}).json()[
-        "access_token"
-    ]
+    token1 = client.post(
+        "/api/v1/auth/login", json={"email": "g1@example.com", "password": "pw"}
+    ).json()["access_token"]
     r = client.get(
         f"/api/v1/ingestions/{ing.id}",
         headers={"Authorization": f"Bearer {token1}"},

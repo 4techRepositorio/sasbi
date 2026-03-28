@@ -35,6 +35,11 @@ test.describe('Auditoria do tenant (admin)', () => {
     });
     const emptyOrTable = page.locator('p.da-muted, table.da-table');
     await expect(emptyOrTable.first()).toBeVisible({ timeout: 10_000 });
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByTestId('tenant-audit-export-csv').click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename().toLowerCase()).toMatch(/tenant-audit.*\.csv/);
   });
 });
 

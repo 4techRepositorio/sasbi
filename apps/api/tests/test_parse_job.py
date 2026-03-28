@@ -6,7 +6,6 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.jobs.ingestion_parse import run_ingestion_parse
 from fourpro_api.repositories.ingestion_repository import IngestionRepository
-
 from tests.test_auth import _bind_tenant, _create_user
 
 

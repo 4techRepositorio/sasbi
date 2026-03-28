@@ -1,0 +1,65 @@
+# Dependabot — actualizações semanais (PRs pequenos, revisão humana).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - ci
+
+  - package-ecosystem: npm
+    directory: /apps/web
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 6
+    labels:
+      - dependencies
+      - frontend
+
+  - package-ecosystem: npm
+    directory: /e2e
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 4
+    labels:
+      - dependencies
+      - e2e
+
+  - package-ecosystem: pip
+    directory: /apps/api
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 4
+    labels:
+      - dependencies
+      - backend
+
+  - package-ecosystem: pip
+    directory: /packages/contracts
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - contracts
+
+  - package-ecosystem: pip
+    directory: /packages/shared
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - shared
+
+  - package-ecosystem: pip
+    directory: /apps/worker
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - worker

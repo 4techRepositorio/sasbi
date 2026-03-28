@@ -3,9 +3,9 @@ import secrets
 from datetime import UTC, datetime, timedelta
 
 from fastapi import HTTPException, status
+from fourpro_contracts.auth import MfaChallengeResponse, TokenResponse
 from sqlalchemy.orm import Session
 
-from fourpro_contracts.auth import MfaChallengeResponse, TokenResponse
 from fourpro_api.config import get_settings
 from fourpro_api.core.security import (
     create_access_token,
@@ -17,6 +17,7 @@ from fourpro_api.core.security import (
     verify_password,
 )
 from fourpro_api.models.tenant import Tenant
+from fourpro_api.repositories.audit_repository import AuditAction, AuditRepository
 from fourpro_api.repositories.membership_repository import MembershipRepository
 from fourpro_api.repositories.mfa_repository import MfaRepository
 from fourpro_api.repositories.refresh_token_repository import RefreshTokenRepository
@@ -37,6 +38,7 @@ class AuthService:
         self._refresh = RefreshTokenRepository(db)
         self._members = MembershipRepository(db)
         self._mfa = MfaRepository(db)
+        self._audit = AuditRepository(db)
 
     def login(self, email: str, password: str) -> TokenResponse | MfaChallengeResponse:
         user = self._users.get_by_email(email)
@@ -56,7 +58,7 @@ class AuthService:
             exp = datetime.now(tz=UTC) + timedelta(minutes=10)
             self._mfa.upsert_challenge(user.id, hash_otp_code(code), exp)
             mfa_tok = create_mfa_pending_token(user.id)
-            logger.info("mfa_challenge_issued", extra={"email": email})
+            logger.info("mfa_challenge_issued", extra={"user_id": str(user.id)})
             send_plain_email(
                 to_addr=email,
                 subject="4Pro_BI — código de verificação",
@@ -65,9 +67,12 @@ class AuthService:
                     f"{code}\n"
                 ),
             )
-            logger.warning(
-                "mfa_code_audit",
-                extra={"email": email, "code": code},
+            m_default = self._members.get_default_membership(user.id)
+            self._audit.record(
+                action=AuditAction.AUTH_MFA_CHALLENGE_SENT,
+                actor_user_id=user.id,
+                tenant_id=m_default.tenant_id if m_default else None,
+                context={"channel": "email"},
             )
             return MfaChallengeResponse(mfa_token=mfa_tok, expires_in=600)
 
@@ -76,7 +81,9 @@ class AuthService:
     def complete_mfa(self, mfa_token: str, code: str) -> TokenResponse:
         user_id = decode_mfa_pending_token(mfa_token)
         if user_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token MFA inválido")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token MFA inválido"
+            )
 
         ch = self._mfa.get_valid(user_id)
         if ch is None or ch.code_hash != hash_otp_code(code.strip()):
@@ -113,9 +120,17 @@ class AuthService:
             expires_at=expires_at,
         )
 
+        self._audit.record(
+            action=AuditAction.AUTH_SESSION_ISSUED,
+            actor_user_id=user.id,
+            tenant_id=m.tenant_id,
+            context={"via": "password_or_mfa"},
+        )
+
         return TokenResponse(
             access_token=access,
             refresh_token=raw_refresh,
+            token_type="bearer",
             expires_in=expires_in,
             tenant_id=str(m.tenant_id),
             tenant_name=tenant.name,
@@ -161,9 +176,17 @@ class AuthService:
             expires_at=expires_at,
         )
 
+        self._audit.record(
+            action=AuditAction.AUTH_TOKEN_REFRESH,
+            actor_user_id=row.user_id,
+            tenant_id=row.tenant_id,
+            context=None,
+        )
+
         return TokenResponse(
             access_token=access,
             refresh_token=raw_new,
+            token_type="bearer",
             expires_in=expires_in,
             tenant_id=str(row.tenant_id),
             tenant_name=tenant.name,

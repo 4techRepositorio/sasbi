@@ -1,0 +1,48 @@
+# E2E completo (Postgres Docker + Alembic + seed + API + ng serve + Playwright).
+# Actions → este workflow → Run workflow. Não corre em PR (demora e precisa Docker).
+name: E2E one-shot (manual)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  one-shot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Python deps (monorepo)
+        run: python -m pip install -r requirements-dev.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Web npm ci
+        working-directory: apps/web
+        run: npm ci
+
+      - name: e2e npm + Chromium
+        working-directory: e2e
+        run: |
+          npm ci
+          npx playwright install-deps chromium
+          npx playwright install chromium
+
+      - name: One-shot stack + Playwright
+        run: |
+          E2E_SKIP_WEB_NPM_CI=1 \
+          E2E_SKIP_E2E_NPM_CI=1 \
+          E2E_SKIP_PLAYWRIGHT_BROWSER_INSTALL=1 \
+            bash scripts/run-e2e-one-shot-stack.sh
+        env:
+          JWT_SECRET: e2e-one-shot-gha-jwt-secret-min-32-chars___

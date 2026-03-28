@@ -11,14 +11,26 @@ import { AuthService } from '../../core/auth.service';
     <div class="da-auth-layout">
       <div class="da-auth-hero">
         <div class="da-auth-hero__inner">
-          <p class="da-auth-hero__product">4Pro_BI</p>
+          <div class="da-auth-hero__brandrow">
+            <img class="da-auth-hero__mark" src="branding/logo-mark.svg" alt="" width="56" height="56" />
+            <div>
+              <p class="da-auth-hero__solution">Business Intelligence</p>
+              <p class="da-auth-hero__product">4Pro_BI</p>
+            </div>
+          </div>
           <h2 class="da-auth-hero__title">Nova credencial</h2>
-          <p class="da-auth-hero__text">Token de uso único. Depois do sucesso, inicie sessão com a nova senha.</p>
+          <p class="da-auth-hero__text">Token de uso único. Após atualizar, inicie sessão com a nova senha.</p>
         </div>
       </div>
       <div class="da-auth-panel">
         <div class="da-auth-card">
-          <p class="da-brand-tag">4Pro_BI</p>
+          <div class="da-auth-card__head-brand">
+            <img src="branding/logo-mark.svg" alt="" width="36" height="36" />
+            <div class="da-auth-card__head-lines">
+              <span class="da-auth-card__head-product">4Pro_BI</span>
+              <span class="da-auth-card__head-solution">Business Intelligence</span>
+            </div>
+          </div>
           <h1>Nova senha</h1>
           <p class="hint">Cole o token do email e defina a nova senha (mín. 8 caracteres).</p>
           @if (!done()) {
@@ -43,6 +55,9 @@ import { AuthService } from '../../core/auth.service';
                 <input name="pw2" type="password" [(ngModel)]="password2" required minlength="8" />
               </label>
               <button type="submit" class="da-btn da-btn--primary" [disabled]="loading()">Atualizar senha</button>
+              @if (loading()) {
+                <p class="da-muted" role="status">A atualizar a senha…</p>
+              }
             </form>
           } @else {
             <p class="ok-text">Senha atualizada. Pode iniciar sessão.</p>

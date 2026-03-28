@@ -1,12 +1,16 @@
 """TICKET-005/006 — RBAC no upload e validação de conteúdo."""
 
+import hashlib
+
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from tests.test_auth import _bind_tenant, _create_user
 
 
-def _token_for(client: TestClient, db_session: Session, email: str, pwd: str, role: str = "admin") -> str:
+def _token_for(
+    client: TestClient, db_session: Session, email: str, pwd: str, role: str = "admin"
+) -> str:
     u = _create_user(db_session, email, pwd)
     _bind_tenant(db_session, u, role=role)
     r = client.post("/api/v1/auth/login", json={"email": email, "password": pwd})
@@ -38,7 +42,8 @@ def test_upload_rejects_content_spoofing_csv(client: TestClient, db_session: Ses
 
 def test_upload_accepts_valid_csv(client: TestClient, db_session: Session) -> None:
     token = _token_for(client, db_session, "up@example.com", "pw", role="analyst")
-    files = {"file": ("data.csv", b"col\n1\n", "text/csv")}
+    payload = b"col\n1\n"
+    files = {"file": ("data.csv", payload, "text/csv")}
     r = client.post(
         "/api/v1/uploads",
         headers={"Authorization": f"Bearer {token}"},
@@ -48,3 +53,7 @@ def test_upload_accepts_valid_csv(client: TestClient, db_session: Session) -> No
     body = r.json()
     assert body.get("status") == "uploaded"
     assert "id" in body
+    assert body.get("content_sha256") == hashlib.sha256(payload).hexdigest()
+    assert body.get("uploaded_by_user_id")
+    assert body.get("created_at")
+    assert body.get("tenant_id")

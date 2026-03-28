@@ -10,6 +10,7 @@ Quando o utilizador pedir explicitamente **reset do container**, **reiniciar a s
 1. **Executar no terminal** (não limitar a dizer o que correr). Preferir caminho absoluto `/opt/4Pro_BI`.
 2. **Stack completa (recomendado, alinhada ao Portainer):**
    - `cd /opt/4Pro_BI/infra/portainer && docker compose -f stack-4pro-bi.yml --env-file .env down && docker compose -f stack-4pro-bi.yml --env-file .env up -d --build`
+   - Equivalente: `/opt/4Pro_BI/scripts/stack-up.sh` (sobe) e `/opt/4Pro_BI/scripts/stack-down.sh` (para; `STACK_DOWN_VOLUMES=1` só se pedirem limpar dados).
 3. **Só se o contexto for compose local mínimo:** `cd /opt/4Pro_BI/infra/compose && docker compose down && docker compose up -d --build`
 4. **Volumes:** só usar `down -v` ou remover volumes se o utilizador **pedir limpar dados**; reset normal = sem `-v`.
 5. Após o comando, verificar saída (erros de build, portas em uso) e reportar objectivamente.

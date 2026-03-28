@@ -52,7 +52,7 @@ user_tenants
 
 - [ ] Todas as rotas de negócio após este ticket exigem contexto de tenant válido.
 - [ ] Testes de isolamento automatizados verdes.
-- [ ] `docs/ARCHITECTURE.md` atualizado sobre multitenancy.
+- [x] `docs/ARCHITECTURE.md` atualizado sobre multitenancy.
 
 ## 6. Security
 

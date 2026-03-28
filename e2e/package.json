@@ -9,6 +9,7 @@
     "test:login": "playwright test tests/smoke-login.spec.ts",
     "test:rbac": "playwright test tests/rbac-upload-banner.spec.ts",
     "test:audit": "playwright test tests/tenant-audit.spec.ts",
+    "test:wireframe-captures": "playwright test tests/wireframe-validation-captures.spec.ts",
     "test:html": "PLAYWRIGHT_HTML_REPORT=1 playwright test",
     "install:browsers": "playwright install --with-deps chromium"
   },

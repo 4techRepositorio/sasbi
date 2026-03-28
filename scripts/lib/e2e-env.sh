@@ -26,7 +26,7 @@ e2e_load_dotenv() {
     set +a
     echo "==> Carregado $f"
   else
-    echo "==> (info) $f não existe — exporte variáveis ou: cp e2e/.env.example e2e/.env.e2e"
+    echo "==> (info) $f não existe — exporte variáveis ou: cp e2e/.env.e2e.example e2e/.env.e2e"
   fi
 }
 

@@ -1,9 +1,12 @@
 # Validação de wireframe — Dados: upload, ingestão e catálogo
 
-**Versão:** 0.2  
+**Versão:** 0.4  
 **Tickets relacionados:** TICKET-006, 007, 008, 009.
 
 ## 0. Evidências visuais (exports)
+
+**PDF raster (repo):** `data-analytics-solution-p-*.png` em [`../assets/wireframes/exports/`](../assets/wireframes/exports/) (mesmo pacote que workspace/login; ver páginas de ETL/upload no PDF). Regenerar: [`scripts/export-wireframes-from-pdf.sh`](../../scripts/export-wireframes-from-pdf.sh).  
+**Capturas da app:** `E2E_WIREFRAME_CAPTURES=1` + `npm run test:wireframe-captures` em `e2e/` → `pipeline-upload-v1-*.png`, `pipeline-ingestions-v1-*.png`, `pipeline-datasets-v1-*.png`.
 
 | Sugestão de ficheiro | Conteúdo |
 |----------------------|----------|
@@ -13,8 +16,8 @@
 
 ## 0.1 Mapeamento — implementação atual (`apps/web`)
 
-| Bloco | Rota / componente | Cobertura MVP |
-|-------|-------------------|---------------|
+| Bloco | Rota / componente | Cobertura atual (fase base) |
+|-------|-------------------|-------------------------------|
 | Upload U1–U5 | `/app/upload` → `UploadComponent` | Sim; U3 progresso depende de API (multipart/stream) |
 | Ingestão I1–I4 | `/app/ingestions` → `IngestionsComponent` | I1–I3 sim; I4 reprocessamento **a confirmar** na API/UI |
 | Catálogo C1–C3 | `/app/datasets` → `DatasetsComponent` | C1 sim; C2 filtros **parciais** (listagem paginada na API; UI pode não expor todos) |
