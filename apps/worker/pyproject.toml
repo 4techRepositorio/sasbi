@@ -9,7 +9,7 @@ description = "Worker Celery — ingestão e jobs"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "celery[redis]>=5.4",
+    "celery[redis]>=5.6.3",
     "redis>=5.0",
     "fourpro-shared",
 ]
