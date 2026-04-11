@@ -9,7 +9,7 @@ description = "4Pro_BI — utilitários partilhados"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "openpyxl>=3.1",
+    "openpyxl>=3.1.5",
     "xlrd>=2.0",
 ]
 
