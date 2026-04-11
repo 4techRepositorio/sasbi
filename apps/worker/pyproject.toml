@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "celery[redis]>=5.4",
-    "redis>=5.0",
+    "redis>=7.4.0",
     "fourpro-shared",
 ]
 
