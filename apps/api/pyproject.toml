@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "httpx>=0.27"]
+dev = ["pytest>=8.0", "httpx>=0.28.1"]
 
 [tool.pytest.ini_options]
 # passlib/argon2-cffi: avisos de bibliotecas até migração (ex. hash directo com argon2-cffi).
