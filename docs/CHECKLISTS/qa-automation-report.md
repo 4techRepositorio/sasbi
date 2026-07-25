@@ -1,6 +1,6 @@
 # Relatório QA Automation
 
-_Gerado em 2026-07-25 21:25 UTC por `scripts/generate-qa-report.sh`._
+_Gerado em 2026-07-25 21:29 UTC por `scripts/generate-qa-report.sh`._
 
 ## Cobertura
 
