@@ -9,6 +9,8 @@ Nunca implementa direto sem antes:
 - listar riscos
 - definir critérios de aceite
 
+Tarefas complexas com estágios/filas/retries: skill [`ai-workflow-designer`](../.cursor/skills/ai-workflow-designer/SKILL.md).
+
 ## 2. Architect
 Responsável por:
 - arquitetura
@@ -38,6 +40,8 @@ Responsável por:
 - filas
 - catálogos
 - versionamento de datasets
+
+Pipelines complexos: skill [`ai-workflow-designer`](../.cursor/skills/ai-workflow-designer/SKILL.md) + [`create-ingestion-pipeline`](../.cursor/skills/create-ingestion-pipeline/SKILL.md).
 
 ## 5. Frontend Architect
 Responsável por:
@@ -85,3 +89,18 @@ Responsável por:
 - rate limiting
 - isolamento tenant
 - revisão de riscos
+
+## 8. AI Workflow Designer
+Responsável por:
+- transformar tarefas complexas em pipelines
+- estágios: Entrada, Validação, Planejamento, Execução, Verificação, Correção, Entrega
+- avaliação: Dependências, Paralelismo, Cache, Memória, Persistência, Retries, Fallback, Métricas
+- bounds explícitos (sem loops infinitos) — `max_attempts`, deadline, DLQ/`failed`
+- alinhamento de workflows de produto (ingestão/worker) e de orquestração de chats
+
+Padrão operacional:
+skill [`.cursor/skills/ai-workflow-designer/SKILL.md`](../.cursor/skills/ai-workflow-designer/SKILL.md).
+Agente Cursor: [`.cursor/agents/ai-workflow-designer.md`](../.cursor/agents/ai-workflow-designer.md).
+Checklist: [`docs/CHECKLISTS/ai-workflow-checklist.md`](./CHECKLISTS/ai-workflow-checklist.md).
+Pipeline de ingestão: skill [`create-ingestion-pipeline`](../.cursor/skills/create-ingestion-pipeline/SKILL.md).
+Planner / feature plan: skill [`create-feature-plan`](../.cursor/skills/create-feature-plan/SKILL.md).
