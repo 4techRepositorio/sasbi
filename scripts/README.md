@@ -15,5 +15,6 @@
 | `dev-local.sh` | Arranque local de desenvolvimento (ver comentários no ficheiro). |
 | `stack-up.sh` / `stack-down.sh` / `stack-ps.sh` / `stack-logs.sh` | Compose Portainer (`make stack-up`, `stack-down`, `stack-ps`, `stack-logs`; ver `infra/portainer/`). |
 | `export-wireframes-from-pdf.sh` | Rasteriza `Data Analytics Solution.pdf` → `docs/assets/wireframes/exports/data-analytics-solution-p-*.png` (requer `pdftoppm`). Também `make wireframes-export`. |
+| `export-openapi.sh` | Gera `docs/openapi/openapi.json` a partir da FastAPI (`make openapi`). Ver `docs/openapi/README.md`. |
 
 Outros (`run-e2e-*.sh`, `run-ticket-pipeline.sh`, etc.) servem cenários específicos de QA ou pipelines internos.

@@ -34,6 +34,16 @@ uvicorn fourpro_api.main:app --reload --host 0.0.0.0 --port 7418
 
 - Health: `GET http://localhost:7418/api/v1/health` (porta = `API_PUBLISH` em `.env`; **7418** evita choque com Portainer em **6418** no mesmo host)
 - Login: `POST http://localhost:7418/api/v1/auth/login`
+- Swagger UI: `http://localhost:7418/docs` · ReDoc: `/redoc` · schema: `/openapi.json`
+- Snapshot Git + exemplos: [`docs/openapi/`](../../docs/openapi/README.md), [`docs/examples/`](../../docs/examples/README.md)
+- Guias: [`docs/INSTALLATION.md`](../../docs/INSTALLATION.md), [`docs/DEVELOPMENT.md`](../../docs/DEVELOPMENT.md)
+
+Após alterar routers/contratos:
+
+```bash
+# na raiz do monorepo
+./scripts/export-openapi.sh   # ou make openapi
+```
 
 ## Testes
 

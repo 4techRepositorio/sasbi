@@ -1,5 +1,13 @@
 # Roadmap
 
+## O que faz
+
+Compromissos de produto por fase, ligados a tickets e planos detalhados.
+
+## Como funciona
+
+Fases 1–2 cobrem o núcleo SaaS (auth, tenant, ingestão, billing). Fase 3 governação/workspace. Fase 4 plataforma BI (conectores, semântica, desktop). Documentação e CI são faixas transversais.
+
 ## Fase 1
 - auth
 - tenant
@@ -34,3 +42,14 @@ Plano mestre: [`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLA
 ## CI / qualidade
 
 - pipeline em PR — **TICKET-014** (`docs/plans/TICKET-014-ci-quality-gates-detailed-plan.md`)
+
+## Documentação (transversal)
+
+- baseline de engenharia de docs — **TICKET-019** (`tickets/TICKET-019-documentation-engineering.md`)
+- guias install/deploy/dev, OpenAPI versionado, exemplos, diagramas, ADR-004
+- evolução: cada feature actualiza docs no mesmo PR (checklist em `docs/CHECKLISTS/documentation-checklist.md`)
+- Frontend Architect / stack alvo React/Next — **TICKET-018** + ADR-002 (proposto; `apps/web` permanece Angular até aceite)
+
+## Como instalar / configurar / testar / evoluir
+
+Ver [INSTALLATION.md](./INSTALLATION.md), [DEVELOPMENT.md](./DEVELOPMENT.md). Alterar este roadmap só com acordo de produto; reflectir em `tickets/` e `CHANGELOG.md`.

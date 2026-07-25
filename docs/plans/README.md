@@ -39,7 +39,10 @@
 | TICKET-016 | [TICKET-016-semantic-web-bi-detailed-plan.md](./TICKET-016-semantic-web-bi-detailed-plan.md) |
 | TICKET-017 | [TICKET-017-desktop-authoring-detailed-plan.md](./TICKET-017-desktop-authoring-detailed-plan.md) |
 | TICKET-018 | [TICKET-018-frontend-architect-detailed-plan.md](./TICKET-018-frontend-architect-detailed-plan.md) |
+| TICKET-019 | [TICKET-019-documentation-engineering-detailed-plan.md](./TICKET-019-documentation-engineering-detailed-plan.md) |
 
 **Cartões curtos:** [`tickets/`](../../tickets/README.md)
+
+**Documentação canónica:** [../DOCUMENTATION.md](../DOCUMENTATION.md) · [../adr/004-documentation-standards.md](../adr/004-documentation-standards.md)
 
 **Como executar:** um ticket por PR quando possível; após cada entrega, atualizar checklist em `docs/CHECKLISTS/` e nota curta em `CHANGELOG.md` (raiz).

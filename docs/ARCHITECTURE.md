@@ -200,9 +200,13 @@ Nomes concretos de projetos OSS usados no **build** e **ops** ficam em ADRs inte
 
 Política de geração e armazenamento de imagens para documentação (Mermaid, exports, captures, vs runtime): ver [`docs/assets/README.md`](./assets/README.md).
 
+## Documentação técnica
+
+Padrões e artefactos obrigatórios: [ADR-004](./adr/004-documentation-standards.md) · [DOCUMENTATION.md](./DOCUMENTATION.md) · diagramas em [diagrams/](./diagrams/) · OpenAPI em [openapi/](./openapi/).
+
 ## Decisões em aberto (ADR futuro)
 
-- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → **ADR-003**.
 - Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
 - Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
 - Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.
