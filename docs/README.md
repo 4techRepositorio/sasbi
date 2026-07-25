@@ -16,7 +16,7 @@
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
-| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento |
+| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. AI Workflow Designer) |
 
 ## Execução e tickets
 
@@ -50,6 +50,7 @@
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega Angular |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
 | [CHECKLISTS/qa-checklist.md](./CHECKLISTS/qa-checklist.md) | QA |
+| [CHECKLISTS/ai-workflow-checklist.md](./CHECKLISTS/ai-workflow-checklist.md) | Pipelines inteligentes (7 estágios + bounds) |
 
 ## E2E e CI (referência rápida)
 
