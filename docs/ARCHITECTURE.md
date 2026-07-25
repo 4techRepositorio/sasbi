@@ -1,5 +1,28 @@
 # Arquitetura
 
+> **Blueprint canónico (Architect):** [`docs/architecture/BLUEPRINT.md`](./architecture/BLUEPRINT.md)  
+> Índice do pacote: [`docs/architecture/README.md`](./architecture/README.md) · Gate: [`CHECKLISTS/architecture-checklist.md`](./CHECKLISTS/architecture-checklist.md)  
+> Estilo aceite: **modular monolith + Clean Architecture + async Celery** — [ADR-002](./adr/002-modular-monolith-clean-architecture.md)
+
+Este ficheiro mantém a visão operacional (multitenancy, Core vs Data, quotas, aceleradores).  
+Estrutura de pastas, bounded contexts, eventos, filas, APIs e trade-offs vivem no **blueprint**.
+
+## Contexto do sistema (resumo)
+
+```mermaid
+flowchart LR
+  WEB[Web Angular] --> API[API FastAPI]
+  DESK[Desktop planeado] --> API
+  API --> PG[(PostgreSQL)]
+  API --> RD[(Redis)]
+  RD --> WRK[Worker Celery]
+  WRK --> PG
+  API --> S3[(Object storage)]
+  WRK --> S3
+  API --> CTR[packages/contracts]
+  WRK --> CTR
+```
+
 ## Blocos
 
 - **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
@@ -202,7 +225,8 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Decisões em aberto (ADR futuro)
 
-- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-00x (não confundir com ADR-002 já aceite: modular monolith).
 - Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
 - Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
+- Outbox / bus de domínio quando Connectors e Semantic tiverem múltiplos consumidores — ver blueprint §11 e ADR-002.
 - Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.

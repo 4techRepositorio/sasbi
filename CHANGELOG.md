@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **Arquitectura (Architect):** blueprint canónico em `docs/architecture/BLUEPRINT.md` (bounded contexts, portas, eventos/filas, APIs, versionamento, trade-offs); ADR-002 (modular monolith + Clean Architecture + Celery); checklist `docs/CHECKLISTS/architecture-checklist.md`.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

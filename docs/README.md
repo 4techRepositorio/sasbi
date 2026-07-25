@@ -4,7 +4,10 @@
 
 | Área | Conteúdo |
 |------|----------|
+| [architecture/BLUEPRINT.md](./architecture/BLUEPRINT.md) | **Blueprint Architect** — pastas, bounded contexts, portas, eventos, filas, APIs, versionamento, trade-offs |
+| [architecture/README.md](./architecture/README.md) | Índice do pacote de arquitectura |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
+| [adr/002-modular-monolith-clean-architecture.md](./adr/002-modular-monolith-clean-architecture.md) | ADR-002: modular monolith + Clean Architecture + Celery |
 | [VISION.md](./VISION.md) | Produto |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
 | [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
@@ -46,6 +49,7 @@
 | Ficheiro | Uso |
 |----------|-----|
 | [CHECKLISTS/feature-definition-of-done.md](./CHECKLISTS/feature-definition-of-done.md) | DoD por feature |
+| [CHECKLISTS/architecture-checklist.md](./CHECKLISTS/architecture-checklist.md) | Gate Architect antes de implementar |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega Angular |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
@@ -60,7 +64,8 @@
 
 ## Ordem de leitura sugerida (nova equipa)
 
-1. `VISION.md` → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
+1. `VISION.md` → `architecture/BLUEPRINT.md` → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
 2. `plans/README.md` + ticket atual em `tickets/`  
 3. Wireframes da área em construção  
-4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
+4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais  
+5. Features estruturais: preencher `CHECKLISTS/architecture-checklist.md`

@@ -16,6 +16,7 @@ Descreva a alteração em 1–3 frases.
 - [ ] Migrações Alembic aplicadas / job `alembic-postgres` verde se mudou `alembic/versions/`
 - [ ] Contratos `packages/contracts` revistos se alterados (impacto em API/web)
 - [ ] Isolamento por tenant e RBAC considerados
+- [ ] Feature estrutural: `docs/architecture/BLUEPRINT.md` + `docs/CHECKLISTS/architecture-checklist.md`
 - [ ] `docs/CHECKLISTS/` actualizados se a entrega o exigir
 
 ## Riscos e deploy
