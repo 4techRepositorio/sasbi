@@ -1,43 +1,7 @@
-/* 4Pro_BI — tema alinhado ao PDF «Data Analytics Solution» (navy, magenta, azul) */
-
-:root {
-  --da-font-display: "Inter", "Outfit", system-ui, sans-serif;
-  --da-font-body: "Inter", "Source Sans 3", system-ui, sans-serif;
-
-  --da-bg-app: #f4f7f9;
-  --da-bg-card: #ffffff;
-  --da-border: #e8ecf1;
-  --da-text: #121626;
-  --da-text-secondary: #5c6578;
-  --da-text-muted: #8b95a8;
-
-  --da-sidebar-from: #121626;
-  --da-sidebar-to: #1a1f2e;
-  --da-sidebar-text: rgba(248, 250, 252, 0.92);
-  --da-sidebar-muted: rgba(148, 163, 184, 0.92);
-  --da-sidebar-border: rgba(255, 255, 255, 0.08);
-
-  /* Destaques PDF: magenta + azul */
-  --da-accent: #e91e63;
-  --da-accent-hover: #c2185b;
-  --da-accent-glow: rgba(233, 30, 99, 0.22);
-  --da-blue: #2196f3;
-  --da-blue-dark: #1565c0;
-
-  /* Cartões de gráfico (gradiente azul → magenta como mockups) */
-  --da-chart-head-from: #2196f3;
-  --da-chart-head-to: #e91e63;
-
-  --da-success-bg: #ecfdf5;
-  --da-success-text: #166534;
-  --da-danger-text: #b91c1c;
-  --da-warning-text: #b45309;
-
-  --da-radius: 12px;
-  --da-radius-sm: 8px;
-  --da-shadow-card: 0 1px 2px rgb(15 23 42 / 6%), 0 12px 32px rgb(15 23 42 / 8%);
-  --da-shadow-elevated: 0 4px 6px rgb(15 23 42 / 5%), 0 24px 48px rgb(15 23 42 / 12%);
-}
+/* 4Pro_BI — tema alinhado ao PDF «Data Analytics Solution» (navy, magenta, azul)
+ * Tokens: packages/ui/scss/_tokens.scss (fonte de verdade — Design System)
+ */
+@use "tokens" as *;
 
 *,
 *::before,

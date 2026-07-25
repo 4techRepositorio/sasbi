@@ -3,20 +3,26 @@ description: Regras frontend
 alwaysApply: true
 ---
 
-Frontend stack base:
-- Angular
+Frontend stack base (actual — `apps/web`):
+- Angular 19
 - TypeScript
 - design limpo e corporativo
 - responsivo
 - preparado para PWA
 
+Stack alvo (ADR-002, proposto): React · Next.js · TypeScript · Tailwind · shadcn/ui · TanStack Query · React Hook Form · Zod.
+Referência: `docs/FRONTEND_ARCHITECTURE.md`, skill `frontend-architect`.
+Não introduzir React/Next em `apps/web` sem aceite do ADR-002.
+
 Regras:
-1. Separar layout, estado, serviços e componentes.
+1. Separar layout, estado, serviços e componentes (Feature-First + Atomic Design).
 2. Nunca embutir regra crítica de negócio apenas no frontend.
 3. Toda tela precisa tratar:
-   - loading
-   - erro
-   - vazio
-   - sucesso
+ - loading
+ - erro
+ - vazio
+ - sucesso
 4. Toda tela administrativa deve deixar claro o tenant atual.
 5. Manter UX simples, profissional e escalável.
+6. Componentes reutilizáveis: props tipadas, documentação, exemplo de uso e testes mínimos; nunca duplicar.
+7. Lazy loading / code splitting para rotas e features pesadas; Client/browser APIs só quando necessário.

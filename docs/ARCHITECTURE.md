@@ -25,7 +25,7 @@ flowchart LR
 
 ## Blocos
 
-- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
+- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards. Stack alvo React/Next documentado em [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md) (proposto; sem migração até aceite).
 - **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
 - **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
 - **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
