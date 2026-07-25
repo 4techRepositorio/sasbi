@@ -21,6 +21,10 @@ dependencies = [
     "slowapi>=0.1.9",
     "email-validator>=2.0",
     "celery[redis]>=5.4",
+    "cryptography>=41.0",
+    "fourpro-contracts",
+    "fourpro-connectors",
+    "httpx>=0.27",
 ]
 
 [project.optional-dependencies]

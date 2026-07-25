@@ -39,6 +39,11 @@ class Settings(BaseSettings):
     upload_dir: str = Field(default="/data/uploads", alias="UPLOAD_DIR")
     max_upload_mb: int = Field(default=50, alias="MAX_UPLOAD_MB")
 
+    # Cofre de credenciais de conectores (Fernet url-safe 32-byte key).
+    # Em desenvolvimento, se vazio, deriva-se de JWT_SECRET (warning em log) —
+    # NÃO usar essa derivação em produção.
+    credentials_fernet_key: str | None = Field(default=None, alias="CREDENTIALS_FERNET_KEY")
+
     # Lista separada por vírgulas ou "*" (dev). Com credentials JWT, prefira origens explícitas.
     cors_origins: str = Field(
         default="http://localhost:4200,http://127.0.0.1:4200,http://localhost:8081,http://127.0.0.1:8081",

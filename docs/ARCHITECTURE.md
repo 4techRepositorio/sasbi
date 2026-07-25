@@ -13,7 +13,7 @@
 ## Pacotes
 
 - `packages/contracts` — DTOs Pydantic compartilhados (`fourpro_contracts`): `auth`, `ingestion`, `dataset`, `tenant`, `billing` (contexto `/me/context` e limites de plano); evolução `connectors`, `semantic`, `desktop_sync`. Ver [docs/adr/000-contract-slices.md](./adr/000-contract-slices.md). **Edição deste pacote:** Frente Architect (gestão em [5 frentes paralelas](./plans/PARALELA-5-FRENTES.md)); impacto documentado aqui ou em ADR.
-- `packages/connectors` — SPI e plugins de fontes de dados (planeado, TICKET-015).
+- `packages/connectors` — SPI e plugins de fontes de dados (`file`, `postgres`, `mysql`, `sqlserver`, `rest_json`, `s3_compatible`); registry + allowlist SSRF / SQL seguro (TICKET-015).
 - `packages/ui` — biblioteca opcional de componentes partilhados do `apps/web` (ver `packages/ui/README.md`); evolução coordenada com a Frente Architect quando afectar contratos visuais ou tokens; reutilização no Desktop quando possível.
 - `packages/shared` — utilitários comuns (API + worker).
 

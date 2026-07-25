@@ -8,7 +8,9 @@ from fourpro_api.limiter import limiter
 from fourpro_api.logging_config import setup_logging
 from fourpro_api.routers import (
     auth,
+    connectors,
     dashboards,
+    data_sources,
     datasets,
     desktop,
     health,
@@ -54,6 +56,8 @@ def create_app() -> FastAPI:
     app.include_router(uploads.router, prefix="/api/v1")
     app.include_router(datasets.router, prefix="/api/v1")
     app.include_router(ingestions.router, prefix="/api/v1")
+    app.include_router(connectors.router, prefix="/api/v1")
+    app.include_router(data_sources.router, prefix="/api/v1")
     app.include_router(semantic_models.router, prefix="/api/v1")
     app.include_router(query.router, prefix="/api/v1")
     app.include_router(dashboards.router, prefix="/api/v1")

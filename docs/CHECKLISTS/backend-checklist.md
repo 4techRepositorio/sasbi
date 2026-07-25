@@ -14,3 +14,4 @@
 - Semantic/query (TICKET-016): CRUD `/semantic-models`, `POST /query` com allowlist de campos; isolamento cross-tenant nos testes
 - Dashboards (TICKET-011): CRUD + `POST /dashboards/{id}/publish` com `dashboard_versions`
 - Desktop: `GET /desktop/session`, `POST /desktop/publish-dashboard`; `publish-dataset` com mensagem clara sem conectores
+- Conectores (TICKET-015): `/connectors`, CRUD `/data-sources`, test/discover/sample-schema/sync; vault Fernet; worker sync
