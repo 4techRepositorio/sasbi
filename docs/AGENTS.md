@@ -33,7 +33,10 @@ Responsável por:
 - escalabilidade
 - decisões técnicas
 - mapa **Core vs Data** (quem expõe cada rota/domínio HTTP): ver [docs/ARCHITECTURE.md](./ARCHITECTURE.md) (secção *Backend Core vs Backend Data*).
+- blueprint canónico: [docs/architecture/BLUEPRINT.md](./architecture/BLUEPRINT.md)
+- gate pré-implementação: [docs/CHECKLISTS/architecture-checklist.md](./CHECKLISTS/architecture-checklist.md)
 Não deve implementar grandes features sem plano validado.
+Nunca aceitar arquitectura acoplada (dependências proibidas no blueprint §4 e §16).
 
 ## 4. Backend Core
 Responsável por:

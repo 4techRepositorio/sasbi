@@ -4,9 +4,12 @@
 
 | Área | Conteúdo |
 |------|----------|
+| [architecture/BLUEPRINT.md](./architecture/BLUEPRINT.md) | **Blueprint Architect** — pastas, bounded contexts, portas, eventos, filas, APIs, versionamento, trade-offs |
+| [architecture/README.md](./architecture/README.md) | Índice do pacote de arquitectura |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
-| [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next (ADR-002) |
-| [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR-002: stack frontend alvo React + Next.js (proposto) |
+| [adr/002-modular-monolith-clean-architecture.md](./adr/002-modular-monolith-clean-architecture.md) | ADR modular monolith + Clean Architecture + Celery (**colisão de número 002** — ver nota no PR) |
+| [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next |
+| [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR stack frontend alvo React + Next.js (proposto; **colisão de número 002**) |
 | [VISION.md](./VISION.md) | Produto |
 | [product/README.md](./product/README.md) | Briefings Product Designer (problema, valor, KPIs) |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
@@ -50,6 +53,7 @@
 | Ficheiro | Uso |
 |----------|-----|
 | [CHECKLISTS/feature-definition-of-done.md](./CHECKLISTS/feature-definition-of-done.md) | DoD por feature |
+| [CHECKLISTS/architecture-checklist.md](./CHECKLISTS/architecture-checklist.md) | Gate Architect antes de implementar |
 | [CHECKLISTS/product-design-checklist.md](./CHECKLISTS/product-design-checklist.md) | Briefing de produto (antes do plano técnico) |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
@@ -67,7 +71,8 @@
 
 ## Ordem de leitura sugerida (nova equipa)
 
-1. `VISION.md` → `product/` (briefings) → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
+1. `VISION.md` → `product/` (briefings) → `architecture/BLUEPRINT.md` → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
 2. `plans/README.md` + ticket atual em `tickets/`  
 3. Wireframes da área em construção  
-4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
+4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais  
+5. Features estruturais: preencher `CHECKLISTS/architecture-checklist.md`
