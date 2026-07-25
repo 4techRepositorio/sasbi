@@ -4,6 +4,8 @@
 
 **Documentação de apoio:** [ORQUESTRACAO-CHATS-AGENTES.md](./ORQUESTRACAO-CHATS-AGENTES.md) (allowlists, rituais), [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) (ondas), [EXECUCAO-MESTRE.md](./EXECUCAO-MESTRE.md) (gates).
 
+**Fase 4 BI (conectores / Web / Desktop):** prompts em [PROMPTS-CHATS-BI.md](./PROMPTS-CHATS-BI.md); agentes em [`.cursor/agents/`](../../.cursor/agents/README.md).
+
 ---
 
 ## Nome sugerido do chat → Ficheiro desta secção
