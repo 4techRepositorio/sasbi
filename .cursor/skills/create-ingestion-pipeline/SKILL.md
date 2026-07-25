@@ -21,3 +21,6 @@ Sempre prever:
 - status
 - mensagem técnica
 - mensagem amigável
+
+Para decompor a ingestão como pipeline completo (Entrada→Entrega, retries/fallback, anti-loop),
+usar também a skill `ai-workflow-designer`.

@@ -28,3 +28,6 @@ Template:
 ## Critérios de aceite
 ## Riscos
 ## Dependências
+
+Se a feature for uma tarefa complexa com estágios, filas, retries ou paralelismo,
+carregar também a skill `ai-workflow-designer` (pipeline Entrada→Entrega + bounds).
