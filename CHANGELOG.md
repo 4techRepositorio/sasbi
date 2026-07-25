@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 
-- **Documentação (TICKET-018):** guias canónicos `INSTALLATION` / `DEPLOYMENT` / `DEVELOPMENT`; OpenAPI snapshot em `docs/openapi/` + `scripts/export-openapi.sh`; exemplos cURL em `docs/examples/`; diagramas Mermaid/UML em `docs/diagrams/`; ADR-002 (padrões de documentação); checklist de docs; índices e política em `docs/DOCUMENTATION.md`.
+- **Documentação (TICKET-019):** guias canónicos `INSTALLATION` / `DEPLOYMENT` / `DEVELOPMENT`; OpenAPI snapshot em `docs/openapi/` + `scripts/export-openapi.sh`; exemplos cURL em `docs/examples/`; diagramas Mermaid/UML em `docs/diagrams/`; ADR-004 (padrões de documentação); checklist de docs; índices e política em `docs/DOCUMENTATION.md`.
+- **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR-002 (React/Next proposto); TICKET-018 + plano detalhado; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

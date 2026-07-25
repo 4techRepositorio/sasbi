@@ -74,7 +74,7 @@ Regras:
 1. **Feature grande** → plano (`create-feature-plan` / ticket em `tickets/` + plano em `docs/plans/`).
 2. **Contratos** → editar só em `packages/contracts`; documentar impacto; regenerar OpenAPI.
 3. **Migrações** → prefixo `core__` ou `data__`; uma única head Alembic.
-4. **Documentação** — obrigatória (ADR-002):
+4. **Documentação** — obrigatória (ADR-004):
    - actualizar guia/domínio afectado
    - diagramas Mermaid se o fluxo mudar (`docs/diagrams/`)
    - exemplos se a API pública mudar (`docs/examples/`)
@@ -83,4 +83,4 @@ Regras:
 
 ### Definition of Done (documentação)
 
-Ver [`CHECKLISTS/documentation-checklist.md`](./CHECKLISTS/documentation-checklist.md) e ADR [`002`](./adr/002-documentation-standards.md).
+Ver [`CHECKLISTS/documentation-checklist.md`](./CHECKLISTS/documentation-checklist.md) e ADR [`004`](./adr/004-documentation-standards.md).

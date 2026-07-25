@@ -13,6 +13,8 @@
 | [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | **5 frentes paralelas**, agentes e prompts (gestão técnica 4Pro_BI) |
 | [../wireframes/](../wireframes/) | Validação de wireframes e referências |
 | [../adr/001-bi-platform-connectors-desktop-web.md](../adr/001-bi-platform-connectors-desktop-web.md) | ADR-001 plataforma BI |
+| [../adr/002-frontend-react-next.md](../adr/002-frontend-react-next.md) | ADR-002 stack frontend React/Next (proposto) |
+| [../FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) | Arquitectura frontend (Frontend Architect) |
 
 ## Planos detalhados por ticket
 
@@ -36,10 +38,11 @@
 | TICKET-015 | [TICKET-015-connector-framework-detailed-plan.md](./TICKET-015-connector-framework-detailed-plan.md) |
 | TICKET-016 | [TICKET-016-semantic-web-bi-detailed-plan.md](./TICKET-016-semantic-web-bi-detailed-plan.md) |
 | TICKET-017 | [TICKET-017-desktop-authoring-detailed-plan.md](./TICKET-017-desktop-authoring-detailed-plan.md) |
-| TICKET-018 | [TICKET-018-documentation-engineering-detailed-plan.md](./TICKET-018-documentation-engineering-detailed-plan.md) |
+| TICKET-018 | [TICKET-018-frontend-architect-detailed-plan.md](./TICKET-018-frontend-architect-detailed-plan.md) |
+| TICKET-019 | [TICKET-019-documentation-engineering-detailed-plan.md](./TICKET-019-documentation-engineering-detailed-plan.md) |
 
 **Cartões curtos:** [`tickets/`](../../tickets/README.md)
 
-**Documentação canónica:** [../DOCUMENTATION.md](../DOCUMENTATION.md) · [../adr/002-documentation-standards.md](../adr/002-documentation-standards.md)
+**Documentação canónica:** [../DOCUMENTATION.md](../DOCUMENTATION.md) · [../adr/004-documentation-standards.md](../adr/004-documentation-standards.md)
 
 **Como executar:** um ticket por PR quando possível; após cada entrega, atualizar checklist em `docs/CHECKLISTS/` e nota curta em `CHANGELOG.md` (raiz).

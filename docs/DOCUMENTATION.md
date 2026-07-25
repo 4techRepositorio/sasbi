@@ -2,7 +2,7 @@
 
 ## O que faz
 
-Política e mapa da documentação técnica do monorepo. Garante que código e docs evoluem juntos (ADR-002).
+Política e mapa da documentação técnica do monorepo. Garante que código e docs evoluem juntos (ADR-004).
 
 ## Como funciona
 
@@ -47,4 +47,4 @@ N/A. Autores devem seguir o checklist [`CHECKLISTS/documentation-checklist.md`](
 4. API → OpenAPI + exemplos.
 5. Entrada em `CHANGELOG.md` e, se fase mudar, `ROADMAP.md`.
 
-Ticket de baseline: [`tickets/TICKET-018-documentation-engineering.md`](../tickets/TICKET-018-documentation-engineering.md).
+Ticket de baseline: [`tickets/TICKET-019-documentation-engineering.md`](../tickets/TICKET-019-documentation-engineering.md).

@@ -10,8 +10,9 @@ Regista decisões arquitecturais relevantes com contexto, decisão e consequênc
 |-----|--------|--------|
 | [000](./000-contract-slices.md) | Fatias de contratos (`fourpro_contracts`) | Aceite |
 | [001](./001-bi-platform-connectors-desktop-web.md) | Plataforma BI: conectores + Web + Desktop | Aceite |
-| [002](./002-documentation-standards.md) | Padrões de documentação técnica | Aceite |
+| [002](./002-frontend-react-next.md) | Stack frontend alvo React + Next.js | Proposto |
 | 003 *(reservado)* | Runtime Desktop (Electron vs Tauri) — pós spike TICKET-017 | Proposto |
+| [004](./004-documentation-standards.md) | Padrões de documentação técnica | Aceite |
 
 Template mínimo para novos ADRs:
 

@@ -1,4 +1,4 @@
-# TICKET-018 — Documentation Engineering
+# TICKET-019 — Documentation Engineering
 
 ## Objetivo
 
@@ -29,7 +29,7 @@ Completar a documentação técnica do monorepo 4Pro_BI para que nenhuma área c
 
 ## Subtarefas
 
-1. ADR-002 padrões de documentação
+1. ADR-004 padrões de documentação
 2. Guias INSTALLATION / DEPLOYMENT / DEVELOPMENT
 3. Pasta `docs/openapi/` + script de export
 4. Pasta `docs/examples/`
@@ -53,3 +53,7 @@ Completar a documentação técnica do monorepo 4Pro_BI para que nenhuma área c
 
 - API FastAPI com schema OpenAPI nativo
 - Conteúdo existente em `docs/ARCHITECTURE.md`, `infra/portainer/README.md`, `CONTRIBUTING.md`
+
+## Nota de numeração
+
+No ramo de origem este cartão era **TICKET-018**; no `main` o **018** ficou com Frontend Architect (React/Next). Renumerado para **019** no merge.

@@ -29,4 +29,4 @@ Usar em PRs que alterem comportamento, contratos, infra ou fluxos.
 - [ ] Sem marcas OSS na documentação de utilizador final (ops/ADR ok)
 - [ ] Links relativos válidos a partir do ficheiro novo
 
-Referência: [ADR-002](../adr/002-documentation-standards.md).
+Referência: [ADR-004](../adr/004-documentation-standards.md).

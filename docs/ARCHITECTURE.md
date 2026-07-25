@@ -2,7 +2,7 @@
 
 ## Blocos
 
-- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
+- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards. Stack alvo React/Next documentado em [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md) (proposto; sem migração até aceite).
 - **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
 - **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
 - **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
@@ -202,7 +202,7 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Documentação técnica
 
-Padrões e artefactos obrigatórios: [ADR-002](./adr/002-documentation-standards.md) · [DOCUMENTATION.md](./DOCUMENTATION.md) · diagramas em [diagrams/](./diagrams/) · OpenAPI em [openapi/](./openapi/).
+Padrões e artefactos obrigatórios: [ADR-004](./adr/004-documentation-standards.md) · [DOCUMENTATION.md](./DOCUMENTATION.md) · diagramas em [diagrams/](./diagrams/) · OpenAPI em [openapi/](./openapi/).
 
 ## Decisões em aberto (ADR futuro)
 

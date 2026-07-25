@@ -1,9 +1,25 @@
 # Frontend Checklist
+
+## Estados e UX
 - tela criada
 - loading tratado
 - erro tratado
 - estado vazio tratado
+- sucesso tratado (feedback claro)
 - responsividade básica validada
+
+## Arquitectura (Frontend Architect)
+- organização Feature-First (código na feature correcta; rota thin)
+- Atomic Design respeitado; sem duplicar componentes existentes
+- props tipadas em todo componente novo/alterado
+- documentação (JSDoc) + exemplo de uso (`@example` ou story)
+- teste mínimo do componente ou ecrã
+- Client Components / lógica de browser só onde necessário (stack Next); no Angular, evitar lógica de domínio no template
+- lazy loading / code splitting para features pesadas
+- ecrã admin mostra tenant actual
+- ver [docs/FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) e skill `frontend-architect`
+
+## Entregas actuais (`apps/web` Angular)
 - área admin (Equipa / tenant-users): só visível a `admin`; consome `GET /api/v1/tenant/members`
 - shell: tenant e papel visíveis; quando `plan` existe em `/me/context`, mostrar resumo do pacote (limite de uploads)
 - shell e upload: quando `storage` existe em `/me/context`, mostrar uso vs limite (tenant; opcional utilizador e grupo); após upload bem-sucedido, recarregar contexto para actualizar barras

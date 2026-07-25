@@ -65,7 +65,7 @@ Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 
 ## Documentação
 
-Índice completo: [docs/README.md](docs/README.md). Política: [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) · [ADR-002](docs/adr/002-documentation-standards.md).
+Índice completo: [docs/README.md](docs/README.md). Política: [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) · [ADR-004](docs/adr/004-documentation-standards.md).
 
 | Documento | Conteúdo |
 |-----------|----------|
@@ -80,7 +80,7 @@ Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 | [CHANGELOG.md](CHANGELOG.md) | Changelog |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Roadmap |
 | [docs/VISION.md](docs/VISION.md) | Visão de produto |
-| [tickets/](tickets/) | Tickets (incl. TICKET-018 docs) |
+| [tickets/](tickets/) | Tickets (incl. TICKET-018 frontend + TICKET-019 docs) |
 | [docs_planos_antigos/](docs_planos_antigos/plans/README.md) | Planos OSS históricos (P0–P8) |
 
 Regenerar OpenAPI após mudanças na API: `./scripts/export-openapi.sh` ou `make openapi`.

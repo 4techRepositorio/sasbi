@@ -45,9 +45,10 @@ Plano mestre: [`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLA
 
 ## Documentação (transversal)
 
-- baseline de engenharia de docs — **TICKET-018** (`tickets/TICKET-018-documentation-engineering.md`)
-- guias install/deploy/dev, OpenAPI versionado, exemplos, diagramas, ADR-002
+- baseline de engenharia de docs — **TICKET-019** (`tickets/TICKET-019-documentation-engineering.md`)
+- guias install/deploy/dev, OpenAPI versionado, exemplos, diagramas, ADR-004
 - evolução: cada feature actualiza docs no mesmo PR (checklist em `docs/CHECKLISTS/documentation-checklist.md`)
+- Frontend Architect / stack alvo React/Next — **TICKET-018** + ADR-002 (proposto; `apps/web` permanece Angular até aceite)
 
 ## Como instalar / configurar / testar / evoluir
 

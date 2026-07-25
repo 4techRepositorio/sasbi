@@ -1,6 +1,6 @@
 # Documentação 4Pro_BI — índice
 
-Toda documentação técnica deve responder: **o que faz**, **como funciona**, **como instalar**, **como configurar**, **como testar**, **como evoluir**. Política: [DOCUMENTATION.md](./DOCUMENTATION.md) · [ADR-002](./adr/002-documentation-standards.md).
+Toda documentação técnica deve responder: **o que faz**, **como funciona**, **como instalar**, **como configurar**, **como testar**, **como evoluir**. Política: [DOCUMENTATION.md](./DOCUMENTATION.md) · [ADR-004](./adr/004-documentation-standards.md).
 
 ## Guias canónicos
 
@@ -15,7 +15,9 @@ Toda documentação técnica deve responder: **o que faz**, **como funciona**, *
 
 | Área | Conteúdo |
 |------|----------|
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos, multitenancy, aceleradores OSS |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
+| [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next (ADR-002) |
+| [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR-002: stack frontend alvo React + Next.js (proposto) |
 | [VISION.md](./VISION.md) | Produto |
 | [ROADMAP.md](./ROADMAP.md) | Fases e tickets |
 | [SECURITY.md](./SECURITY.md) | Política de segurança |
@@ -57,19 +59,20 @@ Runtime (API no ar): `/docs` · `/redoc` · `/openapi.json`. Regenerar: `./scrip
 | [adr/README.md](./adr/README.md) | Índice de ADRs |
 | [adr/000-contract-slices.md](./adr/000-contract-slices.md) | Fatias de contratos |
 | [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | Conectores + Web + Desktop |
-| [adr/002-documentation-standards.md](./adr/002-documentation-standards.md) | Padrões de documentação |
+| [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | Stack frontend React/Next (proposto) |
+| [adr/004-documentation-standards.md](./adr/004-documentation-standards.md) | Padrões de documentação |
 
 ## Execução e tickets
 
 | Área | Conteúdo |
 |------|----------|
-| [plans/README.md](./plans/README.md) | Plano mestre e tickets detalhados 000–017 |
+| [plans/README.md](./plans/README.md) | Plano mestre e tickets detalhados 000–019 |
 | [plans/EXECUCAO-MESTRE.md](./plans/EXECUCAO-MESTRE.md) | Ordem e paralelismo |
 | [plans/PARALELA-5-FRENTES.md](./plans/PARALELA-5-FRENTES.md) | 5 frentes paralelas |
 | [plans/ORQUESTRACAO-CHATS-AGENTES.md](./plans/ORQUESTRACAO-CHATS-AGENTES.md) | Orquestração de chats |
 | [plans/PROMPTS-CHATS-CURSOR.md](./plans/PROMPTS-CHATS-CURSOR.md) | Prompts prontos |
 | [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre BI |
-| [`../tickets/`](../tickets/README.md) | Cartões curtos (incl. TICKET-018 docs) |
+| [`../tickets/`](../tickets/README.md) | Cartões curtos (incl. TICKET-018 frontend + TICKET-019 docs) |
 
 ## UX e validação
 
@@ -86,7 +89,7 @@ Runtime (API no ar): `/docs` · `/redoc` · `/openapi.json`. Regenerar: `./scrip
 | [CHECKLISTS/documentation-checklist.md](./CHECKLISTS/documentation-checklist.md) | Docs obrigatórias |
 | [CHECKLISTS/feature-definition-of-done.md](./CHECKLISTS/feature-definition-of-done.md) | DoD por feature |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
-| [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega Angular |
+| [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
 | [CHECKLISTS/qa-checklist.md](./CHECKLISTS/qa-checklist.md) | QA |
 
@@ -100,7 +103,7 @@ Runtime (API no ar): `/docs` · `/redoc` · `/openapi.json`. Regenerar: `./scrip
 ## Ordem de leitura sugerida (nova equipa)
 
 1. `VISION.md` → `ARCHITECTURE.md` → `INSTALLATION.md` → `DEVELOPMENT.md`  
-2. `openapi/README.md` + `examples/` (primeiro pedido HTTP)  
+2. `FRONTEND_ARCHITECTURE.md` (stack alvo) + `openapi/README.md` + `examples/`  
 3. `diagrams/` (contexto, auth, ingestão)  
 4. `plans/EXECUCAO-MESTRE.md` + ticket actual  
 5. `DEPLOYMENT.md` antes do primeiro deploy
