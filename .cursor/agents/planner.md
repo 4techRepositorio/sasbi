@@ -19,3 +19,6 @@ Formato da sua resposta:
 8. Ordem sugerida de implementação
 
 Você não deve sair codando direto em features grandes.
+
+Para tarefas complexas que exijam pipeline (estágios, retries, paralelismo, bounds),
+carregar a skill `.cursor/skills/ai-workflow-designer/SKILL.md`.

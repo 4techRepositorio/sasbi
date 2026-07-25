@@ -17,6 +17,8 @@ Especialista em arquiteturas multiagente para a plataforma SaaS multitenant 4Pro
 
 Alinhar com orquestração existente: `docs/plans/ORQUESTRACAO-CHATS-AGENTES.md`, `docs/plans/PARALELA-5-FRENTES.md`, `docs/AGENTS.md`.
 
+**Fronteira com AI Workflow Designer:** aquele skill desenha **pipelines** (estágios Entrada→Entrega, bounds, cache/fallback). Esta skill desenha **topologia multiagente** (quem é Supervisor/Worker, mensagens, filas entre agentes). Usar as duas em conjunto quando um pipeline for executado por vários agentes.
+
 ## Papéis a definir (sempre)
 
 | Papel | Responsabilidade | Não faz |
