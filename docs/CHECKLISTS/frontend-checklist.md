@@ -13,3 +13,5 @@
 - E2E `data-storage-warn`: scripts seed/cleanup; proxy CI `apps/web/proxy.conf.e2e-storage-warn.json` (API porta 8765); workflows `e2e-seed-storage-dispatch.yml` e `e2e-storage-warn-browser-dispatch.yml` (ver `e2e/README.md`)
 - wireframe PDF: após alterar `Data Analytics Solution.pdf`, opcionalmente correr `bash scripts/export-wireframes-from-pdf.sh` e referenciar evidências em `docs/wireframes/validation-*.md` / `docs/assets/wireframes/exports/`
 - **Desktop (TICKET-017):** `apps/desktop` — login/MFA/logout; tenant na sidebar; fontes Postgres/REST; publish dataset/dashboard; tokens só via `safeStorage`; UI PT «4Pro_BI Desktop»; ver `apps/desktop/README.md`
+
+- **BI Web (fontes / modelos / dashboards):** rotas `/app/data-sources`, `/app/semantic-models`, `/app/dashboards`, `/app/dashboards/:id`; serviços tipados; shell com nav + tenant; roleGuard admin/analyst em fontes/modelos; editor de widgets; home com publicados; loading/erro/vazio/sucesso; `ng build` OK

@@ -5,11 +5,14 @@ from fourpro_api.config import get_settings
 from fourpro_api.db.base import Base
 from fourpro_api.models import (  # noqa: F401
     AuditLog,
+    Dashboard,
+    DashboardVersion,
     FileIngestion,
     MfaPendingChallenge,
     PasswordResetToken,
     Plan,
     RefreshToken,
+    SemanticModel,
     Tenant,
     TenantMembership,
     TenantQuotaGroup,

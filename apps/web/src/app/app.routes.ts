@@ -27,6 +27,32 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
+        path: 'data-sources',
+        canActivate: [roleGuard(['admin', 'analyst'])],
+        data: { shellTitle: 'Fontes de dados' },
+        loadComponent: () =>
+          import('./pages/data-sources/data-sources.component').then((m) => m.DataSourcesComponent),
+      },
+      {
+        path: 'semantic-models',
+        canActivate: [roleGuard(['admin', 'analyst'])],
+        data: { shellTitle: 'Modelos' },
+        loadComponent: () =>
+          import('./pages/semantic-models/semantic-models.component').then((m) => m.SemanticModelsComponent),
+      },
+      {
+        path: 'dashboards',
+        data: { shellTitle: 'Dashboards' },
+        loadComponent: () =>
+          import('./pages/dashboards/dashboards-list.component').then((m) => m.DashboardsListComponent),
+      },
+      {
+        path: 'dashboards/:id',
+        data: { shellTitle: 'Editor de dashboard' },
+        loadComponent: () =>
+          import('./pages/dashboards/dashboard-editor.component').then((m) => m.DashboardEditorComponent),
+      },
+      {
         path: 'upload',
         canActivate: [roleGuard(['admin', 'analyst'])],
         data: { shellTitle: 'Upload' },

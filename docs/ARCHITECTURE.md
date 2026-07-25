@@ -49,7 +49,7 @@ A API é um único serviço FastAPI; a **equipa** divide responsabilidades para 
 | Frente | Dono típico (HTTP / domínio) | Não é dono de |
 |--------|------------------------------|---------------|
 | **Backend Core (F2)** | `auth`, `me` (incl. contexto e uso de armazenamento), `tenant` (membros, grupos de quota, quotas por utilizador), serviços de billing chamados por outros módulos, `health` | Rotas de `uploads`, `ingestions`, `datasets`; `ingestion_repository`; jobs de parsing |
-| **Backend Data (F3)** | `uploads`, `ingestions`, `datasets`, validação de conteúdo de ficheiro, filas/jobs de pipeline | `main.py` e agregação de routers (integração é PR **F2**); modelos Core (`user`, `tenant`, `plan`, …) |
+| **Backend Data (F3)** | `uploads`, `ingestions`, `datasets`, `connectors`/`data-sources`, `semantic-models`, `query`, `dashboards`, `desktop` (publish), validação de conteúdo de ficheiro, filas/jobs de pipeline | `main.py` e agregação de routers (integração é PR **F2**); modelos Core (`user`, `tenant`, `plan`, …) |
 
 **Contratos** (`fourpro_contracts`) são transversais: F1 define DTOs; F2/F3 **importam** e não duplicam shapes (ver [ADR 000](./adr/000-contract-slices.md)). O catálogo (`DatasetItem`) reflete apenas linhas **processadas**; o histórico de pipeline (`IngestionItem`) usa o conjunto fechado de estados `uploaded` → `validating` → `parsing` → `processed` | `failed`, tipado em `fourpro_contracts.ingestion` — novos estados exigem migração de dados + alteração F1 ao contrato e nota aqui ou em ADR.
 
@@ -95,6 +95,29 @@ O produto aplica **três níveis** de limite sobre o total de bytes persistidos 
 **Impacto:** qualquer cliente (web, integrações) que consuma `/me/context` deve tolerar o campo opcional `storage`; UI de gestão de quotas é evolução da Frente Frontend.
 
 **Operação:** em deploy com contentores, o entrypoint da API aplica migrações ao arranque; rebuild da imagem incorpora `packages/contracts`. Detalhes e checklist staging/produção: `infra/portainer/README.md` (secção *Migrações e pacote contracts*); migração manual só com Postgres local: `scripts/run-db-migrate.sh`. Paridade com o CI (Postgres vazio + cadeia Alembic): `scripts/run-alembic-postgres-local.sh` (Docker).
+
+### Camada semântica e query (TICKET-016)
+
+A API expõe um **modelo semântico** por dataset processado e um motor de **query agregada** sem SQL arbitrário do cliente.
+
+| Artefacto | Função |
+|-----------|--------|
+| **`semantic_models`** | Metadados por tenant: `dataset_id` → `file_ingestions`, `fields_json` (nome lógico, coluna fonte, papel dimension/measure/attribute). |
+| **`file_ingestions.parsed_rows_json`** | Amostra/tabela columnar persistida no parse (até **50 000** linhas). Alimenta o motor de query; se vazio, a query tenta re-extrair do ficheiro em storage e faz backfill. |
+| **`POST /api/v1/query`** | Agregações allowlisted: `count`, `sum`, `avg`, `min`, `max` + `group_by` (dimensions) e filtros por igualdade em campos do modelo. Isolamento por `tenant_id` do JWT; limite de linhas na resposta (`limit` ≤ 5000). |
+
+Endpoints de governação: CRUD `/api/v1/semantic-models` (escrita `admin`/`analyst`; leitura qualquer papel do tenant).
+
+### Dashboards / workspace (TICKET-011) e Desktop publish
+
+| Artefacto | Função |
+|-----------|--------|
+| **`dashboards`** | Layout JSON, `status` `draft` \| `published` \| `archived`, `version`, `published_at`. |
+| **`dashboard_versions`** | Snapshot imutável do `layout_json` em cada publish. |
+| **`POST /api/v1/dashboards/{id}/publish`** | Marca `published`, grava versão, incrementa `version` em re-publish. |
+| **`/api/v1/desktop/*`** | `session`, `publish-dashboard` (cria + opcional publish); `publish-dataset` devolve mensagem clara se a fonte/sync não estiver disponível. |
+
+Widgets no layout referenciam `semantic_model_id` e medidas/dimensões; a execução de dados passa sempre por `/query`, nunca por SQL do browser.
 
 ## Regra central
 

@@ -11,3 +11,6 @@
 - Upload: `BillingService.ensure_upload_allowed` + `ensure_storage_for_new_upload` antes de persistir ingestão (cotas plano / utilizador / grupo)
 - `GET /api/v1/health/ready`: readiness com ping à BD (orquestração)
 - Migrações Alembic: revisões Core com prefixo `core__` no nome do ficheiro; dados/pipeline com `data__`; uma única head; validar com job CI `alembic-postgres` ou `./scripts/run-alembic-postgres-local.sh`
+- Semantic/query (TICKET-016): CRUD `/semantic-models`, `POST /query` com allowlist de campos; isolamento cross-tenant nos testes
+- Dashboards (TICKET-011): CRUD + `POST /dashboards/{id}/publish` com `dashboard_versions`
+- Desktop: `GET /desktop/session`, `POST /desktop/publish-dashboard`; `publish-dataset` com mensagem clara sem conectores

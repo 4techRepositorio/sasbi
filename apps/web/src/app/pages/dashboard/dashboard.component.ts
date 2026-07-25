@@ -2,17 +2,12 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { API_V1 } from '../../core/api-base';
 import { AuthService } from '../../core/auth.service';
-import { formatBytes } from '../../core/format-bytes';
-import {
-  groupStoragePercent,
-  tenantStoragePercent,
-  userStoragePercent,
-} from '../../core/storage-usage';
-import type { StorageContext } from '../../core/tenant-context';
+import { DashboardItem, DashboardsService } from '../../core/dashboards.service';
 import { TenantContextService } from '../../core/tenant-context.service';
 import { StorageQuotaBlockComponent } from '../../shared';
 
@@ -58,7 +53,8 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
             <p class="da-dash__welcome-kicker">Business Intelligence</p>
             <h1 class="da-dash__welcome-title">Dashboard</h1>
             <p class="da-dash__welcome-meta">
-              Visão executiva do pipeline e do catálogo — organização atual no contexto multitenant.
+              Visão executiva do pipeline, catálogo e dashboards publicados — organização
+              {{ tenantLabel() }}.
             </p>
           </div>
           <span class="da-dash__welcome-badge">Demo</span>
@@ -93,12 +89,48 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
           </section>
         }
 
+        <section class="da-dash__published" aria-labelledby="dash-pub-title">
+          <div class="da-dash__recent-head">
+            <h2 id="dash-pub-title" class="da-card__title">Dashboards publicados</h2>
+            <a routerLink="/app/dashboards" class="da-dash__link-all">Ver biblioteca</a>
+          </div>
+          @if (publishedLoading()) {
+            <p class="da-muted">A carregar dashboards…</p>
+          } @else if (publishedError()) {
+            <p class="da-err" role="alert">{{ publishedError() }}</p>
+          } @else if (!publishedDashboards().length) {
+            <p class="da-muted">
+              Ainda sem dashboards publicados.
+              @if (mayUpload()) {
+                <a routerLink="/app/dashboards">Criar e publicar</a>
+              }
+            </p>
+          } @else {
+            <div class="da-dash__pub-kpis">
+              @for (d of publishedDashboards(); track d.id) {
+                <a class="da-kpi da-kpi--link" [routerLink]="['/app/dashboards', d.id]">
+                  <span class="da-kpi__label">{{ d.name }}</span>
+                  <div class="da-kpi__row">
+                    <span class="da-kpi__value">{{ d.layout.widgets.length }}</span>
+                    <span class="da-kpi__trend">v{{ d.version }}</span>
+                  </div>
+                  <span class="da-kpi__hint">
+                    {{ d.layout.widgets.length }} widget(s) · abrir dashboard
+                  </span>
+                </a>
+              }
+            </div>
+          }
+        </section>
+
         @if (isEmptyWorkspace()) {
           <p class="da-dash__empty-hint da-muted">
             @if (mayUpload()) {
               Ainda sem dados neste tenant.
               <a routerLink="/app/upload">Enviar um ficheiro</a>
-              para iniciar o pipeline.
+              ou
+              <a routerLink="/app/data-sources">ligar uma fonte</a>
+              para iniciar.
             } @else {
               Ainda sem dados. Quando houver ingestões processadas, o resumo aparece aqui; consulte também o
               <a routerLink="/app/datasets">catálogo</a>.
@@ -125,7 +157,7 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
             <section class="da-spark-card" aria-labelledby="dash-spark-title">
               <div class="da-spark-card__head">
                 <h2 id="dash-spark-title" class="da-spark-card__title">Crescimento de dados</h2>
-                <p class="da-spark-card__sub">Evolução ilustrativa (alinhado ao mockup PDF — dados reais em roadmap).</p>
+                <p class="da-spark-card__sub">Evolução ilustrativa do pipeline neste tenant.</p>
               </div>
               <div class="da-spark-card__body">
                 <svg class="da-spark-svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
@@ -155,7 +187,7 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
             <section class="da-chart-card" aria-labelledby="dash-chart-title">
               <div class="da-chart-card__head">
                 <h2 id="dash-chart-title" class="da-chart-card__title">Uploads / pipeline por estado</h2>
-                <p class="da-chart-card__sub">Volume por fase no tenant atual (estilo barras do PDF).</p>
+                <p class="da-chart-card__sub">Volume por fase no tenant atual.</p>
               </div>
               <div class="da-chart-card__body">
                 <div class="da-bars" role="img" aria-label="Gráfico de barras por estado da ingestão">
@@ -215,9 +247,24 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
             <a routerLink="/app/upload" class="da-quick-card da-quick-card--blue">
               <span class="da-quick-card__icon" aria-hidden="true">📤</span>
               <h3 class="da-quick-card__title">Upload de dados</h3>
-              <p class="da-quick-card__sub">CSV, Excel, JSON — como no PDF.</p>
+              <p class="da-quick-card__sub">CSV, Excel, JSON e mais.</p>
+            </a>
+            <a routerLink="/app/data-sources" class="da-quick-card da-quick-card--magenta">
+              <span class="da-quick-card__icon" aria-hidden="true">🔌</span>
+              <h3 class="da-quick-card__title">Fontes de dados</h3>
+              <p class="da-quick-card__sub">Conectores e sincronização.</p>
+            </a>
+            <a routerLink="/app/semantic-models" class="da-quick-card da-quick-card--amber">
+              <span class="da-quick-card__icon" aria-hidden="true">📐</span>
+              <h3 class="da-quick-card__title">Modelos</h3>
+              <p class="da-quick-card__sub">Campos semânticos para queries.</p>
             </a>
           }
+          <a routerLink="/app/dashboards" class="da-quick-card da-quick-card--blue">
+            <span class="da-quick-card__icon" aria-hidden="true">📊</span>
+            <h3 class="da-quick-card__title">Dashboards</h3>
+            <p class="da-quick-card__sub">Biblioteca e canvas de edição.</p>
+          </a>
           <a routerLink="/app/datasets" class="da-quick-card da-quick-card--magenta">
             <span class="da-quick-card__icon" aria-hidden="true">📈</span>
             <h3 class="da-quick-card__title">Explorar catálogo</h3>
@@ -233,6 +280,8 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
         <p class="da-dash__foot">
           Catálogo de datasets prontos:
           <a routerLink="/app/datasets">{{ catalogTotal() | number }} no catálogo</a>
+          ·
+          <a routerLink="/app/dashboards">{{ publishedCount() | number }} dashboard(s) publicados</a>
         </p>
       }
     </div>
@@ -306,18 +355,54 @@ const PIPELINE_STATUSES = ['uploaded', 'validating', 'parsing', 'processed', 'fa
         font-size: 0.88rem;
         line-height: 1.55;
       }
+      .da-dash__published {
+        margin-bottom: 1.5rem;
+        padding: 1.1rem 1.25rem;
+        background: var(--da-bg-card);
+        border: 1px solid var(--da-border);
+        border-radius: var(--da-radius);
+        box-shadow: var(--da-shadow-card);
+      }
+      .da-dash__pub-kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.85rem;
+        margin-top: 0.85rem;
+      }
+      .da-kpi--link {
+        text-decoration: none;
+        color: inherit;
+        transition:
+          transform 0.12s ease,
+          border-color 0.12s ease;
+      }
+      .da-kpi--link:hover {
+        transform: translateY(-2px);
+        border-color: rgba(233, 30, 99, 0.35);
+      }
     `,
   ],
 })
 export class DashboardComponent implements OnInit {
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
+  private readonly dashboardsApi = inject(DashboardsService);
   readonly tenantCtx = inject(TenantContextService);
 
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly catalogTotal = signal(0);
   readonly ingestions = signal<IngestionRow[]>([]);
+  readonly publishedDashboards = signal<DashboardItem[]>([]);
+  readonly publishedLoading = signal(true);
+  readonly publishedError = signal<string | null>(null);
+
+  readonly publishedCount = computed(() => this.publishedDashboards().length);
+
+  readonly tenantLabel = computed(() => {
+    const ctx = this.tenantCtx.context();
+    return ctx?.tenant_name ?? ctx?.tenant_slug ?? ctx?.tenant_id ?? 'atual';
+  });
 
   readonly kpis = computed((): DashboardKpi[] => {
     const list = this.ingestions();
@@ -326,7 +411,7 @@ export class DashboardComponent implements OnInit {
       ['uploaded', 'validating', 'parsing'].includes(r.status),
     ).length;
     const failed = list.filter((r) => r.status === 'failed').length;
-    const total = list.length;
+    const pub = this.publishedCount();
     return [
       {
         id: 'cat',
@@ -353,12 +438,12 @@ export class DashboardComponent implements OnInit {
         trendNeutral: failed === 0,
       },
       {
-        id: 'all',
-        label: 'Total ingestões',
-        value: total,
-        hint: 'Histórico',
-        trend: total > 0 ? '+8%' : '—',
-        trendNeutral: total === 0,
+        id: 'pub',
+        label: 'Dashboards publicados',
+        value: pub,
+        hint: 'Biblioteca BI',
+        trend: pub > 0 ? 'ativo' : '—',
+        trendNeutral: pub === 0,
       },
     ];
   });
@@ -405,18 +490,29 @@ export class DashboardComponent implements OnInit {
   load(): void {
     this.loading.set(true);
     this.error.set(null);
+    this.publishedLoading.set(true);
+    this.publishedError.set(null);
     this.tenantCtx.load().subscribe({ error: () => undefined });
     forkJoin({
       datasets: this.http.get<DatasetPaginated>(`${API_V1}/datasets`),
       ingestions: this.http.get<IngestionRow[]>(`${API_V1}/ingestions`),
+      published: this.dashboardsApi.list({ status: 'published', limit: 12 }).pipe(
+        catchError(() => {
+          this.publishedError.set('Não foi possível carregar dashboards publicados.');
+          return of({ items: [] as DashboardItem[], total: 0, limit: 12, offset: 0 });
+        }),
+      ),
     }).subscribe({
-      next: ({ datasets, ingestions }) => {
+      next: ({ datasets, ingestions, published }) => {
         this.catalogTotal.set(datasets.total ?? 0);
         this.ingestions.set(ingestions);
+        this.publishedDashboards.set(published.items ?? []);
+        this.publishedLoading.set(false);
         this.loading.set(false);
       },
       error: () => {
         this.loading.set(false);
+        this.publishedLoading.set(false);
         this.error.set('Não foi possível carregar o dashboard.');
       },
     });

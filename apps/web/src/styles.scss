@@ -1496,3 +1496,113 @@ h3,
   height: 120px;
   display: block;
 }
+
+/* ——— Modais / drawers BI (fontes, modelos, sync) ——— */
+.da-modal-backdrop,
+.da-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 40;
+}
+
+.da-modal {
+  position: fixed;
+  z-index: 50;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(640px, calc(100vw - 2rem));
+  max-height: min(88vh, 820px);
+  display: flex;
+  flex-direction: column;
+  background: var(--da-bg-card);
+  border-radius: var(--da-radius);
+  border: 1px solid var(--da-border);
+  box-shadow: var(--da-shadow-elevated);
+}
+
+.da-modal--wide {
+  width: min(840px, calc(100vw - 2rem));
+}
+
+.da-modal__head,
+.da-drawer__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--da-border);
+}
+
+.da-modal__head h3,
+.da-drawer__head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--da-font-display);
+}
+
+.da-modal__close {
+  border: none;
+  background: #f1f5f9;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--da-text-secondary);
+}
+
+.da-modal__body,
+.da-drawer__body {
+  padding: 1rem 1.15rem;
+  overflow: auto;
+  flex: 1;
+}
+
+.da-modal__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.85rem 1.15rem;
+  border-top: 1px solid var(--da-border);
+}
+
+.da-modal__foot-right {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.da-wizard-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-bottom: 1px solid var(--da-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--da-text-muted);
+}
+
+.da-wizard-steps .active {
+  color: var(--da-accent-hover);
+}
+
+.da-drawer {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  right: 0;
+  width: min(420px, 100vw);
+  height: 100vh;
+  background: var(--da-bg-card);
+  border-left: 1px solid var(--da-border);
+  box-shadow: var(--da-shadow-elevated);
+  display: flex;
+  flex-direction: column;
+}
