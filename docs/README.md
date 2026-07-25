@@ -26,7 +26,7 @@ Toda documentação técnica deve responder: **o que faz**, **como funciona**, *
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
-| [AGENTS.md](./AGENTS.md) | Papéis de agentes |
+| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. AI Workflow Designer) |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição, gates locais, Dependabot, troubleshooting npm |
 | [SECURITY.md (raiz)](../SECURITY.md) | Entrada GitHub *Security policy* → remete a `docs/SECURITY.md` |
 | [CHANGELOG.md](../CHANGELOG.md) | Histórico de alterações |
@@ -94,6 +94,7 @@ Runtime (API no ar): `/docs` · `/redoc` · `/openapi.json`. Regenerar: `./scrip
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
 | [CHECKLISTS/qa-checklist.md](./CHECKLISTS/qa-checklist.md) | QA |
+| [CHECKLISTS/ai-workflow-checklist.md](./CHECKLISTS/ai-workflow-checklist.md) | Pipelines inteligentes (7 estágios + bounds) |
 
 ## E2E e CI
 
