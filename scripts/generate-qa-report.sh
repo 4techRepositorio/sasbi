@@ -45,6 +45,7 @@ e2e_tests = sorted((root / "e2e/tests").glob("*.spec.ts"))
 
 # Lacunas conhecidas / prioridade (mantidas pelo skill QA; actualizar quando cobrir).
 missing_scenarios = [
+    ("P0", "Restaurar cobertura ≥90% após onda BI (connectors, dashboards, semantic, connector_sync)"),
     ("P0", "Stress/load real (k6/locust) contra API+Postgres em staging"),
     ("P0", "E2E browser: upload → parse → catálogo (fluxo feliz completo)"),
     ("P1", "Concorrência TOCTOU de upload/billing em Postgres (não SQLite)"),
@@ -56,6 +57,7 @@ missing_scenarios = [
 ]
 
 risks = [
+    "Pós-merge main (onda BI): cobertura global pode ficar <90% até cobrir módulos novos.",
     "Suite API usa SQLite in-memory — divergências Postgres (tipos, locking) podem escapar.",
     "Limiter desligado por defeito em conftest; só testes marcados security/rate-limit o activam.",
     "E2E browser depende de credenciais/seed; sem env fica skipped (exit 0).",

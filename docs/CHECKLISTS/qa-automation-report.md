@@ -1,10 +1,10 @@
 # Relatório QA Automation
 
-_Gerado em 2026-07-25 21:29 UTC por `scripts/generate-qa-report.sh`._
+_Gerado em 2026-07-25 21:47 UTC por `scripts/generate-qa-report.sh`._
 
 ## Cobertura
 
-- **Total:** 94.9% (1261/1303 linhas; em falta: 42)
+- **Total:** 86.3% (1885/2106 linhas; em falta: 221)
 - **Meta:** ≥ 90% (`fail_under` em `.coveragerc`)
 - Artefacto JSON: `.qa-coverage/coverage.json`
 
@@ -12,14 +12,23 @@ _Gerado em 2026-07-25 21:29 UTC por `scripts/generate-qa-report.sh`._
 
 | Ficheiro | Cobertura | Linhas em falta |
 |----------|-----------|-----------------|
-| `apps/api/fourpro_api/jobs/ingestion_parse.py` | 79.6% | 17 |
+| `apps/api/fourpro_api/jobs/connector_sync.py` | 57.9% | 23 |
+| `apps/api/fourpro_api/jobs/ingestion_parse.py` | 77.6% | 20 |
+| `apps/api/fourpro_api/repositories/dashboard_repository.py` | 44.4% | 25 |
+| `apps/api/fourpro_api/repositories/data_source_repository.py` | 64.9% | 23 |
 | `apps/api/fourpro_api/repositories/mfa_repository.py` | 75.6% | 5 |
+| `apps/api/fourpro_api/repositories/semantic_repository.py` | 79.3% | 5 |
+| `apps/api/fourpro_api/routers/connectors.py` | 63.7% | 31 |
+| `apps/api/fourpro_api/routers/dashboards.py` | 66.7% | 20 |
+| `apps/api/fourpro_api/routers/semantic.py` | 60.9% | 36 |
 | `apps/api/fourpro_api/services/auth_service.py` | 88.6% | 7 |
 | `apps/api/fourpro_api/services/billing_service.py` | 89.7% | 4 |
+| `apps/api/fourpro_api/services/credential_vault.py` | 81.8% | 3 |
+| `apps/api/fourpro_api/services/governance_service.py` | 86.0% | 4 |
 
 ## Inventário de testes
 
-- API pytest: **32** ficheiros em `apps/api/tests/`
+- API pytest: **38** ficheiros em `apps/api/tests/`
 - E2E Playwright: **6** specs em `e2e/tests/`
 
 ### Tipos cobertos nesta esteira
@@ -37,6 +46,7 @@ _Gerado em 2026-07-25 21:29 UTC por `scripts/generate-qa-report.sh`._
 
 ## Riscos
 
+- **Pós-merge `main` (onda BI #46):** cobertura global caiu de ~95% para **86.3%** — o gate `fail_under=90` fica vermelho até cobrir connectors/dashboards/semantic/repos novos.
 - Suite API usa SQLite in-memory — divergências Postgres (tipos, locking) podem escapar.
 - Limiter desligado por defeito em conftest; só testes marcados security/rate-limit o activam.
 - E2E browser depende de credenciais/seed; sem env fica skipped (exit 0).
@@ -51,6 +61,7 @@ _Gerado em 2026-07-25 21:29 UTC por `scripts/generate-qa-report.sh`._
 
 | Prioridade | Cenário |
 |------------|---------|
+| P0 | Restaurar cobertura ≥90% após onda BI (connectors, dashboards, semantic, connector_sync) |
 | P0 | Stress/load real (k6/locust) contra API+Postgres em staging |
 | P0 | E2E browser: upload → parse → catálogo (fluxo feliz completo) |
 | P1 | Concorrência TOCTOU de upload/billing em Postgres (não SQLite) |
