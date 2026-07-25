@@ -106,7 +106,7 @@ Abre esse ficheiro, escolhe a secção **C0** … **C6**, copia o bloco `text` i
 |-----------|-----|
 | [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | Ondas, prompts longos por agente |
 | [EXECUCAO-MESTRE.md](./EXECUCAO-MESTRE.md) | Gates G0–G4, dependências entre tickets |
-| [docs/AGENTS.md](../AGENTS.md) | Papéis da squad (incl. Multi-Agent Systems Architect §8) |
+| [docs/AGENTS.md](../AGENTS.md) | Papéis da squad (incl. Multi-Agent Systems Architect §10) |
 | [../CHECKLISTS/multi-agent-orchestration-checklist.md](../CHECKLISTS/multi-agent-orchestration-checklist.md) | DoD ao redesenhar orquestrações |
 | [`.cursor/skills/multi-agent-systems-architect/SKILL.md`](../../.cursor/skills/multi-agent-systems-architect/SKILL.md) | Framework de desenho multiagente (quem / filas / DLQ) |
 | [docs/adr/000-contract-slices.md](../adr/000-contract-slices.md) | Cortes de `fourpro_contracts` |
