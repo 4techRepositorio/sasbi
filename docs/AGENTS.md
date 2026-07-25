@@ -55,7 +55,7 @@ Responsável por:
 - versionamento de datasets
 
 ## 6. Frontend Architect
-Responsável por:
+Responsável por aplicações UI **escaláveis**, **modulares**, **performáticas** e **reutilizáveis**:
 - arquitectura UI (Feature-First, Atomic Design)
 - login, admin, workspace, upload UI, dashboards
 - UX por tenant e indicação clara do tenant activo
@@ -63,8 +63,10 @@ Responsável por:
 - componentes reutilizáveis (props tipadas, docs, exemplo, testes)
 - design system e fronteira Server/Client (stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md))
 - implementação actual em `apps/web` (Angular) até aceite da migração
+- **nunca** misturar React em `apps/web` sem ADR-002 aceite
 
-Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).
+Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).  
+Agente Cursor: [`.cursor/agents/frontend.md`](../.cursor/agents/frontend.md).
 
 ## 6.1 Figma Design Specialist
 Responsável por transformar requisitos e wireframes em **protótipos Figma** como sistema (nunca telas isoladas).

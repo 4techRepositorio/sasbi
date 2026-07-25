@@ -34,15 +34,17 @@ Formalizar o papel **Frontend Architect** e o stack alvo (React, Next.js, TypeSc
 
 1. [x] Publicar skills e documentação
 2. [x] ADR-002 proposto
-3. [ ] Revisão Product/Architect — aceitar ou rejeitar ADR-002
-4. [ ] Se aceite: ticket de scaffold Next + plano de migração por fatias
-5. [ ] Se rejeitado: manter Angular e arquivar stack alvo como referência opcional
+3. [x] Diretrizes operacionais (`FRONTEND_ARCHITECTURE.md`) + agente Cursor alinhado
+4. [ ] Revisão Product/Architect — aceitar ou rejeitar ADR-002
+5. [ ] Se aceite: ticket de scaffold Next + plano de migração por fatias
+6. [ ] Se rejeitado: manter Angular e arquivar stack alvo como referência opcional
 
 ## Critérios de aceite
 
 - [x] Skill e docs disponíveis no repo
 - [x] Agents não misturam React em `apps/web` sem ADR aceite
 - [x] Checklist frontend inclui critérios de arquitectura
+- [x] Diretrizes Feature-First / Atomic Design / contrato de componente publicadas
 - [ ] Decisão explícita sobre ADR-002 registada (aceite / rejeitado / adiado)
 
 ## Riscos

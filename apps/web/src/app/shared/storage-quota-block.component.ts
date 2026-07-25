@@ -17,6 +17,18 @@ export type StorageQuotaMetaStyle = 'short' | 'verbose';
 /**
  * Bloco reutilizável: barra + texto de quotas de armazenamento (tenant / utilizador / grupo).
  * Estilos globais: `.da-storage`, `.da-storage--compact`, `.da-storage--card`, `.da-storage--dash`.
+ *
+ * Referência do contrato Frontend Architect (props tipadas + docs + exemplo).
+ *
+ * @example
+ * ```html
+ * <app-storage-quota-block
+ *   [storage]="storageCtx"
+ *   variant="compact"
+ *   metaStyle="short"
+ *   [showLabel]="false"
+ * />
+ * ```
  */
 @Component({
   selector: 'app-storage-quota-block',
