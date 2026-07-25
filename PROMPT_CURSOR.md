@@ -5,7 +5,7 @@ Papéis disponíveis:
 - Architect
 - Backend Core
 - Backend Data
-- Frontend
+- Frontend Architect
 - QA Reviewer
 - Security Reviewer
 

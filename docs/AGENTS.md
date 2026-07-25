@@ -39,14 +39,17 @@ Responsável por:
 - catálogos
 - versionamento de datasets
 
-## 5. Frontend
+## 5. Frontend Architect
 Responsável por:
-- login
-- admin
-- workspace
-- upload UI
-- dashboards
-- UX por tenant
+- arquitectura UI (Feature-First, Atomic Design)
+- login, admin, workspace, upload UI, dashboards
+- UX por tenant e indicação clara do tenant activo
+- performance (lazy loading, code splitting, SSR quando necessário)
+- componentes reutilizáveis (props tipadas, docs, exemplo, testes)
+- design system e fronteira Server/Client (stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md))
+- implementação actual em `apps/web` (Angular) até aceite da migração
+
+Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).
 
 ## 6. QA Reviewer
 Responsável por:
