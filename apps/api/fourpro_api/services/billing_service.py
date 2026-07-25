@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from fourpro_api.core.principal import Principal
 from fourpro_api.models.tenant import Tenant, TenantQuotaGroup
+from fourpro_api.repositories.data_source_repository import DataSourceRepository
 from fourpro_api.repositories.ingestion_repository import IngestionRepository
 from fourpro_api.repositories.membership_repository import MembershipRepository
 from fourpro_api.repositories.plan_repository import PlanRepository
@@ -92,6 +93,21 @@ class BillingService:
             raise HTTPException(
                 status_code=status.HTTP_402_PAYMENT_REQUIRED,
                 detail="Limite mensal de uploads do plano excedido",
+            )
+
+    def ensure_data_source_allowed(self, tenant_id: UUID) -> None:
+        """Limite de fontes de dados activas por plano (TICKET-015)."""
+        plan = self._plans.get_plan_for_tenant(tenant_id)
+        if plan is None:
+            raise HTTPException(
+                status_code=status.HTTP_402_PAYMENT_REQUIRED,
+                detail="Tenant sem plano ativo",
+            )
+        used = DataSourceRepository(self._db).count_for_tenant(tenant_id)
+        if used >= plan.max_data_sources:
+            raise HTTPException(
+                status_code=status.HTTP_402_PAYMENT_REQUIRED,
+                detail="Limite de fontes de dados do plano excedido",
             )
 
     def ensure_storage_for_new_upload(

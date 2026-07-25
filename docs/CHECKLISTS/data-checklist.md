@@ -5,3 +5,6 @@
 - parsing criado
 - logs e status registrados
 - reprocessamento considerado
+- parse persiste `parsed_rows_json` (cap 50k linhas) para motor de query semântico
+- modelos `semantic_models` / `dashboards` / `dashboard_versions` com `tenant_id` e migração `data__`
+- conectores (TICKET-015): `data_sources` + vault; sync → FileIngestion; secrets nunca em GET

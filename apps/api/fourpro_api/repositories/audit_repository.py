@@ -19,6 +19,9 @@ class AuditAction:
     TENANT_QUOTA_GROUP_UPDATED = "tenant.quota_group.updated"
     TENANT_QUOTA_GROUP_DELETED = "tenant.quota_group.deleted"
     TENANT_MEMBER_QUOTAS_UPDATED = "tenant.member.quotas_updated"
+    DATA_SOURCE_CREATED = "data_source.created"
+    DATA_SOURCE_TESTED = "data_source.tested"
+    DATA_SOURCE_SYNC_ENQUEUED = "data_source.sync_enqueued"
 
 
 class AuditRepository:

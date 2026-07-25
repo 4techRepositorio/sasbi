@@ -33,6 +33,7 @@ def main() -> None:
                     max_uploads_per_month=500,
                     max_storage_mb=5120,
                     max_concurrent_jobs=3,
+                    max_data_sources=10,
                     created_at=now,
                 )
                 pro = Plan(
@@ -42,6 +43,7 @@ def main() -> None:
                     max_uploads_per_month=5000,
                     max_storage_mb=51200,
                     max_concurrent_jobs=10,
+                    max_data_sources=25,
                     created_at=now,
                 )
                 db.add_all([starter, pro])

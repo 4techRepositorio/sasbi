@@ -87,6 +87,7 @@ def reprocess_ingestion(
         friendly_error=None,
         technical_log=None,
         result_summary=None,
+        parsed_rows_json=None,
     )
     db.refresh(row)
     enqueue_ingestion_parse(str(row.id))

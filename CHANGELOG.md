@@ -2,7 +2,10 @@
 
 ## [Unreleased]
 
-- **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
+- **TICKET-015 Conectores:** `packages/connectors` (SPI + 6 plugins); vault Fernet; data-sources + sync worker; quota `plans.max_data_sources`.
+- **TICKET-016 / 011:** modelo semântico, `/query` agregada, dashboards Web (canvas + publish), UI Fontes/Modelos/Dashboards.
+- **TICKET-017 Desktop:** Electron + Vite; auth `safeStorage`; wizard fontes; publish dataset (sync) e dashboard.
+- **Plataforma BI (planeamento + agentes):** ADR-001/002; tickets 015–017; `.cursor/agents/` para paralelismo.
 
 ## [0.1.0] — 2026-03-27
 

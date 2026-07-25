@@ -1,5 +1,3 @@
-import csv
-import json
 import logging
 from pathlib import Path
 from uuid import UUID
@@ -9,11 +7,10 @@ from sqlalchemy.orm import Session
 from fourpro_api.config import get_settings
 from fourpro_api.db.session import get_session_maker
 from fourpro_api.repositories.ingestion_repository import IngestionRepository
+from fourpro_api.services.tabular_extract import extract_tabular_rows
 from fourpro_api.services.upload_validation import UploadContentError, validate_upload_content
 
 logger = logging.getLogger(__name__)
-
-_MAX_TEXT_SCAN = 20_000_000
 
 
 def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None:
@@ -29,7 +26,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
             logger.warning("ingestion_not_found", extra={"id": ingestion_id})
             return
 
-        repo.update(row, status="validating")
+        repo.update(row, status="validating", parsed_rows_json=None)
         path = Path(row.storage_path)
         if not path.exists():
             repo.update(
@@ -37,6 +34,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 status="failed",
                 friendly_error="Arquivo não encontrado no storage",
                 technical_log=f"missing path {path}",
+                parsed_rows_json=None,
             )
             return
 
@@ -47,6 +45,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 status="failed",
                 friendly_error="O arquivo no servidor não coincide com o registo de upload",
                 technical_log=f"size_bytes_db={row.size_bytes} size_on_disk={disk_size}",
+                parsed_rows_json=None,
             )
             return
 
@@ -58,6 +57,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 status="failed",
                 friendly_error="Arquivo excede o tamanho máximo permitido",
                 technical_log=f"size={disk_size} max={max_b}",
+                parsed_rows_json=None,
             )
             return
 
@@ -70,63 +70,31 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 status="failed",
                 friendly_error=str(e),
                 technical_log=f"validation_failed: {e}",
+                parsed_rows_json=None,
             )
             return
 
-        ext = path.suffix.lower().lstrip(".")
         try:
             repo.update(row, status="parsing")
-            if ext in ("csv", "txt"):
-                text = body.decode("utf-8", errors="replace")
-                if len(text) > _MAX_TEXT_SCAN:
-                    text = text[:_MAX_TEXT_SCAN]
-                if ext == "csv":
-                    reader = csv.reader(text.splitlines())
-                    n = sum(1 for _ in reader)
-                    summary = f"csv_rows_estimated={n}"
-                else:
-                    summary = f"txt_len={len(text)}"
-            elif ext == "json":
-                data = json.loads(body.decode("utf-8", errors="strict"))
-                if isinstance(data, dict):
-                    summary = f"json_keys={len(data)}"
-                elif isinstance(data, list):
-                    summary = f"json_list_len={len(data)}"
-                else:
-                    summary = "json_scalar"
-            elif ext in ("xlsx", "xls"):
-                try:
-                    from fourpro_shared.spreadsheet import (
-                        SpreadsheetSummaryError,
-                        summarize_workbook,
-                    )
-
-                    summary = summarize_workbook(path)
-                except SpreadsheetSummaryError as e:
-                    repo.update(
-                        row,
-                        status="failed",
-                        friendly_error="Não foi possível ler a folha de cálculo",
-                        technical_log=str(e),
-                    )
-                    return
-                except Exception as e:
-                    logger.exception(
-                        "spreadsheet_parse_error", extra={"ingestion_id": ingestion_id}
-                    )
-                    repo.update(
-                        row,
-                        status="failed",
-                        friendly_error="Erro ao ler XLS/XLSX",
-                        technical_log=str(e),
-                    )
-                    return
-            else:
+            try:
+                rows, summary, _truncated = extract_tabular_rows(path, body=body)
+            except ValueError as e:
                 repo.update(
                     row,
                     status="failed",
                     friendly_error="Tipo não suportado nesta versão",
-                    technical_log=f"ext={ext}",
+                    technical_log=str(e),
+                    parsed_rows_json=None,
+                )
+                return
+            except Exception as e:
+                logger.exception("tabular_extract_error", extra={"ingestion_id": ingestion_id})
+                repo.update(
+                    row,
+                    status="failed",
+                    friendly_error="Erro ao processar o arquivo",
+                    technical_log=str(e),
+                    parsed_rows_json=None,
                 )
                 return
 
@@ -134,6 +102,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 row,
                 status="processed",
                 result_summary=summary,
+                parsed_rows_json=rows,
                 technical_log=None,
                 friendly_error=None,
             )
@@ -144,6 +113,7 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
                 status="failed",
                 friendly_error="Erro ao processar o arquivo",
                 technical_log=str(e),
+                parsed_rows_json=None,
             )
     finally:
         if own_session:

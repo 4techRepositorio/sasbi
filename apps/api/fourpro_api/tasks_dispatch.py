@@ -40,3 +40,36 @@ def enqueue_ingestion_parse(ingestion_id: str) -> None:
         from fourpro_api.jobs.ingestion_parse import run_ingestion_parse
 
         run_ingestion_parse(ingestion_id)
+
+
+def enqueue_data_source_sync(
+    sync_run_id: str,
+    *,
+    mode: str = "full",
+    sample_limit: int = 10_000,
+    db=None,
+) -> None:
+    """Enfileira extract de fonte de dados (`fourpro.sync_data_source`).
+
+    Sem Redis, corre em processo se INGESTION_SYNC_PARSE_FALLBACK estiver ativo
+    (mesmo flag usado pelo parse síncrono em testes/dev).
+    Se `db` for passado no fallback, reutiliza a sessão (necessário em SQLite :memory:).
+    """
+    settings = get_settings()
+    if settings.redis_url:
+        try:
+            app = _get_celery_app(settings.redis_url)
+            app.send_task(
+                "fourpro.sync_data_source",
+                args=[sync_run_id],
+                kwargs={"mode": mode, "sample_limit": sample_limit},
+            )
+            logger.info("data_source_sync_enqueued", extra={"id": sync_run_id})
+            return
+        except Exception:
+            logger.exception("celery_enqueue_sync_failed")
+    if _sync_fallback_enabled():
+        logger.info("data_source_sync_fallback", extra={"id": sync_run_id})
+        from fourpro_api.services.data_source_service import run_data_source_sync
+
+        run_data_source_sync(sync_run_id, mode=mode, sample_limit=sample_limit, db=db)

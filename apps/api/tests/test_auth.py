@@ -36,6 +36,7 @@ def _bind_tenant(db: Session, user: User, role: str = "admin") -> uuid.UUID:
         max_uploads_per_month=100,
         max_storage_mb=1000,
         max_concurrent_jobs=2,
+        max_data_sources=10,
         created_at=now,
     )
     tenant = Tenant(

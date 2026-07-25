@@ -61,6 +61,7 @@ class IngestionRepository:
         friendly_error: Any = _UNSET,
         technical_log: Any = _UNSET,
         result_summary: Any = _UNSET,
+        parsed_rows_json: Any = _UNSET,
     ) -> None:
         now = datetime.now(tz=UTC)
         if status is not None:
@@ -71,6 +72,8 @@ class IngestionRepository:
             row.technical_log = technical_log
         if result_summary is not _UNSET:
             row.result_summary = result_summary
+        if parsed_rows_json is not _UNSET:
+            row.parsed_rows_json = parsed_rows_json
         row.updated_at = now
         self._db.add(row)
         self._db.commit()

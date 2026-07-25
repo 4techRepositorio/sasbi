@@ -37,6 +37,12 @@ function isAdmin(role: string | null | undefined): boolean {
             class="da-shell__link"
             >Dashboard</a
           >
+          <a
+            routerLink="/app/dashboards"
+            routerLinkActive="da-shell__link--active"
+            class="da-shell__link"
+            >Dashboards</a
+          >
         </nav>
         <p class="da-shell__label">ETL &amp; dados</p>
         <nav class="da-shell__nav">
@@ -46,6 +52,18 @@ function isAdmin(role: string | null | undefined): boolean {
               routerLinkActive="da-shell__link--active"
               class="da-shell__link"
               >Upload</a
+            >
+            <a
+              routerLink="/app/data-sources"
+              routerLinkActive="da-shell__link--active"
+              class="da-shell__link"
+              >Fontes de dados</a
+            >
+            <a
+              routerLink="/app/semantic-models"
+              routerLinkActive="da-shell__link--active"
+              class="da-shell__link"
+              >Modelos</a
             >
           }
           <a
@@ -165,7 +183,13 @@ export class ShellComponent implements OnInit {
     return 'Workspace';
   });
 
-  readonly fluidLayout = computed(() => this.activeUrl().includes('/app/dashboard'));
+  readonly fluidLayout = computed(() => {
+    const url = this.activeUrl().split('?')[0];
+    if (url === '/app/dashboard' || url.endsWith('/app/dashboard')) {
+      return true;
+    }
+    return /\/app\/dashboards\/[^/]+$/.test(url);
+  });
 
   /** Repete o tenant na topbar (requisito UX administrativa). */
   readonly tenantTopChip = computed(() => {

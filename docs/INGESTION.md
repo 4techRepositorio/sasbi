@@ -11,8 +11,22 @@
 8. logs
 9. status final
 
-Hoje a aquisição em produção é **upload de ficheiro**. O programa de conectores
-unifica fontes (SQL, REST, etc.) no mesmo ciclo de status — ver
+## Fontes de dados (conectores)
+
+Além de `POST /api/v1/uploads`, a aquisição pode vir de uma **fonte** (`data_sources`):
+
+1. `GET /api/v1/connectors` — catálogo de tipos (`file`, `postgres`, `mysql`, `sqlserver`, `rest_json`, `s3_compatible`).
+2. CRUD em `/api/v1/data-sources` — config sem segredos; `secret` só em create/patch (nunca em GET).
+3. `POST .../test`, `.../discover`, `.../sample-schema`, `.../sync`.
+4. Worker `fourpro.sync_data_source`: extract → ficheiro em stage → `FileIngestion` → mesmo pipeline de parse.
+
+Credenciais: tabela `connector_credentials` (Fernet; `CREDENTIALS_FERNET_KEY` ou derivação de `JWT_SECRET` só em dev).
+
+**Billing:** `BillingService.ensure_data_source_allowed` exige plano activo; limite `max_data_sources` no plano é stub até migração futura.
+
+SPI interno: `packages/connectors` (ver README do pacote).
+
+Hoje a aquisição em produção combina **upload de ficheiro** e **sync de conector** no mesmo ciclo de status — ver
 [`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md).
 
 ## Status mínimos

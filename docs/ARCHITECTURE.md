@@ -3,7 +3,7 @@
 ## Blocos
 
 - **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
-- **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
+- **Desktop App** — `apps/desktop` (TICKET-017): Electron + Vite + TypeScript + React (só neste app); autoração e publicação para o tenant; mesmo auth/contratos que a API. Ver [`apps/desktop/ADR-RUNTIME.md`](../apps/desktop/ADR-RUNTIME.md) / [ADR-002](./adr/002-desktop-runtime.md).
 - **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
 - **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
 - **PostgreSQL** — dados de aplicativo e, no futuro, camadas analíticas conforme ADR.
@@ -13,7 +13,7 @@
 ## Pacotes
 
 - `packages/contracts` — DTOs Pydantic compartilhados (`fourpro_contracts`): `auth`, `ingestion`, `dataset`, `tenant`, `billing` (contexto `/me/context` e limites de plano); evolução `connectors`, `semantic`, `desktop_sync`. Ver [docs/adr/000-contract-slices.md](./adr/000-contract-slices.md). **Edição deste pacote:** Frente Architect (gestão em [5 frentes paralelas](./plans/PARALELA-5-FRENTES.md)); impacto documentado aqui ou em ADR.
-- `packages/connectors` — SPI e plugins de fontes de dados (planeado, TICKET-015).
+- `packages/connectors` — SPI e plugins de fontes de dados (`file`, `postgres`, `mysql`, `sqlserver`, `rest_json`, `s3_compatible`); registry + allowlist SSRF / SQL seguro (TICKET-015).
 - `packages/ui` — biblioteca opcional de componentes partilhados do `apps/web` (ver `packages/ui/README.md`); evolução coordenada com a Frente Architect quando afectar contratos visuais ou tokens; reutilização no Desktop quando possível.
 - `packages/shared` — utilitários comuns (API + worker).
 
@@ -49,7 +49,7 @@ A API é um único serviço FastAPI; a **equipa** divide responsabilidades para 
 | Frente | Dono típico (HTTP / domínio) | Não é dono de |
 |--------|------------------------------|---------------|
 | **Backend Core (F2)** | `auth`, `me` (incl. contexto e uso de armazenamento), `tenant` (membros, grupos de quota, quotas por utilizador), serviços de billing chamados por outros módulos, `health` | Rotas de `uploads`, `ingestions`, `datasets`; `ingestion_repository`; jobs de parsing |
-| **Backend Data (F3)** | `uploads`, `ingestions`, `datasets`, validação de conteúdo de ficheiro, filas/jobs de pipeline | `main.py` e agregação de routers (integração é PR **F2**); modelos Core (`user`, `tenant`, `plan`, …) |
+| **Backend Data (F3)** | `uploads`, `ingestions`, `datasets`, `connectors`/`data-sources`, `semantic-models`, `query`, `dashboards`, `desktop` (publish), validação de conteúdo de ficheiro, filas/jobs de pipeline | `main.py` e agregação de routers (integração é PR **F2**); modelos Core (`user`, `tenant`, `plan`, …) |
 
 **Contratos** (`fourpro_contracts`) são transversais: F1 define DTOs; F2/F3 **importam** e não duplicam shapes (ver [ADR 000](./adr/000-contract-slices.md)). O catálogo (`DatasetItem`) reflete apenas linhas **processadas**; o histórico de pipeline (`IngestionItem`) usa o conjunto fechado de estados `uploaded` → `validating` → `parsing` → `processed` | `failed`, tipado em `fourpro_contracts.ingestion` — novos estados exigem migração de dados + alteração F1 ao contrato e nota aqui ou em ADR.
 
@@ -95,6 +95,29 @@ O produto aplica **três níveis** de limite sobre o total de bytes persistidos 
 **Impacto:** qualquer cliente (web, integrações) que consuma `/me/context` deve tolerar o campo opcional `storage`; UI de gestão de quotas é evolução da Frente Frontend.
 
 **Operação:** em deploy com contentores, o entrypoint da API aplica migrações ao arranque; rebuild da imagem incorpora `packages/contracts`. Detalhes e checklist staging/produção: `infra/portainer/README.md` (secção *Migrações e pacote contracts*); migração manual só com Postgres local: `scripts/run-db-migrate.sh`. Paridade com o CI (Postgres vazio + cadeia Alembic): `scripts/run-alembic-postgres-local.sh` (Docker).
+
+### Camada semântica e query (TICKET-016)
+
+A API expõe um **modelo semântico** por dataset processado e um motor de **query agregada** sem SQL arbitrário do cliente.
+
+| Artefacto | Função |
+|-----------|--------|
+| **`semantic_models`** | Metadados por tenant: `dataset_id` → `file_ingestions`, `fields_json` (nome lógico, coluna fonte, papel dimension/measure/attribute). |
+| **`file_ingestions.parsed_rows_json`** | Amostra/tabela columnar persistida no parse (até **50 000** linhas). Alimenta o motor de query; se vazio, a query tenta re-extrair do ficheiro em storage e faz backfill. |
+| **`POST /api/v1/query`** | Agregações allowlisted: `count`, `sum`, `avg`, `min`, `max` + `group_by` (dimensions) e filtros por igualdade em campos do modelo. Isolamento por `tenant_id` do JWT; limite de linhas na resposta (`limit` ≤ 5000). |
+
+Endpoints de governação: CRUD `/api/v1/semantic-models` (escrita `admin`/`analyst`; leitura qualquer papel do tenant).
+
+### Dashboards / workspace (TICKET-011) e Desktop publish
+
+| Artefacto | Função |
+|-----------|--------|
+| **`dashboards`** | Layout JSON, `status` `draft` \| `published` \| `archived`, `version`, `published_at`. |
+| **`dashboard_versions`** | Snapshot imutável do `layout_json` em cada publish. |
+| **`POST /api/v1/dashboards/{id}/publish`** | Marca `published`, grava versão, incrementa `version` em re-publish. |
+| **`/api/v1/desktop/*`** | `session`, `publish-dashboard` (cria + opcional publish); `publish-dataset` devolve mensagem clara se a fonte/sync não estiver disponível. |
+
+Widgets no layout referenciam `semantic_model_id` e medidas/dimensões; a execução de dados passa sempre por `/query`, nunca por SQL do browser.
 
 ## Regra central
 
@@ -202,7 +225,7 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Decisões em aberto (ADR futuro)
 
-- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- ~~Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.~~ **Fechado:** Electron — [ADR-002](./adr/002-desktop-runtime.md).
 - Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
 - Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
 - Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.
