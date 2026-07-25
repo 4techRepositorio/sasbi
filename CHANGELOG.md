@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR-002 (React/Next proposto); TICKET-018; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27
