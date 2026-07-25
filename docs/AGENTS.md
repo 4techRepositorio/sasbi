@@ -29,6 +29,10 @@ Responsável por:
 - APIs administrativas
 - integrações centrais
 
+Padrão de implementação pronto para produção: skill
+`.cursor/skills/senior-backend-engineer/SKILL.md`
+(Repository, DI, config por env, resiliência, authz, auditoria, métricas, testes).
+
 ## 4. Backend Data
 Responsável por:
 - upload
@@ -38,6 +42,10 @@ Responsável por:
 - filas
 - catálogos
 - versionamento de datasets
+
+Padrão de implementação pronto para produção: skill
+`.cursor/skills/senior-backend-engineer/SKILL.md`
+(mesmos critérios de resiliência, isolamento por tenant e observabilidade).
 
 ## 5. Frontend
 Responsável por:
