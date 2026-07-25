@@ -32,6 +32,40 @@ filterwarnings = [
     "ignore:'crypt' is deprecated and slated for removal in Python 3.13:DeprecationWarning:passlib.utils",
     "ignore:Accessing argon2.__version__ is deprecated:DeprecationWarning:passlib.handlers.argon2",
 ]
+markers = [
+    "unit: testes unitários sem HTTP/DB completo",
+    "integration: TestClient + DB",
+    "api: contratos HTTP",
+    "auth: login, refresh, MFA, reset",
+    "tenant_isolation: isolamento cross-tenant",
+    "rbac: papéis admin/analyst/consumer",
+    "billing: planos, quotas, 402",
+    "ingestion: upload, parse, catálogo",
+    "security: tokens, spoofing, rate limit, sessão",
+    "audit: audit log",
+    "performance: smoke de latência",
+    "concurrency: corridas / paralelismo",
+    "slow: demorado ou ficheiros grandes",
+    "postgres: requer Postgres (não SQLite)",
+]
+
+[tool.coverage.run]
+source = ["fourpro_api"]
+branch = true
+omit = [
+    "*/fourpro_api/dev_seed.py",
+    "*/fourpro_api/db/session.py",
+    "*/fourpro_api/logging_config.py",
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+]
 
 [tool.ruff]
 target-version = "py312"

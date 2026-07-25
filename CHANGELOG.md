@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **QA Automation Engineer:** skill Cursor, markers pytest, cobertura API ≥90% (`pytest-cov`, `.coveragerc`, `make qa-coverage`), novos testes (quota-groups, JWT/MFA negativos, parse failures, rate limit, concurrency/perf smoke, rollback), E2E API 401, relatório `docs/CHECKLISTS/qa-automation-report.md`.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

@@ -9,7 +9,7 @@ test.describe('API smoke', () => {
     const base = process.env.E2E_API_BASE_URL?.replace(/\/$/, '');
     test.skip(!base, 'Defina E2E_API_BASE_URL (ex.: http://127.0.0.1:8000)');
 
-    const res = await request.get(`${base}/api/v1/health`);
+    const res = await request.get(`${base}/api/v1/health`, { timeout: 5_000 });
     expect(res.ok(), `health falhou: ${res.status()} ${await res.text()}`).toBeTruthy();
   });
 
@@ -17,10 +17,18 @@ test.describe('API smoke', () => {
     const base = process.env.E2E_API_BASE_URL?.replace(/\/$/, '');
     test.skip(!base, 'Defina E2E_API_BASE_URL (ex.: http://127.0.0.1:8000)');
 
-    const res = await request.get(`${base}/api/v1/health/ready`);
+    const res = await request.get(`${base}/api/v1/health/ready`, { timeout: 5_000 });
     expect(
       res.ok(),
       `health/ready falhou: ${res.status()} ${await res.text()}`,
     ).toBeTruthy();
+  });
+
+  test('rota autenticada sem token responde 401 (segurança API)', async ({ request }) => {
+    const base = process.env.E2E_API_BASE_URL?.replace(/\/$/, '');
+    test.skip(!base, 'Defina E2E_API_BASE_URL (ex.: http://127.0.0.1:8000)');
+
+    const res = await request.get(`${base}/api/v1/me/context`, { timeout: 5_000 });
+    expect(res.status(), await res.text()).toBe(401);
   });
 });

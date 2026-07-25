@@ -7,6 +7,7 @@ Papéis disponíveis:
 - Backend Data
 - Frontend
 - QA Reviewer
+- QA Automation Engineer
 - Security Reviewer
 
 Objetivo do projeto:

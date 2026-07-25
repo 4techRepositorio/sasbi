@@ -56,6 +56,13 @@ Responsável por:
 - regressão
 - checklist de aceite
 
+## 6b. QA Automation Engineer
+Responsável por a esteira automatizada (skill `.cursor/skills/qa-automation-engineer/SKILL.md`):
+- unitários, integração, API, E2E, performance, segurança
+- cobertura mínima **90%** (`make qa-coverage`)
+- relatório em `docs/CHECKLISTS/qa-automation-report.md`
+- nunca aceitar código sem testes
+
 ## 7. Security Reviewer
 Responsável por:
 - MFA
