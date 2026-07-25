@@ -165,5 +165,5 @@ Entregáveis: apps/api/tests, docs/CHECKLISTS, scripts/. Critério: pipeline loc
 
 ## 8. Nota de gestão
 
-- **Security Reviewer** (AGENTS §7) deve revisar PRs de F2/F3/F4 em pontos MFA, reset, upload, tenant — não é uma “sexta frente” de código no mesmo sentido; atuar em **revisão transversal**.  
+- **Security Reviewer** (AGENTS §9) deve revisar PRs de F2/F3/F4 em pontos MFA, reset, upload, tenant — não é uma “sexta frente” de código no mesmo sentido; atuar em **revisão transversal**.
 - **Planner** pode usar este documento como baseline e desdobrar sprints; o **gerente técnico** resolve conflitos de `main.py`/Alembic e prioriza o gate ativo (G1, G2, …).
