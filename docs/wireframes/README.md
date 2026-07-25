@@ -2,6 +2,8 @@
 
 Documentos nesta pasta descrevem **o que** cada área da UI deve validar com stakeholders e QA antes do desenho visual final (Figma) e da implementação Angular.
 
+**Protótipos Figma (sistema, não telas isoladas):** skill [`.cursor/skills/figma-design-specialist/SKILL.md`](../../.cursor/skills/figma-design-specialist/SKILL.md) e checklist [`docs/CHECKLISTS/figma-prototype-checklist.md`](../CHECKLISTS/figma-prototype-checklist.md).
+
 **Referências no repositório:**
 
 - PDF na raiz: `Data Analytics Solution.pdf` (protótipo visual; link embutido para `https://dig-wired-11893301.figma.site/`).

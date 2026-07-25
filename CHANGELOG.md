@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **Arquitectura (Architect):** blueprint canónico em `docs/architecture/BLUEPRINT.md` (bounded contexts, portas, eventos/filas, APIs, versionamento, trade-offs); ADR modular monolith + Clean Architecture + Celery em `docs/adr/002-modular-monolith-clean-architecture.md`; checklist `docs/CHECKLISTS/architecture-checklist.md`.
+- **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR React/Next proposto em `docs/adr/002-frontend-react-next.md`; TICKET-018 + plano detalhado; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27
