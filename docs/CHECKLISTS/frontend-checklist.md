@@ -1,4 +1,5 @@
 # Frontend Checklist
+- discovery UX feito (ver [ux-checklist.md](./ux-checklist.md) / skill `senior-ux-designer`) antes de telas novas ou fluxos alterados
 - tela criada
 - loading tratado
 - erro tratado

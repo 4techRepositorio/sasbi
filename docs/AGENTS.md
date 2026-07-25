@@ -48,6 +48,19 @@ Responsável por:
 - dashboards
 - UX por tenant
 
+## 5.1 UX Designer (sênior)
+Responsável por tornar fluxos poderosos simples de usar, **antes** da implementação Angular.
+Skill: [`.cursor/skills/senior-ux-designer/SKILL.md`](../.cursor/skills/senior-ux-designer/SKILL.md).
+Checklist: [`docs/CHECKLISTS/ux-checklist.md`](./CHECKLISTS/ux-checklist.md).
+
+Antes de qualquer tela:
+- entender persona, objetivo, frequência, tempo, erros e jornada
+- produzir fluxo, jornada, wireframes, componentes e estados (loading / empty / error / success)
+- justificar cada decisão de UX
+- alinhar com `docs/wireframes/validation-*.md`
+
+Princípios: menos campos, menos cliques, consistência visual, acessibilidade, contraste, teclado, mobile e desktop; tenant sempre explícito em áreas admin.
+
 ## 6. QA Reviewer
 Responsável por:
 - testes unitários

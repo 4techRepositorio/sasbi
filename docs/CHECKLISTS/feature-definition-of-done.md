@@ -1,6 +1,7 @@
 # Definition of Done
 - objetivo atendido
 - regras de negócio respeitadas
+- se altera UI: [ux-checklist.md](./ux-checklist.md) preenchido (fluxo, estados, justificativas)
 - tratamento de erro implementado
 - logs mínimos incluídos
 - testes mínimos criados

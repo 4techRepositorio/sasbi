@@ -73,6 +73,7 @@ Capturas ou exports que comprovem o sign-off devem seguir a convenção em **[`d
 ## Como usar
 
 1. Product/UX marca cada critério como **validado**, **ajustar** ou **fora de escopo** com data e responsável.  
+   Para discovery e entregáveis (fluxo, jornada, estados), seguir a skill [senior-ux-designer](../../.cursor/skills/senior-ux-designer/SKILL.md) e o [ux-checklist](../CHECKLISTS/ux-checklist.md).
 2. Architect confirma se o backend suporta os estados e endpoints necessários.  
 3. Security Reviewer marca riscos em telas que exponham dados sensíveis ou ações críticas.  
 4. Quando houver evidência gráfica, anexar ficheiro nomeado em `docs/assets/wireframes/exports/` e referenciar na folha de validação.
