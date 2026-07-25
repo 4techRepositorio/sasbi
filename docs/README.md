@@ -18,7 +18,7 @@
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
-| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento |
+| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. Multi-Agent Systems Architect) |
 
 ## Execução e tickets
 
@@ -52,6 +52,8 @@
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
 | [CHECKLISTS/qa-checklist.md](./CHECKLISTS/qa-checklist.md) | QA |
+| [CHECKLISTS/multi-agent-orchestration-checklist.md](./CHECKLISTS/multi-agent-orchestration-checklist.md) | Orquestração multiagente |
+| [CHECKLISTS/figma-prototype-checklist.md](./CHECKLISTS/figma-prototype-checklist.md) | Protótipo Figma |
 
 ## E2E e CI (referência rápida)
 
