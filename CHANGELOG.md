@@ -2,9 +2,10 @@
 
 ## [Unreleased]
 
-- **TICKET-015 Conectores:** pacote `packages/connectors` (SPI + 6 plugins); vault Fernet; modelos `data_sources` / `connector_credentials` / `data_source_sync_runs`; APIs `/connectors` e `/data-sources`; worker `fourpro.sync_data_source`; testes de isolamento e sync.
-- **TICKET-017 Desktop:** scaffold `apps/desktop` (Electron + Vite + TS + React); auth com `safeStorage`; wizards de fontes (Postgres/REST), publish dataset/dashboard; ADR-002 / `apps/desktop/ADR-RUNTIME.md`.
-- **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
+- **TICKET-015 Conectores:** `packages/connectors` (SPI + 6 plugins); vault Fernet; data-sources + sync worker; quota `plans.max_data_sources`.
+- **TICKET-016 / 011:** modelo semântico, `/query` agregada, dashboards Web (canvas + publish), UI Fontes/Modelos/Dashboards.
+- **TICKET-017 Desktop:** Electron + Vite; auth `safeStorage`; wizard fontes; publish dataset (sync) e dashboard.
+- **Plataforma BI (planeamento + agentes):** ADR-001/002; tickets 015–017; `.cursor/agents/` para paralelismo.
 
 ## [0.1.0] — 2026-03-27
 
