@@ -10,7 +10,11 @@
 | [PLANOS-POR-TICKET-011-014.md](./PLANOS-POR-TICKET-011-014.md) | Resumo fases seguintes (Marcos B/C/E + CI, tickets 011–014) |
 | [PLANOS-POR-TICKET-015-017.md](./PLANOS-POR-TICKET-015-017.md) | Resumo plataforma BI (conectores, semântica/Web, Desktop) |
 | [PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | **Plano mestre** BI: SPI de conectores + Web + Desktop |
-| [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | **5 frentes paralelas**, agentes e prompts (gestão técnica 4Pro_BI) |
+| [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | **5 frentes paralelas**, agentes e prompts (fase base) |
+| [PARALELA-BI-FRENTES.md](./PARALELA-BI-FRENTES.md) | **Paralelismo Fase 4 BI** (chats B0–B4, agentes connectors/semantic/desktop) |
+| [PROMPTS-CHATS-BI.md](./PROMPTS-CHATS-BI.md) | Prompts coláveis para chats BI |
+| [ORQUESTRACAO-CHATS-AGENTES.md](./ORQUESTRACAO-CHATS-AGENTES.md) | Allowlists C0–C6 + sessões B0–B4 |
+| [../../.cursor/agents/README.md](../../.cursor/agents/README.md) | Subagentes Cursor (`.cursor/agents`) |
 | [../wireframes/](../wireframes/) | Validação de wireframes e referências |
 | [../adr/001-bi-platform-connectors-desktop-web.md](../adr/001-bi-platform-connectors-desktop-web.md) | ADR-001 plataforma BI |
 

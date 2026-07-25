@@ -19,6 +19,18 @@
 
 Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §7).
 
+### 1.1 Fase 4 BI — sessões adicionais (015–017)
+
+| Sessão | Nome sugerido | Agente Cursor | Foco |
+|--------|---------------|---------------|------|
+| **B0** | `4Pro BI — Coordenação` | `/coordenador` | Gate G5, merges BI |
+| **B1** | `4Pro BI — Connectors` | `/connectors` | TICKET-015 |
+| **B2** | `4Pro BI — Semantic Web` | `/semantic-bi` | TICKET-016 (+011) |
+| **B3** | `4Pro BI — Desktop` | `/desktop` | TICKET-017 |
+| **B4** | `4Pro BI — QA` | `/qa-reviewer` | testes BI |
+
+Prompts: [`PROMPTS-CHATS-BI.md`](./PROMPTS-CHATS-BI.md) · ondas: [`PARALELA-BI-FRENTES.md`](./PARALELA-BI-FRENTES.md) · ficheiros de agente: [`.cursor/agents/`](../../.cursor/agents/README.md).
+
 **Worktrees (opcional):** um worktree por frente reduz checkout misturado; o **merge** continua linear no `main`. Comando típico:
 
 ```bash
@@ -102,9 +114,12 @@ Abre esse ficheiro, escolhe a secção **C0** … **C6**, copia o bloco `text` i
 
 | Documento | Uso |
 |-----------|-----|
-| [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | Ondas, prompts longos por agente |
-| [EXECUCAO-MESTRE.md](./EXECUCAO-MESTRE.md) | Gates G0–G4, dependências entre tickets |
+| [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | Ondas, prompts longos por agente (fase base) |
+| [PARALELA-BI-FRENTES.md](./PARALELA-BI-FRENTES.md) | Ondas e allowlists Fase 4 BI |
+| [PROMPTS-CHATS-BI.md](./PROMPTS-CHATS-BI.md) | Prompts B0–B5 para chats BI |
+| [EXECUCAO-MESTRE.md](./EXECUCAO-MESTRE.md) | Gates G0–G5, dependências entre tickets |
 | [docs/AGENTS.md](../AGENTS.md) | Papéis da squad |
+| [`.cursor/agents/README.md`](../../.cursor/agents/README.md) | Subagentes Cursor invocáveis |
 | [docs/adr/000-contract-slices.md](../adr/000-contract-slices.md) | Cortes de `fourpro_contracts` |
 
 ---

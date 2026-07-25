@@ -65,6 +65,8 @@ Em **paralelo**:
 
 **Operação com vários chats/agentes no Cursor:** ver [ORQUESTRACAO-CHATS-AGENTES.md](./ORQUESTRACAO-CHATS-AGENTES.md) (nomes de sessão, allowlists, prompts curtos por chat).
 
+**Fase 4 BI (paralelo dedicado):** [PARALELA-BI-FRENTES.md](./PARALELA-BI-FRENTES.md) + agentes `/connectors`, `/semantic-bi`, `/desktop` em [`.cursor/agents/`](../../.cursor/agents/README.md).
+
 ---
 
 ## 3. Prompt — Architect
