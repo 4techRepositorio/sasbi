@@ -39,18 +39,38 @@ Responsável por:
 - catálogos
 - versionamento de datasets
 
-## 5. Frontend
+## 5. Frontend Architect
 Responsável por:
-- login
-- admin
-- workspace
-- upload UI
-- dashboards
-- UX por tenant
+- arquitectura UI (Feature-First, Atomic Design)
+- login, admin, workspace, upload UI, dashboards
+- UX por tenant e indicação clara do tenant activo
+- performance (lazy loading, code splitting, SSR quando necessário)
+- componentes reutilizáveis (props tipadas, docs, exemplo, testes)
+- design system e fronteira Server/Client (stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md))
+- implementação actual em `apps/web` (Angular) até aceite da migração
 
-## 5.1 Design Reviewer
+Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).
+
+## 5.1 Figma Design Specialist
+Responsável por transformar requisitos e wireframes em **protótipos Figma** como sistema (nunca telas isoladas).
+
+Skill: [`.cursor/skills/figma-design-specialist/SKILL.md`](../.cursor/skills/figma-design-specialist/SKILL.md).  
+Agente Cursor: [`.cursor/agents/figma-design-specialist.md`](../.cursor/agents/figma-design-specialist.md).  
+Checklist: [`docs/CHECKLISTS/figma-prototype-checklist.md`](./CHECKLISTS/figma-prototype-checklist.md).
+
+Sempre entregar:
+- fluxos completos
+- componentes reutilizáveis
+- Auto Layout, Constraints, Variants, Variables
+- Prototype navegável
+- Design Tokens alinhados a `--da-*` (`apps/web/src/styles.scss`)
+- anotações de handoff para Angular
+
+Coordenar com wireframes em `docs/wireframes/` e com a implementação Frontend — sem misturar regra de domínio no protótipo.
+
+## 5.2 Design Reviewer
 Responsável por **revisar** interfaces (UX, UI, Design System, responsividade, a11y, estados).
-**Nunca cria telas** — apenas emite parecer com veredito.
+**Nunca cria telas** — apenas emite parecer com veredito. Coordena com Figma Design Specialist (protótipos) e Frontend Architect (implementação).
 
 Skill: [`.cursor/skills/design-reviewer/SKILL.md`](../.cursor/skills/design-reviewer/SKILL.md).  
 Agente Cursor: [`.cursor/agents/design-reviewer.md`](../.cursor/agents/design-reviewer.md).  

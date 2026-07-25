@@ -19,6 +19,8 @@
 
 Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §7).
 
+Opcional: **C4b Figma** — protótipos e design system no Figma (ver `docs/AGENTS.md` §5.1); não edita `apps/web/` em paralelo ao C4 sem coordenação; handoff via checklist `docs/CHECKLISTS/figma-prototype-checklist.md`.
+
 **Worktrees (opcional):** um worktree por frente reduz checkout misturado; o **merge** continua linear no `main`. Comando típico:
 
 ```bash
