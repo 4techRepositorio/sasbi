@@ -19,25 +19,16 @@ Toda documentação técnica deve responder: **o que faz**, **como funciona**, *
 | [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next (ADR-002) |
 | [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR-002: stack frontend alvo React + Next.js (proposto) |
 | [VISION.md](./VISION.md) | Produto |
-<<<<<<< HEAD
-| [ROADMAP.md](./ROADMAP.md) | Fases e tickets |
-| [SECURITY.md](./SECURITY.md) | Política de segurança |
-=======
 | [product/README.md](./product/README.md) | Briefings Product Designer (problema, valor, KPIs) |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
-| [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
-| [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre plataforma BI |
 | [SECURITY.md](./SECURITY.md) | Política de segurança: reporte, divulgação responsável e controlos na implementação |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição, gates locais, Dependabot, troubleshooting npm |
-| [SECURITY.md (raiz)](../SECURITY.md) | Entrada GitHub *Security policy* → remete a `docs/SECURITY.md` |
->>>>>>> origin/main
 | [TENANCY.md](./TENANCY.md) | Modelo multitenant |
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
 | [AGENTS.md](./AGENTS.md) | Papéis de agentes |
-| [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição e gates |
-| [SECURITY.md (raiz)](../SECURITY.md) | Atalho GitHub Security policy |
+| [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição, gates locais, Dependabot, troubleshooting npm |
+| [SECURITY.md (raiz)](../SECURITY.md) | Entrada GitHub *Security policy* → remete a `docs/SECURITY.md` |
 | [CHANGELOG.md](../CHANGELOG.md) | Histórico de alterações |
 
 ## API — OpenAPI / Swagger / Exemplos
@@ -113,15 +104,9 @@ Runtime (API no ar): `/docs` · `/redoc` · `/openapi.json`. Regenerar: `./scrip
 
 ## Ordem de leitura sugerida (nova equipa)
 
-<<<<<<< HEAD
-1. `VISION.md` → `ARCHITECTURE.md` → `INSTALLATION.md` → `DEVELOPMENT.md`  
+1. `VISION.md` → `product/` (briefings) → `ARCHITECTURE.md` → `INSTALLATION.md` → `DEVELOPMENT.md`  
 2. `FRONTEND_ARCHITECTURE.md` (stack alvo) + `openapi/README.md` + `examples/`  
 3. `diagrams/` (contexto, auth, ingestão)  
-4. `plans/EXECUCAO-MESTRE.md` + ticket actual  
-5. `DEPLOYMENT.md` antes do primeiro deploy
-=======
-1. `VISION.md` → `product/` (briefings) → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
-2. `plans/README.md` + ticket atual em `tickets/`  
-3. Wireframes da área em construção  
-4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
->>>>>>> origin/main
+4. `plans/EXECUCAO-MESTRE.md` + ticket actual em `tickets/`  
+5. Wireframes da área em construção; `DEPLOYMENT.md` antes do primeiro deploy  
+6. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
