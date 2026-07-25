@@ -17,9 +17,10 @@
 | **C4** | `4Pro — F4 Frontend` | `apps/web/` |
 | **C5** | `4Pro — F5 QA` | `apps/api/tests/`, `docs/CHECKLISTS/`, `scripts/`, `.github/workflows/`, `e2e/` raiz |
 
-Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §7).
+Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §9).  
+Opcional: **C7 Design System** — tokens/`packages/ui`, primitives `.da-*`, `shared/`; ver `docs/AGENTS.md` §7 e `docs/DESIGN_SYSTEM.md`.
 
-Opcional: **C4b Figma** — protótipos e design system no Figma (ver `docs/AGENTS.md` §5.1); não edita `apps/web/` em paralelo ao C4 sem coordenação; handoff via checklist `docs/CHECKLISTS/figma-prototype-checklist.md`.
+Opcional: **C4b Figma** — protótipos e design system no Figma (ver `docs/AGENTS.md` §6.1); não edita `apps/web/` em paralelo ao C4 sem coordenação; handoff via checklist `docs/CHECKLISTS/figma-prototype-checklist.md`.
 
 **Worktrees (opcional):** um worktree por frente reduz checkout misturado; o **merge** continua linear no `main`. Comando típico:
 
@@ -64,11 +65,12 @@ Estas regras evitam dois agentes no mesmo ficheiro. Alinhado à prática descrit
 
 | Dono | Pode editar |
 |------|-------------|
-| **F1** | `docs/**` exceto `docs/CHECKLISTS/**`; `packages/contracts/**`; opcional `packages/ui/**` |
+| **F1** | `docs/**` exceto `docs/CHECKLISTS/**` e exceto `docs/DESIGN_SYSTEM.md` quando C7 ativo; `packages/contracts/**` |
 | **F2** | `apps/api/fourpro_api/main.py`, `routers/auth.py`, `me.py`, `health.py`, `tenant.py`, `core/**`, `dependencies/auth.py`, services Core (auth, password, mail, billing), `repositories/**` exceto `ingestion_repository.py`, models Core + `models/__init__.py`, `config.py`, `limiter.py`, `logging_config.py`, `dev_seed.py`, `alembic/versions/*core__*` |
 | **F3** | `routers/uploads.py`, `ingestions.py`, `datasets.py`, `upload_validation`, `ingestion_repository`, `models/ingestion.py`, `jobs/**`, `tasks_dispatch.py`, `apps/worker/**`, `packages/shared/**`, `alembic/versions/*data__*` |
-| **F4** | `apps/web/**` |
+| **F4** | `apps/web/**` exceto `src/styles.scss` e `src/app/shared/**` quando C7 ativo (coordenar) |
 | **F5** | `apps/api/tests/**`, `docs/CHECKLISTS/**`, `scripts/**`, `.github/workflows/**`, `e2e/**` (raiz) |
+| **C7 DS** | `packages/ui/**`; `docs/DESIGN_SYSTEM.md`; `docs/CHECKLISTS/design-system-checklist.md`; `apps/web/src/styles.scss`; `apps/web/src/app/shared/**`; `.cursor/skills/design-system-engineer/**`; `.cursor/agents/design-system-engineer.md`; `.cursor/rules/07-design-system.mdc` |
 
 **Inegociável:** **F3 não edita** `main.py` nem `models/__init__.py`. Novas rotas de dados: ficheiros já existentes da F3 ou pedido de **integração** à F2 (um PR pequeno só de wiring).
 
@@ -81,7 +83,7 @@ Estas regras evitam dois agentes no mesmo ficheiro. Alinhado à prática descrit
 **Prompts completos e autocontidos (com allowlists e objetivos):**  
 → **[PROMPTS-CHATS-CURSOR.md](./PROMPTS-CHATS-CURSOR.md)**
 
-Abre esse ficheiro, escolhe a secção **C0** … **C6**, copia o bloco `text` inteiro para o primeiro turno do chat correspondente e anexa com `@` os ficheiros indicados na linha **Contexto (@…)** acima de cada bloco.
+Abre esse ficheiro, escolhe a secção **C0** … **C7**, copia o bloco `text` inteiro para o primeiro turno do chat correspondente e anexa com `@` os ficheiros indicados na linha **Contexto (@…)** acima de cada bloco.
 
 ---
 

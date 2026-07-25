@@ -60,9 +60,10 @@ Responsável por:
 - login, admin, workspace, upload UI, dashboards
 - UX por tenant e indicação clara do tenant activo
 - performance (lazy loading, code splitting, SSR quando necessário)
-- componentes reutilizáveis (props tipadas, docs, exemplo, testes)
-- design system e fronteira Server/Client (stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md))
+- componentes de ecrã/feature reutilizáveis (props tipadas, docs, exemplo, testes)
+- fronteira Server/Client e stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md)
 - implementação actual em `apps/web` (Angular) até aceite da migração
+- **consumir** o Design System (tokens `--da-*`, `.da-*`, `shared/` / `packages/ui`) — não inventar UI one-off; padrões novos → Design System Engineer
 
 Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).
 
@@ -78,12 +79,28 @@ Sempre entregar:
 - componentes reutilizáveis
 - Auto Layout, Constraints, Variants, Variables
 - Prototype navegável
-- Design Tokens alinhados a `--da-*` (`apps/web/src/styles.scss`)
+- Design Tokens alinhados a `--da-*` ([`packages/ui/scss/_tokens.scss`](../packages/ui/scss/_tokens.scss); primitives em `apps/web/src/styles.scss`)
 - anotações de handoff para Angular
 
-Coordenar com wireframes em `docs/wireframes/` e com a implementação Frontend — sem misturar regra de domínio no protótipo.
+Coordenar com wireframes em `docs/wireframes/`, com o Design System Engineer e com a implementação Frontend — sem misturar regra de domínio no protótipo.
 
-## 7. QA Reviewer
+## 7. Design System Engineer
+Responsável por:
+- tokens (cores, espaçamentos, tipografia, grid)
+- ícones
+- botões, inputs, cards, tables, forms
+- menus, modais, toast, badges
+- timeline, kanban, charts (quando existirem)
+- documentação, exemplos, boas práticas, variações, estados e acessibilidade
+
+Regras:
+- **nunca** criar componentes únicos; **sempre** reutilizar ou elevar ao DS
+- fontes: `docs/DESIGN_SYSTEM.md`, `packages/ui/`, `apps/web/src/styles.scss`, `apps/web/src/app/shared/`
+- skill: `.cursor/skills/design-system-engineer/SKILL.md`
+- agente: `.cursor/agents/design-system-engineer.md`
+- coordenar com Frontend Architect (consumo) e Figma Design Specialist (tokens no protótipo)
+
+## 8. QA Reviewer
 Responsável por:
 - testes unitários
 - integração
@@ -91,7 +108,7 @@ Responsável por:
 - regressão
 - checklist de aceite
 
-## 8. Security Reviewer
+## 9. Security Reviewer
 Responsável por:
 - MFA
 - recuperação de senha
@@ -101,7 +118,7 @@ Responsável por:
 - isolamento tenant
 - revisão de riscos
 
-## 8. AI Workflow Designer
+## 10. AI Workflow Designer
 Responsável por:
 - transformar tarefas complexas em pipelines
 - estágios: Entrada, Validação, Planejamento, Execução, Verificação, Correção, Entrega

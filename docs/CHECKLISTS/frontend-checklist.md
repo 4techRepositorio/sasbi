@@ -7,6 +7,7 @@
 - estado vazio tratado
 - sucesso tratado (feedback claro)
 - responsividade básica validada
+- Design System: reutiliza `.da-*` / tokens `--da-*` / `shared/`; sem UI one-off (ver `docs/DESIGN_SYSTEM.md` e `CHECKLISTS/design-system-checklist.md`)
 
 ## Arquitectura (Frontend Architect)
 - organização Feature-First (código na feature correcta; rota thin)

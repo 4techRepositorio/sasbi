@@ -20,6 +20,7 @@
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
 | [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. AI Workflow Designer) |
+| [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Design System — tokens, primitives, a11y, reuso |
 
 ## Execução e tickets
 
@@ -29,7 +30,7 @@
 | [plans/EXECUCAO-MESTRE.md](./plans/EXECUCAO-MESTRE.md) | Ordem de trabalho, **execução paralela** (§0), marcos A–E |
 | [plans/PARALELA-5-FRENTES.md](./plans/PARALELA-5-FRENTES.md) | 5 frentes paralelas, agentes e prompts (projeto 4Pro_BI) |
 | [plans/ORQUESTRACAO-CHATS-AGENTES.md](./plans/ORQUESTRACAO-CHATS-AGENTES.md) | **Orquestração** — vários chats Cursor / worktrees, allowlists, rituais |
-| [plans/PROMPTS-CHATS-CURSOR.md](./plans/PROMPTS-CHATS-CURSOR.md) | **Prompts prontos** para colar em cada chat (C0–C6) |
+| [plans/PROMPTS-CHATS-CURSOR.md](./plans/PROMPTS-CHATS-CURSOR.md) | **Prompts prontos** para colar em cada chat (C0–C7) |
 | [`../tickets/`](../tickets/README.md) | Cartões curtos por ticket |
 
 ## UX e validação
@@ -52,6 +53,7 @@
 | [CHECKLISTS/product-design-checklist.md](./CHECKLISTS/product-design-checklist.md) | Briefing de produto (antes do plano técnico) |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
+| [CHECKLISTS/design-system-checklist.md](./CHECKLISTS/design-system-checklist.md) | Tokens, primitives, a11y |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
 | [CHECKLISTS/qa-checklist.md](./CHECKLISTS/qa-checklist.md) | QA |
 | [CHECKLISTS/ai-workflow-checklist.md](./CHECKLISTS/ai-workflow-checklist.md) | Pipelines inteligentes (7 estágios + bounds) |
