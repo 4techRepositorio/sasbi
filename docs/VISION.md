@@ -26,8 +26,15 @@ Ver [`docs/adr/001-bi-platform-connectors-desktop-web.md`](./adr/001-bi-platform
 - cliente **Desktop** de autoração e publicação (TICKET-017)
 - governação de camadas de dados (TICKET-012)
 
-## Não objetivos do programa inicial de BI
-- paridade total com produtos comerciais de BI
+## Capacidade plataforma (implementada / em consolidação)
+- conectores: file, postgres, mysql, sqlserver, rest_json, s3_compatible
+- vault de credenciais, sync worker, quotas de fontes por plano
+- modelo semântico + query agregada + dashboards Web (canvas + publish)
+- Desktop Electron de autoração com publish para o tenant
+
+## Não objectivos (ainda fora)
+- paridade pixel-a-pixel com produtos comerciais de BI
 - marketplace público de dashboards ou de plugins
 - OLAP / MDX completo ou SQL ad-hoc para o utilizador final
 - mobile nativo
+- CDC / streaming em tempo real

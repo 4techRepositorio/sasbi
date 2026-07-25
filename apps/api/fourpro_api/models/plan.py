@@ -16,4 +16,5 @@ class Plan(Base):
     max_uploads_per_month: Mapped[int] = mapped_column(Integer(), nullable=False)
     max_storage_mb: Mapped[int] = mapped_column(Integer(), nullable=False)
     max_concurrent_jobs: Mapped[int] = mapped_column(Integer(), nullable=False)
+    max_data_sources: Mapped[int] = mapped_column(Integer(), nullable=False, default=10)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

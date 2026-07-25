@@ -5,6 +5,7 @@ from __future__ import annotations
 from uuid import UUID
 
 from fastapi import HTTPException, status
+from fourpro_contracts.connectors import SyncRequest
 from fourpro_contracts.dashboard import DashboardCreate
 from fourpro_contracts.desktop_sync import (
     DesktopPublishDashboardRequest,
@@ -18,13 +19,17 @@ from sqlalchemy.orm import Session
 from fourpro_api.config import get_settings
 from fourpro_api.core.principal import Principal
 from fourpro_api.models.tenant import Tenant
+from fourpro_api.repositories.data_source_repository import DataSourceRepository
 from fourpro_api.services.dashboard_service import DashboardService
+from fourpro_api.services.data_source_service import DataSourceService
 
 
 class DesktopSyncService:
     def __init__(self, db: Session) -> None:
         self._db = db
         self._dashboards = DashboardService(db)
+        self._data_sources = DataSourceService(db)
+        self._ds_repo = DataSourceRepository(db)
 
     def session_info(self, principal: Principal) -> DesktopSessionInfo:
         tenant = self._db.get(Tenant, principal.tenant_id)
@@ -35,9 +40,7 @@ class DesktopSyncService:
             )
         settings = get_settings()
         api_base = settings.app_public_url.rstrip("/")
-        # Prefer API path; clients may override via config
         if not api_base.endswith("/api/v1"):
-            # APP_PUBLIC_URL is typically the front; expose documented API base as relative hint
             api_base_url = "/api/v1"
         else:
             api_base_url = api_base
@@ -47,7 +50,13 @@ class DesktopSyncService:
             tenant_name=tenant.name,
             role=principal.role,
             api_base_url=api_base_url,
-            features=["semantic-query", "dashboards", "file-upload"],
+            features=[
+                "connectors",
+                "semantic-query",
+                "dashboards",
+                "file-upload",
+                "desktop-publish",
+            ],
         )
 
     def publish_dataset(
@@ -55,8 +64,6 @@ class DesktopSyncService:
         principal: Principal,
         body: DesktopPublishDatasetRequest,
     ) -> DesktopPublishDatasetResponse:
-        """Sem data sources (TICKET-015) ainda — resposta explícita, sem inventar sync."""
-        _ = principal
         if not body.data_source_id:
             return DesktopPublishDatasetResponse(
                 dataset_id=None,
@@ -64,19 +71,51 @@ class DesktopSyncService:
                 sync_run_id=None,
                 status="failed",
                 message=(
-                    "Publicação de dataset a partir do Desktop requer uma fonte de dados "
-                    "(data_source_id). O módulo de conectores ainda não está disponível; "
-                    "use upload de ficheiro + modelo semântico na API Web."
+                    "Indique data_source_id da fonte configurada no Desktop "
+                    "para enfileirar a sincronização."
                 ),
+            )
+        try:
+            ds_id = UUID(body.data_source_id)
+        except ValueError:
+            return DesktopPublishDatasetResponse(
+                dataset_id=None,
+                semantic_model_id=None,
+                sync_run_id=None,
+                status="failed",
+                message="data_source_id inválido",
+            )
+
+        row = self._ds_repo.get_by_id(ds_id)
+        if row is None or row.tenant_id != principal.tenant_id:
+            return DesktopPublishDatasetResponse(
+                dataset_id=None,
+                semantic_model_id=None,
+                sync_run_id=None,
+                status="failed",
+                message="Fonte de dados não encontrada neste tenant",
+            )
+
+        enqueued = self._data_sources.enqueue_sync(
+            principal,
+            ds_id,
+            SyncRequest(object_id=body.object_id, mode="full"),
+        )
+        hint = ""
+        if body.semantic_fields:
+            hint = (
+                " Campos semânticos recebidos: associe-os a um modelo após o dataset "
+                "ficar processed (API Web ou Semantic Models)."
             )
         return DesktopPublishDatasetResponse(
             dataset_id=None,
             semantic_model_id=None,
-            sync_run_id=None,
-            status="failed",
+            sync_run_id=enqueued.sync_run_id,
+            status="queued",
             message=(
-                f"Fonte de dados {body.data_source_id} não encontrada ou sync não configurado. "
-                "Enqueue de sync será activado quando o catálogo de conectores estiver disponível."
+                f"Sincronização enfileirada para «{row.name}». "
+                "Quando o status for processed, o dataset aparece no catálogo."
+                f"{hint}"
             ),
         )
 
