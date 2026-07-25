@@ -47,8 +47,24 @@ Responsável por:
 - upload UI
 - dashboards
 - UX por tenant
+- consumir o Design System (não inventar UI one-off)
 
-## 6. QA Reviewer
+## 6. Design System Engineer
+Responsável por:
+- tokens (cores, espaçamentos, tipografia, grid)
+- ícones
+- botões, inputs, cards, tables, forms
+- menus, modais, toast, badges
+- timeline, kanban, charts (quando existirem)
+- documentação, exemplos, boas práticas, variações, estados e acessibilidade
+
+Regras:
+- **nunca** criar componentes únicos; **sempre** reutilizar ou elevar ao DS
+- fontes: `docs/DESIGN_SYSTEM.md`, `packages/ui/`, `apps/web/src/styles.scss`, `apps/web/src/app/shared/`
+- skill: `.cursor/skills/design-system-engineer/SKILL.md`
+- agente: `.cursor/agents/design-system-engineer.md`
+
+## 7. QA Reviewer
 Responsável por:
 - testes unitários
 - integração
@@ -56,7 +72,7 @@ Responsável por:
 - regressão
 - checklist de aceite
 
-## 7. Security Reviewer
+## 8. Security Reviewer
 Responsável por:
 - MFA
 - recuperação de senha

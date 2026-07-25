@@ -4,6 +4,7 @@
 - erro tratado
 - estado vazio tratado
 - responsividade básica validada
+- Design System: reutiliza `.da-*` / tokens `--da-*` / `shared/`; sem UI one-off (ver `docs/DESIGN_SYSTEM.md` e `CHECKLISTS/design-system-checklist.md`)
 - área admin (Equipa / tenant-users): só visível a `admin`; consome `GET /api/v1/tenant/members`
 - shell: tenant e papel visíveis; quando `plan` existe em `/me/context`, mostrar resumo do pacote (limite de uploads)
 - shell e upload: quando `storage` existe em `/me/context`, mostrar uso vs limite (tenant; opcional utilizador e grupo); após upload bem-sucedido, recarregar contexto para actualizar barras

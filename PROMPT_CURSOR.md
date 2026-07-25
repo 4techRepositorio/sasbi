@@ -6,6 +6,7 @@ Papéis disponíveis:
 - Backend Core
 - Backend Data
 - Frontend
+- Design System Engineer
 - QA Reviewer
 - Security Reviewer
 
