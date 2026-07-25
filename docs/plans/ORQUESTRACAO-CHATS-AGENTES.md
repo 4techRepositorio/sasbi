@@ -17,10 +17,10 @@
 | **C4** | `4Pro — F4 Frontend` | `apps/web/` |
 | **C5** | `4Pro — F5 QA` | `apps/api/tests/`, `docs/CHECKLISTS/`, `scripts/`, `.github/workflows/`, `e2e/` raiz |
 
-Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §8).  
-Opcional: **C7 Design System** — tokens/`packages/ui`, primitives `.da-*`, `shared/`; ver `docs/AGENTS.md` §6 e `docs/DESIGN_SYSTEM.md`.
+Opcional: **C6 Security** — não é frente de código; usar para revisão de PRs (ver `docs/AGENTS.md` §9).  
+Opcional: **C7 Design System** — tokens/`packages/ui`, primitives `.da-*`, `shared/`; ver `docs/AGENTS.md` §7 e `docs/DESIGN_SYSTEM.md`.
 
-Opcional: **C4b Figma** — protótipos e design system no Figma (ver `docs/AGENTS.md` §5.1); não edita `apps/web/` em paralelo ao C4 sem coordenação; handoff via checklist `docs/CHECKLISTS/figma-prototype-checklist.md`.
+Opcional: **C4b Figma** — protótipos e design system no Figma (ver `docs/AGENTS.md` §6.1); não edita `apps/web/` em paralelo ao C4 sem coordenação; handoff via checklist `docs/CHECKLISTS/figma-prototype-checklist.md`.
 
 **Worktrees (opcional):** um worktree por frente reduz checkout misturado; o **merge** continua linear no `main`. Comando típico:
 
