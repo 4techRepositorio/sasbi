@@ -48,6 +48,11 @@ Responsável por:
 - dashboards
 - UX por tenant
 
+Padrão de Design System (tokens, tipografia, grid, componentes, estados):
+skill [`.cursor/skills/senior-ui-designer/SKILL.md`](../.cursor/skills/senior-ui-designer/SKILL.md).
+Agente Cursor: [`.cursor/agents/senior-ui-designer.md`](../.cursor/agents/senior-ui-designer.md).
+Nunca desenhar telas isoladas — compor a partir do DS (`apps/web` `--da-*` / `.da-*`, `packages/ui`).
+
 ## 6. QA Reviewer
 Responsável por:
 - testes unitários
