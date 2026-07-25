@@ -6,6 +6,7 @@
 |------|----------|
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
 | [VISION.md](./VISION.md) | Produto |
+| [product/README.md](./product/README.md) | Briefings Product Designer (problema, valor, KPIs) |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
 | [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
 | [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre plataforma BI |
@@ -46,6 +47,7 @@
 | Ficheiro | Uso |
 |----------|-----|
 | [CHECKLISTS/feature-definition-of-done.md](./CHECKLISTS/feature-definition-of-done.md) | DoD por feature |
+| [CHECKLISTS/product-design-checklist.md](./CHECKLISTS/product-design-checklist.md) | Briefing de produto (antes do plano técnico) |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega Angular |
 | [CHECKLISTS/data-checklist.md](./CHECKLISTS/data-checklist.md) | Dados / ingestão |
@@ -60,7 +62,7 @@
 
 ## Ordem de leitura sugerida (nova equipa)
 
-1. `VISION.md` → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
+1. `VISION.md` → `product/` (briefings) → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
 2. `plans/README.md` + ticket atual em `tickets/`  
 3. Wireframes da área em construção  
 4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
