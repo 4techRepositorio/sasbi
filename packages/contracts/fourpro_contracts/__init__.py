@@ -1,11 +1,62 @@
 """Contratos Pydantic compartilhados."""
 
+from fourpro_contracts.auth import (
+    ForgotPasswordRequest,
+    ForgotPasswordResponse,
+    LoginRequest,
+    MfaChallengeResponse,
+    MfaVerifyRequest,
+    RefreshRequest,
+    ResetPasswordRequest,
+    TokenResponse,
+    TokenTypeBearer,
+)
 from fourpro_contracts.billing import MeContextResponse, PlanSummary, StorageContext
+from fourpro_contracts.connectors import (
+    ConnectionTestResult,
+    ConnectorCapability,
+    ConnectorCatalogResponse,
+    DataSourceCreate,
+    DataSourceItem,
+    DataSourcePatch,
+    DiscoverResponse,
+    PaginatedDataSourceList,
+    PaginatedSyncRunList,
+    SampleSchemaResponse,
+    SyncEnqueuedResponse,
+    SyncRequest,
+    SyncRunItem,
+)
+from fourpro_contracts.dashboard import (
+    DashboardCreate,
+    DashboardItem,
+    DashboardLayout,
+    DashboardPatch,
+    DashboardPublishResponse,
+    DashboardWidget,
+    PaginatedDashboardList,
+)
 from fourpro_contracts.dataset import DatasetItem, PaginatedDatasetList
+from fourpro_contracts.desktop_sync import (
+    DesktopPublishDashboardRequest,
+    DesktopPublishDashboardResponse,
+    DesktopPublishDatasetRequest,
+    DesktopPublishDatasetResponse,
+    DesktopSessionInfo,
+)
 from fourpro_contracts.ingestion import (
     IngestionItem,
     IngestionLifecycleStatus,
     UploadCreatedResponse,
+)
+from fourpro_contracts.semantic import (
+    PaginatedSemanticModelList,
+    QueryRequest,
+    QueryResponse,
+    SemanticField,
+    SemanticModelCreate,
+    SemanticModelItem,
+    SemanticModelPatch,
 )
 from fourpro_contracts.tenant import (
     MemberStorageQuotaPatch,
@@ -17,18 +68,6 @@ from fourpro_contracts.tenant import (
     TenantQuotaGroupItem,
     TenantQuotaGroupListResponse,
     TenantQuotaGroupPatch,
-)
-
-from fourpro_contracts.auth import (
-    ForgotPasswordRequest,
-    ForgotPasswordResponse,
-    LoginRequest,
-    MfaChallengeResponse,
-    MfaVerifyRequest,
-    RefreshRequest,
-    ResetPasswordRequest,
-    TokenResponse,
-    TokenTypeBearer,
 )
 
 __all__ = [
@@ -58,4 +97,36 @@ __all__ = [
     "ForgotPasswordRequest",
     "ForgotPasswordResponse",
     "ResetPasswordRequest",
+    "ConnectorCapability",
+    "ConnectorCatalogResponse",
+    "DataSourceCreate",
+    "DataSourcePatch",
+    "DataSourceItem",
+    "PaginatedDataSourceList",
+    "ConnectionTestResult",
+    "DiscoverResponse",
+    "SampleSchemaResponse",
+    "SyncRequest",
+    "SyncRunItem",
+    "PaginatedSyncRunList",
+    "SyncEnqueuedResponse",
+    "SemanticField",
+    "SemanticModelCreate",
+    "SemanticModelPatch",
+    "SemanticModelItem",
+    "PaginatedSemanticModelList",
+    "QueryRequest",
+    "QueryResponse",
+    "DashboardCreate",
+    "DashboardPatch",
+    "DashboardItem",
+    "DashboardLayout",
+    "DashboardWidget",
+    "PaginatedDashboardList",
+    "DashboardPublishResponse",
+    "DesktopPublishDatasetRequest",
+    "DesktopPublishDatasetResponse",
+    "DesktopPublishDashboardRequest",
+    "DesktopPublishDashboardResponse",
+    "DesktopSessionInfo",
 ]
