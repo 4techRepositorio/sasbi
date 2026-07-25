@@ -1,10 +1,27 @@
 # Frontend Checklist
+
+## Estados e UX
 - discovery UX feito (ver [ux-checklist.md](./ux-checklist.md) / skill `senior-ux-designer`) antes de telas novas ou fluxos alterados
 - tela criada
 - loading tratado
 - erro tratado
 - estado vazio tratado
+- sucesso tratado (feedback claro)
 - responsividade básica validada
+- Design System: reutiliza `.da-*` / tokens `--da-*` / `shared/`; sem UI one-off (ver `docs/DESIGN_SYSTEM.md` e `CHECKLISTS/design-system-checklist.md`)
+
+## Arquitectura (Frontend Architect)
+- organização Feature-First (código na feature correcta; rota thin)
+- Atomic Design respeitado; sem duplicar componentes existentes
+- props tipadas em todo componente novo/alterado
+- documentação (JSDoc) + exemplo de uso (`@example` ou story)
+- teste mínimo do componente ou ecrã
+- Client Components / lógica de browser só onde necessário (stack Next); no Angular, evitar lógica de domínio no template
+- lazy loading / code splitting para features pesadas
+- ecrã admin mostra tenant actual
+- ver [docs/FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) e skill `frontend-architect`
+
+## Entregas actuais (`apps/web` Angular)
 - área admin (Equipa / tenant-users): só visível a `admin`; consome `GET /api/v1/tenant/members`
 - shell: tenant e papel visíveis; quando `plan` existe em `/me/context`, mostrar resumo do pacote (limite de uploads)
 - shell e upload: quando `storage` existe em `/me/context`, mostrar uso vs limite (tenant; opcional utilizador e grupo); após upload bem-sucedido, recarregar contexto para actualizar barras

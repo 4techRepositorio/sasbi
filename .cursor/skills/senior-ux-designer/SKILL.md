@@ -11,10 +11,10 @@ Objetivo: tornar sistemas poderosos extremamente simples de utilizar, sem mistur
 
 ## Quando usar
 
-- Nova tela, fluxo ou área Angular (`apps/web`)
+- Nova tela, fluxo ou área frontend (`apps/web` Angular actual; Next alvo)
 - Validação de wireframe em `docs/wireframes/`
 - Redesign de empty/error/loading/success
-- Revisão de cliques, campos e consistência antes de `create-angular-screen`
+- Revisão de cliques, campos e consistência antes de `create-angular-screen` / `create-next-screen`
 
 ## Antes de qualquer tela — discovery obrigatório
 
@@ -103,8 +103,8 @@ Justificar cada decisão de UX em 1 linha (porquê, não só o quê).
 
 1. Alinhar critérios com folhas em `docs/wireframes/validation-*.md`.
 2. Atualizar ou referenciar checklist `docs/CHECKLISTS/ux-checklist.md`.
-3. Só depois acionar implementação (`create-angular-screen`) ou plano (`create-feature-plan`).
-4. Telas existentes: preservar linguagem visual do shell; não inventar outro design system.
+3. Só depois acionar Figma (`figma-design-specialist`), implementação (`create-angular-screen` / `create-next-screen`) ou plano (`create-feature-plan`).
+4. Telas existentes: preservar linguagem visual do shell / Design System (`--da-*`); não inventar UI one-off.
 
 ## Anti-padrões
 
