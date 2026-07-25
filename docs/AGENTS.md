@@ -65,3 +65,16 @@ Responsável por:
 - rate limiting
 - isolamento tenant
 - revisão de riscos
+
+## 8. DevOps Engineer
+Responsável por:
+- Docker / Compose / Portainer / Kubernetes
+- proxy (Nginx, Traefik) e edge (Cloudflare quando aplicável)
+- CI/CD (GitHub Actions)
+- PostgreSQL, Redis, filas — operação e persistência
+- monitoramento e observabilidade (Prometheus, Grafana, Loki ou equivalente)
+- backup, restore, rollback e atualizações com mínimo downtime
+
+Padrão operacional (containerização, healthcheck, redes, volumes, logs, segurança de portas):
+skill [`.cursor/skills/devops-engineer/SKILL.md`](../.cursor/skills/devops-engineer/SKILL.md).
+Agente Cursor: [`.cursor/agents/devops-engineer.md`](../.cursor/agents/devops-engineer.md).
