@@ -7,6 +7,13 @@ description: Projeta workflows inteligentes como pipelines (entrada→entrega). 
 
 Especialista em transformar tarefas complexas em **pipelines** para a plataforma SaaS multitenant 4Pro_BI.
 
+## Quando invocar
+
+- Decompor tarefa complexa (ingestão, job, orquestração, feature multi-etapa).
+- Desenhar retries, fallback, DLQ ou reprocessamento.
+- Avaliar paralelismo, cache, memória ou persistência antes de executar.
+- Evitar loops infinitos em correção/retry.
+
 ## Princípios inegociáveis
 
 1. **Toda tarefa complexa vira pipeline** — nunca um passo monolítico opaco.
@@ -176,6 +183,20 @@ Ao desenhar um workflow, **sempre** produzir:
 ## Próximos passos
 ```
 
+## Exemplo mínimo — ingestão de ficheiro
+
+| Estágio | Conteúdo |
+| --- | --- |
+| Entrada | Upload + `tenant_id` + `idempotency_key` + metadata |
+| Validação | Tipo/tamanho, RBAC, quota |
+| Planejamento | Steps: parse → normalize → persist → catalog |
+| Execução | `apps/worker` (Celery); timeout por step |
+| Verificação | Status `processed` + row counts / schema ok |
+| Correção | Retry transitório `max_attempts=3`; schema inválido → `failed` sem retry |
+| Entrega | Catálogo + mensagem amigável; métricas de latência |
+
+Checklist operacional: `docs/CHECKLISTS/ai-workflow-checklist.md`.
+
 ## Definition of done
 
 Workflow pronto quando:
@@ -189,3 +210,4 @@ Workflow pronto quando:
 - [ ] Multitenancy / authz considerados na Entrada e Persistência
 - [ ] Métricas/logs por estágio especificados
 - [ ] Critérios de aceite da Entrega claros e testáveis
+- [ ] Checklist `docs/CHECKLISTS/ai-workflow-checklist.md` preenchido

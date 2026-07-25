@@ -11,9 +11,11 @@
 8. logs
 9. status final
 
-Hoje a aquisição em produção é **upload de ficheiro**. O programa de conectores
-unifica fontes (SQL, REST, etc.) no mesmo ciclo de status — ver
-[`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md).
+Aquisição suportada: **upload de ficheiro** (`POST /uploads`) e **sync de conector**
+(`POST /data-sources/{id}/sync`) via SPI (`file`, `postgres`, `rest_json`). Ambos
+criam `file_ingestions` no ciclo de status abaixo, com `correlation_id` e camada
+inicial `bronze` (promoção: ADR-004 / `POST /datasets/{id}/promote`).
+Ver [`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md).
 
 ## Status mínimos
 - uploaded

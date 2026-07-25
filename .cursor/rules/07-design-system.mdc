@@ -1,0 +1,14 @@
+---
+description: Regras do Design System 4Pro_BI — reutilizar tokens e componentes; não inventar UI one-off
+alwaysApply: true
+---
+
+# Design System
+
+1. **Nunca** criar componente visual único para um ecrã se já existir padrão `.da-*` ou em `apps/web/src/app/shared/`.
+2. Tokens vivem em `packages/ui/scss/_tokens.scss` (prefixo `--da-*`). Não hardcodar cores/espaçamentos mágicos em templates sem token.
+3. Novos padrões: documentar em `docs/DESIGN_SYSTEM.md` com exemplos, variações, estados e a11y.
+4. Componentes Angular reutilizáveis → `apps/web/src/app/shared/` + export no barrel `shared/index.ts`.
+5. Marca e UX final: sempre **4Pro_BI** nativo (ver `docs/ARCHITECTURE.md` § aceleradores).
+6. Checklist: `docs/CHECKLISTS/design-system-checklist.md`.
+7. Skill/agente: `.cursor/skills/design-system-engineer/SKILL.md`, `.cursor/agents/design-system-engineer.md`.

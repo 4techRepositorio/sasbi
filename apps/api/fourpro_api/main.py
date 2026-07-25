@@ -6,7 +6,20 @@ from slowapi.errors import RateLimitExceeded
 from fourpro_api.config import get_settings
 from fourpro_api.limiter import limiter
 from fourpro_api.logging_config import setup_logging
-from fourpro_api.routers import auth, datasets, health, ingestions, me, tenant, uploads
+from fourpro_api.middleware.correlation import CorrelationIdMiddleware
+from fourpro_api.routers import (
+    auth,
+    connectors,
+    dashboards,
+    datasets,
+    desktop,
+    health,
+    ingestions,
+    me,
+    semantic,
+    tenant,
+    uploads,
+)
 
 
 def _cors_origins() -> list[str]:
@@ -20,7 +33,7 @@ def create_app() -> FastAPI:
     setup_logging()
     app = FastAPI(
         title="4Pro_BI API",
-        version="0.1.0",
+        version="0.2.0",
     )
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -34,6 +47,7 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.add_middleware(CorrelationIdMiddleware)
 
     app.include_router(health.router, prefix="/api/v1")
     app.include_router(auth.router, prefix="/api/v1")
@@ -42,6 +56,10 @@ def create_app() -> FastAPI:
     app.include_router(uploads.router, prefix="/api/v1")
     app.include_router(datasets.router, prefix="/api/v1")
     app.include_router(ingestions.router, prefix="/api/v1")
+    app.include_router(dashboards.router, prefix="/api/v1")
+    app.include_router(connectors.router, prefix="/api/v1")
+    app.include_router(semantic.router, prefix="/api/v1")
+    app.include_router(desktop.router, prefix="/api/v1")
 
     return app
 
