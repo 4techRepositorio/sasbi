@@ -9,6 +9,9 @@
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
 | [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
 | [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre plataforma BI |
+| [plans/PARALELA-BI-FRENTES.md](./plans/PARALELA-BI-FRENTES.md) | Agentes/chats em paralelo (Fase 4 BI) |
+| [AGENTS.md](./AGENTS.md) | Papéis da squad + subagentes Cursor |
+| [../.cursor/agents/README.md](../.cursor/agents/README.md) | Índice dos agentes invocáveis |
 | [SECURITY.md](./SECURITY.md) | Política de segurança: reporte, divulgação responsável e controlos na implementação |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição, gates locais, Dependabot, troubleshooting npm |
 | [SECURITY.md (raiz)](../SECURITY.md) | Entrada GitHub *Security policy* → remete a `docs/SECURITY.md` |
