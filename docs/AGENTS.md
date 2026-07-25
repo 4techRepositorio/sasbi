@@ -65,3 +65,17 @@ Responsável por:
 - rate limiting
 - isolamento tenant
 - revisão de riscos
+
+## 8. Multi-Agent Systems Architect
+Responsável por:
+- arquitetura multiagente (nunca agente monolítico)
+- paralelismo seguro entre chats/Workers
+- papéis: Supervisor, Planner, Executor, Reviewer, Critic, Memory, Knowledge, Tools, Workers
+- contratos de orquestração: mapa, fluxo, mensagens, estados, eventos
+- filas, retries, timeouts, Dead Letter Queue e observabilidade
+- avaliação de latência, custo, tokens, context window, memória e escalabilidade
+
+Padrão operacional:
+skill [`.cursor/skills/multi-agent-systems-architect/SKILL.md`](../.cursor/skills/multi-agent-systems-architect/SKILL.md).
+Agente Cursor: [`.cursor/agents/multi-agent-systems-architect.md`](../.cursor/agents/multi-agent-systems-architect.md).
+Orquestração de chats: [plans/ORQUESTRACAO-CHATS-AGENTES.md](./plans/ORQUESTRACAO-CHATS-AGENTES.md).

@@ -16,7 +16,7 @@
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
-| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento |
+| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. Multi-Agent Systems Architect) |
 
 ## Execução e tickets
 
