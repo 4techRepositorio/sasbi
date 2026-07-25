@@ -5,6 +5,7 @@
 1. **Gates locais** (paridade com CI): `./scripts/run-qa-gates.sh` ou `make qa`.
 2. **Opcional — Alembic em Postgres Docker** (igual ao job `alembic-postgres`): `make alembic-pg-local` ou `RUN_ALEMBIC_PG_LOCAL=1 make qa`.
 3. **Pre-commit** (opcional): `pip install pre-commit && pre-commit install` — Ruff na API.
+4. **Documentação** (obrigatória se houver impacto): checklist [`docs/CHECKLISTS/documentation-checklist.md`](docs/CHECKLISTS/documentation-checklist.md); API → `make openapi`.
 
 ## Frentes e ficheiros (resumo)
 
