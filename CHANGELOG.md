@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 
-- **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR-002 (React/Next proposto); TICKET-018 + plano detalhado; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR.
+- **Onda BI (execução 011–013, 015–017):** correlation ID + `/metrics` + logs JSON (013); camadas bronze/silver/gold + promote (012, ADR-004); dashboards canvas Angular + APIs (011, ADR-003); SPI conectores `packages/connectors` + fontes/sync (015); modelo semântico + `POST /query` (016); scaffold Desktop Electron + publish API (017). Briefing em `docs/product/onda-bi-marcos-bce.md`.
+- **Arquitectura (Architect):** blueprint canónico em `docs/architecture/BLUEPRINT.md` (bounded contexts, portas, eventos/filas, APIs, versionamento, trade-offs); ADR modular monolith + Clean Architecture + Celery em `docs/adr/002-modular-monolith-clean-architecture.md`; checklist `docs/CHECKLISTS/architecture-checklist.md`.
+- **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR React/Next proposto em `docs/adr/002-frontend-react-next.md`; TICKET-018 + plano detalhado; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

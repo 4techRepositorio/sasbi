@@ -26,7 +26,8 @@ Pensa sempre como **sistema**, nunca como ecrã isolado.
 | Papel | Skill / artefacto | Fronteira |
 | --- | --- | --- |
 | UX (jornada, wireframe) | `senior-ux-designer` + `docs/wireframes/` | Decide fluxo e estados **antes** do pixel |
-| UI no código | `senior-ui-designer` + `apps/web/src/styles.scss` | Tokens/CSS `.da-*` na implementação |
+| Design System (tokens/código) | `design-system-engineer` + `packages/ui/scss/_tokens.scss` | Dono dos tokens `--da-*` e primitives |
+| UI no código / ecrãs | `frontend-architect` + `apps/web` | Consome DS; Feature-First / Atomic Design |
 | Página Angular | `create-angular-screen` | Implementação após handoff |
 | Plugins Figma MCP | `figma-use`, `figma-generate-design`, `figma-generate-library`, `figma-create-new-file` | Execução no ficheiro Figma |
 
@@ -80,7 +81,7 @@ Responder em português, de forma curta:
 
 ### 2. Design Tokens → Figma Variables
 
-Mapear tokens do produto (`apps/web/src/styles.scss` `:root`) para **Variables** no Figma (Collections). Preferir nomes semânticos alinhados ao código.
+Mapear tokens do produto (`packages/ui/scss/_tokens.scss` `:root`, consumidos em `apps/web/src/styles.scss`) para **Variables** no Figma (Collections). Preferir nomes semânticos alinhados ao código.
 
 | Coleção sugerida | Exemplos (origem `--da-*`) |
 | --- | --- |

@@ -34,3 +34,4 @@ class AuditLog(Base):
         index=True,
     )
     context: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    correlation_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
