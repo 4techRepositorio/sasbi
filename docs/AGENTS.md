@@ -134,3 +134,16 @@ skill [`.cursor/skills/ai-workflow-designer/SKILL.md`](../.cursor/skills/ai-work
 Agente Cursor: [`.cursor/agents/ai-workflow-designer.md`](../.cursor/agents/ai-workflow-designer.md).
 Checklist: [`docs/CHECKLISTS/ai-workflow-checklist.md`](./CHECKLISTS/ai-workflow-checklist.md).
 Pipeline de ingestão: skill [`create-ingestion-pipeline`](../.cursor/skills/create-ingestion-pipeline/SKILL.md).
+
+## 11. DevOps Engineer
+Responsável por:
+- Docker / Compose / Portainer / Kubernetes
+- proxy (Nginx, Traefik) e edge (Cloudflare quando aplicável)
+- CI/CD (GitHub Actions)
+- PostgreSQL, Redis, filas — operação e persistência
+- monitoramento e observabilidade (Prometheus, Grafana, Loki ou equivalente)
+- backup, restore, rollback e atualizações com mínimo downtime
+
+Padrão operacional (containerização, healthcheck, redes, volumes, logs, segurança de portas):
+skill [`.cursor/skills/devops-engineer/SKILL.md`](../.cursor/skills/devops-engineer/SKILL.md).
+Agente Cursor: [`.cursor/agents/devops-engineer.md`](../.cursor/agents/devops-engineer.md).
