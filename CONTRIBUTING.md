@@ -2,13 +2,14 @@
 
 ## Antes de abrir PR
 
-1. **Gates locais** (paridade com CI): `./scripts/run-qa-gates.sh` ou `make qa`.
-2. **Opcional — Alembic em Postgres Docker** (igual ao job `alembic-postgres`): `make alembic-pg-local` ou `RUN_ALEMBIC_PG_LOCAL=1 make qa`.
-3. **Pre-commit** (opcional): `pip install pre-commit && pre-commit install` — Ruff na API.
+1. **Arquitectura** (features novas / mudanças estruturais): validar [`docs/architecture/BLUEPRINT.md`](docs/architecture/BLUEPRINT.md) e preencher [`docs/CHECKLISTS/architecture-checklist.md`](docs/CHECKLISTS/architecture-checklist.md).
+2. **Gates locais** (paridade com CI): `./scripts/run-qa-gates.sh` ou `make qa`.
+3. **Opcional — Alembic em Postgres Docker** (igual ao job `alembic-postgres`): `make alembic-pg-local` ou `RUN_ALEMBIC_PG_LOCAL=1 make qa`.
+4. **Pre-commit** (opcional): `pip install pre-commit && pre-commit install` — Ruff na API.
 
 ## Frentes e ficheiros (resumo)
 
-O repositório usa **ownership por pastas** (ver `docs/plans/PROMPTS-CHATS-CURSOR.md` e `docs/ARCHITECTURE.md`):
+O repositório usa **ownership por pastas** (ver `docs/plans/PROMPTS-CHATS-CURSOR.md`, `docs/architecture/BLUEPRINT.md` e `docs/ARCHITECTURE.md`):
 
 - **Contratos** — `packages/contracts` (coordenar impacto em clientes).
 - **Core API** — auth, tenant, billing, `me`, `health`; **não** ingestions/uploads sem coordenação.
