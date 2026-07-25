@@ -1,5 +1,7 @@
 # ADR-002 — Stack frontend alvo: React + Next.js
 
+> **Colisão de número:** em `main` existe também [ADR-002 modular monolith](./002-modular-monolith-clean-architecture.md) (aceite). Este ficheiro mantém o título histórico até Product/Architect renumerarem (candidato natural: **ADR-003**). Referências textuais a «ADR-002» no âmbito frontend apontam para este ficheiro; no âmbito de arquitectura backend apontam para o modular monolith.
+
 **Estado:** proposto  
 **Data:** 2026-07-25  
 **Decisores:** Frontend Architect · Architect · Product · QA · Security  

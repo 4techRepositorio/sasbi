@@ -7,8 +7,11 @@ Papéis disponíveis:
 - Backend Core
 - Backend Data
 - Frontend Architect
+- Figma Design Specialist
+- Design System Engineer
 - QA Reviewer
 - Security Reviewer
+- AI Workflow Designer
 
 Objetivo do projeto:
 Construir uma plataforma SaaS multitenant de dados onde empresas possam:

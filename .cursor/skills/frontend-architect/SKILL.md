@@ -15,7 +15,7 @@ description: Arquitetura frontend Feature-First + Atomic Design (React, Next.js,
 | Framework | Next.js (App Router) |
 | Linguagem | TypeScript (strict) |
 | Estilo | Tailwind CSS |
-| Design system | shadcn/ui (tokens nativos 4Pro_BI) |
+| Design system | Tokens `--da-*` (`packages/ui`, skill `design-system-engineer`); stack alvo: wrappers shadcn/ui com tokens nativos 4Pro_BI |
 | Dados servidor | TanStack Query |
 | Formulários | React Hook Form + Zod |
 
@@ -171,8 +171,9 @@ const form = useForm<FormValues>({
 
 ### Design system
 
-- Wrappers shadcn em `shared/ui`; tokens CSS alinhados a 4Pro_BI.
-- Colaborar com skill `senior-ui-designer` para tokens/estados.
+- **Consumir** tokens `--da-*` e primitives existentes; dono: skill `design-system-engineer` (`docs/DESIGN_SYSTEM.md`, `packages/ui`).
+- Stack alvo: wrappers shadcn em `shared/ui` com tokens CSS alinhados a 4Pro_BI (não expor a marca shadcn na UX).
+- Padrão novo (botão, input, modal, …): elevar via Design System Engineer — não criar one-off no ecrã.
 - Na UX final: **zero** marcas de libs externas (ver `docs/ARCHITECTURE.md` § Aceleradores).
 
 ## Anti-padrões
