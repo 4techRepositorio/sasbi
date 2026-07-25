@@ -1,7 +1,7 @@
 # Plano detalhado — TICKET-017 Desktop authoring
 
 **Papéis:** Architect · Frontend · Backend Core · Security · QA  
-**Status:** planejado  
+**Status:** em implementação (scaffold Desktop entregue)  
 **Ticket:** `tickets/TICKET-017-desktop-authoring.md`  
 **ADR:** `docs/adr/001-bi-platform-connectors-desktop-web.md`
 

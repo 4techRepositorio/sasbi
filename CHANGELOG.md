@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **TICKET-017 Desktop:** scaffold `apps/desktop` (Electron + Vite + TS + React); auth com `safeStorage`; wizards de fontes (Postgres/REST), publish dataset/dashboard; ADR-002 / `apps/desktop/ADR-RUNTIME.md`.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

@@ -32,6 +32,14 @@ infra/portainer/.env
 # Node (se existir na raiz ou em e2e)
 node_modules/
 
+# Desktop (TICKET-017)
+apps/desktop/node_modules/
+apps/desktop/dist/
+apps/desktop/dist-electron/
+apps/desktop/release/
+apps/desktop/.env
+apps/desktop/out/
+
 # E2E / Playwright (futuro)
 e2e/node_modules/
 e2e/test-results/

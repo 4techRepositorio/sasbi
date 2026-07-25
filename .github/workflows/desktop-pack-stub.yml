@@ -1,0 +1,47 @@
+# Stub opcional — empacotamento Desktop (TICKET-017).
+# Descomentar / copiar para activar; ver também apps/desktop/docs/packaging-ci.md
+#
+# name: Desktop pack
+# on:
+#   workflow_dispatch: {}
+#   push:
+#     tags: ["desktop-v*"]
+# jobs:
+#   pack-linux:
+#     runs-on: ubuntu-latest
+#     defaults:
+#       run:
+#         working-directory: apps/desktop
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: "22"
+#           cache: npm
+#           cache-dependency-path: apps/desktop/package-lock.json
+#       - run: sudo apt-get update && sudo apt-get install -y xvfb
+#       - run: npm ci
+#       - run: xvfb-run -a npm run pack
+#         env:
+#           VITE_API_BASE_URL: http://127.0.0.1:7418
+#       - uses: actions/upload-artifact@v4
+#         with:
+#           name: fourpro-bi-desktop-linux
+#           path: apps/desktop/release/**
+
+name: Desktop pack (disabled stub)
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Workflow stub — activar steps em apps/desktop/docs/packaging-ci.md"
+        required: false
+        default: "noop"
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stub only
+        run: |
+          echo "Desktop packaging não corre neste workflow."
+          echo "Ver apps/desktop/docs/packaging-ci.md e apps/desktop/README.md (xvfb)."

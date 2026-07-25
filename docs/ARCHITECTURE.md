@@ -3,7 +3,7 @@
 ## Blocos
 
 - **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
-- **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
+- **Desktop App** — `apps/desktop` (TICKET-017): Electron + Vite + TypeScript + React (só neste app); autoração e publicação para o tenant; mesmo auth/contratos que a API. Ver [`apps/desktop/ADR-RUNTIME.md`](../apps/desktop/ADR-RUNTIME.md) / [ADR-002](./adr/002-desktop-runtime.md).
 - **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
 - **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
 - **PostgreSQL** — dados de aplicativo e, no futuro, camadas analíticas conforme ADR.
@@ -202,7 +202,7 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Decisões em aberto (ADR futuro)
 
-- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- ~~Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.~~ **Fechado:** Electron — [ADR-002](./adr/002-desktop-runtime.md).
 - Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
 - Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
 - Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.
