@@ -65,15 +65,25 @@ Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 
 ## Documentação
 
+Índice completo: [docs/README.md](docs/README.md). Política: [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) · [ADR-002](docs/adr/002-documentation-standards.md).
+
 | Documento | Conteúdo |
 |-----------|----------|
-| [docs/README.md](docs/README.md) | **Índice** da documentação (arquitectura, planos, wireframes, assets) |
-| [docs/assets/README.md](docs/assets/README.md) | Como **imagens e diagramas** são gerados e onde ficam |
-| [docs/plans/README.md](docs/plans/README.md) | Planos de execução e tickets |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Blocos e domínios |
+| [docs/INSTALLATION.md](docs/INSTALLATION.md) | Guia de instalação |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Guia de deploy (Compose / Portainer) |
+| [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) | Guia de desenvolvimento |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Arquitectura e multitenancy |
+| [docs/openapi/](docs/openapi/README.md) | OpenAPI / Swagger (snapshot + `/docs`) |
+| [docs/examples/](docs/examples/README.md) | Exemplos cURL |
+| [docs/diagrams/](docs/diagrams/README.md) | Fluxogramas e UML (Mermaid) |
+| [docs/adr/](docs/adr/README.md) | ADRs |
+| [CHANGELOG.md](CHANGELOG.md) | Changelog |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Roadmap |
 | [docs/VISION.md](docs/VISION.md) | Visão de produto |
-| [tickets/](tickets/) | Tickets do projeto 4Pro_BI |
+| [tickets/](tickets/) | Tickets (incl. TICKET-018 docs) |
 | [docs_planos_antigos/](docs_planos_antigos/plans/README.md) | Planos OSS históricos (P0–P8) |
+
+Regenerar OpenAPI após mudanças na API: `./scripts/export-openapi.sh` ou `make openapi`.
 
 ## Variáveis
 

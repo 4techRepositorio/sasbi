@@ -29,7 +29,7 @@ Programa: [`PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./PLATAFORMA-BI-CONNECTORS
 
 **Objetivo:** App Desktop autentica, configura fonte, publica dataset/dashboard para o Web.
 
-**Plano:** Spike Electron vs Tauri → ADR-002; `apps/desktop`; publish via APIs 015/016/011; secure storage.
+**Plano:** Spike Electron vs Tauri → ADR-003; `apps/desktop`; publish via APIs 015/016/011; secure storage.
 
 **Saída:** Round-trip Desktop → API → Web no mesmo tenant; build documentado para OS prioritário.
 

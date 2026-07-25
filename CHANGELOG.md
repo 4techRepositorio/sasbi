@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **Documentação (TICKET-018):** guias canónicos `INSTALLATION` / `DEPLOYMENT` / `DEVELOPMENT`; OpenAPI snapshot em `docs/openapi/` + `scripts/export-openapi.sh`; exemplos cURL em `docs/examples/`; diagramas Mermaid/UML em `docs/diagrams/`; ADR-002 (padrões de documentação); checklist de docs; índices e política em `docs/DOCUMENTATION.md`.
 - **Plataforma BI (planeamento):** ADR-001 (conectores + Web + Desktop); plano mestre `docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`; tickets **015–017** com planos detalhados; actualização de `VISION`, `ROADMAP`, `ARCHITECTURE`, `INGESTION`, índices.
 
 ## [0.1.0] — 2026-03-27

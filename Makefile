@@ -1,6 +1,6 @@
 # Atalhos para desenvolvimento local (4Pro_BI).
 # Requer: bash, opcionalmente Docker para alvo alembic-pg-local / e2e-one-shot / qa-optional (parcial).
-.PHONY: help qa qa-alembic qa-optional qa-optional-full migrate alembic-pg-local e2e-api-local e2e-one-shot e2e-dispatch lint-actions wireframes-export stack-up stack-down stack-ps stack-logs
+.PHONY: help qa qa-alembic qa-optional qa-optional-full migrate alembic-pg-local e2e-api-local e2e-one-shot e2e-dispatch lint-actions wireframes-export openapi stack-up stack-down stack-ps stack-logs
 
 help:
 	@echo "Alvos make (raiz do monorepo):"
@@ -15,6 +15,7 @@ help:
 	@echo "  make e2e-dispatch     — dispara GitHub Actions E2E (manual); precisa gh auth"
 	@echo "  make lint-actions     — actionlint nos workflows (PATH ou Docker rhysd/actionlint)"
 	@echo "  make wireframes-export — PDF raiz → PNG em docs/assets/wireframes/exports/ (poppler-utils)"
+	@echo "  make openapi          — exporta docs/openapi/openapi.json a partir da FastAPI"
 	@echo "  make stack-up         — Docker: infra/portainer (build + up -d); requer infra/portainer/.env"
 	@echo "  make stack-down       — Docker: para a stack (sem -v; STACK_DOWN_VOLUMES=1 apaga volumes)"
 	@echo "  make stack-ps         — docker compose ps da stack Portainer"
@@ -53,6 +54,9 @@ lint-actions:
 
 wireframes-export:
 	@chmod +x scripts/export-wireframes-from-pdf.sh 2>/dev/null; ./scripts/export-wireframes-from-pdf.sh
+
+openapi:
+	@chmod +x scripts/export-openapi.sh 2>/dev/null; ./scripts/export-openapi.sh
 
 stack-up:
 	@chmod +x scripts/stack-up.sh 2>/dev/null; ./scripts/stack-up.sh
