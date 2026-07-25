@@ -2,17 +2,19 @@
 
 ## Blocos
 
-- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace e upload (evolução).
-- **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo.
-- **Worker** — `apps/worker` (Celery + Redis): parsing e jobs assíncronos.
+- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
+- **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
+- **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
+- **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
 - **PostgreSQL** — dados de aplicativo e, no futuro, camadas analíticas conforme ADR.
 - **Redis** — broker/backend Celery e cache (evolução).
-- **Armazenamento de objetos** — MinIO em `infra/compose` para stage de arquivos (upload).
+- **Armazenamento de objetos** — MinIO em `infra/compose` para stage de arquivos (upload/sync).
 
 ## Pacotes
 
-- `packages/contracts` — DTOs Pydantic compartilhados (`fourpro_contracts`): `auth`, `ingestion`, `dataset`, `tenant`, `billing` (contexto `/me/context` e limites de plano). Ver [docs/adr/000-contract-slices.md](./adr/000-contract-slices.md). **Edição deste pacote:** Frente Architect (gestão em [5 frentes paralelas](./plans/PARALELA-5-FRENTES.md)); impacto documentado aqui ou em ADR.
-- `packages/ui` — biblioteca opcional de componentes partilhados do `apps/web` (ver `packages/ui/README.md`); evolução coordenada com a Frente Architect quando afectar contratos visuais ou tokens.
+- `packages/contracts` — DTOs Pydantic compartilhados (`fourpro_contracts`): `auth`, `ingestion`, `dataset`, `tenant`, `billing` (contexto `/me/context` e limites de plano); evolução `connectors`, `semantic`, `desktop_sync`. Ver [docs/adr/000-contract-slices.md](./adr/000-contract-slices.md). **Edição deste pacote:** Frente Architect (gestão em [5 frentes paralelas](./plans/PARALELA-5-FRENTES.md)); impacto documentado aqui ou em ADR.
+- `packages/connectors` — SPI e plugins de fontes de dados (planeado, TICKET-015).
+- `packages/ui` — biblioteca opcional de componentes partilhados do `apps/web` (ver `packages/ui/README.md`); evolução coordenada com a Frente Architect quando afectar contratos visuais ou tokens; reutilização no Desktop quando possível.
 - `packages/shared` — utilitários comuns (API + worker).
 
 ## Domínios principais
@@ -22,9 +24,23 @@
 - Billing
 - File Upload
 - Ingestion
+- **Connectors / Data Sources** (TICKET-015)
 - Dataset Catalog
-- Workspace
+- **Semantic Model & Query** (TICKET-016)
+- Workspace / Dashboards (TICKET-011)
+- **Desktop Authoring** (TICKET-017)
 - Admin
+
+## Plataforma BI — conectores, Web e Desktop
+
+Programa e critérios: [ADR-001](./adr/001-bi-platform-connectors-desktop-web.md) · [plano mestre](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md).
+
+Resumo:
+
+1. **Conectores (SPI)** — plugins versionados; credenciais em cofre por tenant; sync no worker; mesmo ciclo de status de ingestão.
+2. **Web** — consumo, governação, admin SaaS e autoração leve (híbrido canvas Angular ± motor via BFF nativo).
+3. **Desktop** — autoração e publish; API como fonte de verdade; tokens em secure storage.
+4. **UX** — terminologia 4Pro_BI (“Fontes de dados”, “Workspace”, “Desktop 4Pro_BI”); sem marcas de produtos ou OSS de terceiros na superfície do cliente.
 
 ## Backend Core vs Backend Data (quem expõe o quê)
 
@@ -186,4 +202,7 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Decisões em aberto (ADR futuro)
 
-- Quais **famílias** de componente entram (identidade federada, motor de relatórios, orquestração de transformações, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico de opções; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.
+- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
+- Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
+- Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.

@@ -60,9 +60,9 @@ Mapeamento **conceitual** (não 1:1 com IDs P*-*):
 | Identidade | Keycloak (OIDC, MFA, grupos) | FastAPI + auth na **apps/api** (JWT/sessão) |
 | Frontend | Portal **React** whitelabel | **Angular** (`apps/web`) |
 | Orquestração / ETL | Dagster + dbt + camadas Bronze/Silver/Gold | Celery/worker + pipeline (tickets 007–008) |
-| BI / dashboards | Apache Superset + Cube | “Dashboards tipo Figma / Power BI” — **a definir** se Superset/Cube entram como ADR ou substituto próprio |
+| BI / dashboards | Apache Superset + Cube | Programa actual: **ADR-001** — híbrido Web (canvas Angular ± motor via BFF) + Desktop (TICKET-017); aceleradores OSS só com experiência unificada |
 
-**Implicação:** os wireframes em `validation-workspace-dashboards.md` devem continuar válidos **como comportamento de produto**; a **implementação** precisa de **ADR** escolhendo entre (a) adotar a stack OSS do plano antigo embutida no monorepo, ou (b) manter stack enxuta FastAPI/Angular e integrar apenas peças selecionadas (ex.: object storage + worker).
+**Implicação:** os wireframes em `validation-workspace-dashboards.md` continuam válidos **como comportamento de produto**. A implementação segue [`docs/adr/001-bi-platform-connectors-desktop-web.md`](../adr/001-bi-platform-connectors-desktop-web.md) e o [plano mestre BI](../plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) (conectores SPI + Web + Desktop), sem expor marcas OSS ao cliente.
 
 ## 5. Como usar isto nas validações de wireframe
 

@@ -45,6 +45,8 @@ jobs:
       - name: Smoke API (uvicorn efémero)
         env:
           CI: true
+          # Deps instaladas no Python do runner (setup-python), não em .venv.
+          VENV_PY: python
         run: E2E_SKIP_NPM_CI=1 bash scripts/run-e2e-api-smoke-local.sh
       - name: Artefacto Playwright (falha)
         if: failure()

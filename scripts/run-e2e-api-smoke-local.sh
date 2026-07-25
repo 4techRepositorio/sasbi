@@ -5,9 +5,38 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-VENV_PY="${VENV_PY:-$ROOT/.venv/bin/python}"
-if [[ ! -x "$VENV_PY" ]]; then
-  echo "Sem Python em .venv. Correr: python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt" >&2
+# Preferência: VENV_PY explícito → .venv local → python/python3 do PATH
+# (no CI as deps ficam no Python do runner via setup-python, sem .venv).
+resolve_python() {
+  local candidate
+  if [[ -n "${VENV_PY:-}" ]]; then
+    if [[ -x "$VENV_PY" ]]; then
+      printf '%s\n' "$VENV_PY"
+      return 0
+    fi
+    if candidate="$(command -v "$VENV_PY" 2>/dev/null)" && [[ -n "$candidate" ]]; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+    echo "Aviso: VENV_PY='${VENV_PY}' indisponível; a tentar fallbacks." >&2
+  fi
+  if [[ -x "$ROOT/.venv/bin/python" ]]; then
+    printf '%s\n' "$ROOT/.venv/bin/python"
+    return 0
+  fi
+  for candidate in python3 python; do
+    if candidate="$(command -v "$candidate" 2>/dev/null)" && [[ -n "$candidate" ]]; then
+      printf '%s\n' "$candidate"
+      return 0
+    fi
+  done
+  echo "Sem Python utilizável. Correr: python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt" >&2
+  return 1
+}
+
+VENV_PY="$(resolve_python)" || exit 1
+if ! "$VENV_PY" -c "import uvicorn" 2>/dev/null; then
+  echo "O interpretador '${VENV_PY}' não tem uvicorn. Instalar: pip install -r requirements-dev.txt" >&2
   exit 1
 fi
 

@@ -1,7 +1,7 @@
 # Ingestion
 
 ## Fluxo obrigatório
-1. upload físico
+1. aquisição (upload físico **ou** extract de conector — TICKET-015)
 2. registro de metadata
 3. validação
 4. parsing
@@ -10,6 +10,10 @@
 7. catálogo
 8. logs
 9. status final
+
+Hoje a aquisição em produção é **upload de ficheiro**. O programa de conectores
+unifica fontes (SQL, REST, etc.) no mesmo ciclo de status — ver
+[`docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md).
 
 ## Status mínimos
 - uploaded

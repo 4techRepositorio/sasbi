@@ -115,6 +115,18 @@ Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Plano
 
 **Paralelismo (011+):** **011** e **012** podem evoluir em paralelo após ADRs alinhados; **013** (observabilidade) e **014** (CI) são transversais e podem avançar com qualquer trilho que toque API/worker/web.
 
+### 1.2 Fase 4 — plataforma BI (tickets 015–017)
+
+| Ordem | ID | Nome | Nota |
+|------|-----|------|------|
+| — | [TICKET-015](../../tickets/TICKET-015-connector-framework.md) | Framework de conectores | SPI + O1 (postgres, rest_json) |
+| — | [TICKET-016](../../tickets/TICKET-016-semantic-web-bi.md) | Semântica + BI Web | Coordena com **011** |
+| — | [TICKET-017](../../tickets/TICKET-017-desktop-authoring.md) | Desktop authoring | Após APIs 015/016 |
+
+Plano mestre: [`PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](./PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) · ADR-001 · resumo [`PLANOS-POR-TICKET-015-017.md`](./PLANOS-POR-TICKET-015-017.md).
+
+**Gate G5:** contratos `connectors` + primeiro sync O1 (**015**) estáveis → desbloqueia UI Fontes, query (**016**) e scaffold Desktop (**017**).
+
 ---
 
 ## 2. Marcos (alinhados aos planos antigos, adaptados)
@@ -123,7 +135,7 @@ Resumos: [`PLANOS-POR-TICKET-011-014.md`](./PLANOS-POR-TICKET-011-014.md). Plano
 |-------|------|--------------|
 | **A — Laboratório** | 008 + UI upload/histórico | Arquivo sobe, job processa, status visível |
 | **B — Dados governados** | Evolução pós-fase-base (transformações SQL versionadas / camadas se ADR) | Bronze/silver/gold ou equivalente na API |
-| **C — BI utilizável** | Roadmap Fase 3 + ADR (analytics incorporado ou canvas próprio) | Dashboard multitenant, UX unificada |
+| **C — BI utilizável** | Roadmap Fase 3 + ADR-001 (híbrido Web; conectores/Desktop em Fase 4) | Dashboard multitenant, UX unificada |
 | **D — SaaS fechável** | 010 enforcement | Quotas bloqueiam uso |
 | **E — Enterprise** | MFA forte, auditoria, observabilidade | Checklist security |
 

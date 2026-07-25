@@ -8,8 +8,11 @@
 | [PLANOS-POR-TICKET-000-001.md](./PLANOS-POR-TICKET-000-001.md) | Resumo executável dos tickets 000–001 |
 | [PLANOS-POR-TICKET-002-010.md](./PLANOS-POR-TICKET-002-010.md) | Resumo executável dos tickets 002–010 |
 | [PLANOS-POR-TICKET-011-014.md](./PLANOS-POR-TICKET-011-014.md) | Resumo fases seguintes (Marcos B/C/E + CI, tickets 011–014) |
+| [PLANOS-POR-TICKET-015-017.md](./PLANOS-POR-TICKET-015-017.md) | Resumo plataforma BI (conectores, semântica/Web, Desktop) |
+| [PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | **Plano mestre** BI: SPI de conectores + Web + Desktop |
 | [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | **5 frentes paralelas**, agentes e prompts (gestão técnica 4Pro_BI) |
 | [../wireframes/](../wireframes/) | Validação de wireframes e referências |
+| [../adr/001-bi-platform-connectors-desktop-web.md](../adr/001-bi-platform-connectors-desktop-web.md) | ADR-001 plataforma BI |
 
 ## Planos detalhados por ticket
 
@@ -30,6 +33,9 @@
 | TICKET-012 | [TICKET-012-data-governance-detailed-plan.md](./TICKET-012-data-governance-detailed-plan.md) |
 | TICKET-013 | [TICKET-013-observability-enterprise-detailed-plan.md](./TICKET-013-observability-enterprise-detailed-plan.md) |
 | TICKET-014 | [TICKET-014-ci-quality-gates-detailed-plan.md](./TICKET-014-ci-quality-gates-detailed-plan.md) |
+| TICKET-015 | [TICKET-015-connector-framework-detailed-plan.md](./TICKET-015-connector-framework-detailed-plan.md) |
+| TICKET-016 | [TICKET-016-semantic-web-bi-detailed-plan.md](./TICKET-016-semantic-web-bi-detailed-plan.md) |
+| TICKET-017 | [TICKET-017-desktop-authoring-detailed-plan.md](./TICKET-017-desktop-authoring-detailed-plan.md) |
 
 **Cartões curtos:** [`tickets/`](../../tickets/README.md)
 
