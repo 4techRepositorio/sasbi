@@ -21,6 +21,8 @@ Entregar **BI utilizável** multitenant: workspace com dashboards que consomem d
 
 **Saída da fase de planeamento:** ADR em `docs/` escolhendo A/B/C + modelo de autorização (quem cria/edita dashboard).
 
+**Alinhamento ADR-001:** a opção preferida do programa BI é **C — Híbrido**, com query API (TICKET-016) a alimentar o canvas; ver [`docs/adr/001-bi-platform-connectors-desktop-web.md`](../adr/001-bi-platform-connectors-desktop-web.md).
+
 ## 3. Escopo MVP sugerido
 
 | Incluído | Excluído (fases seguintes) |

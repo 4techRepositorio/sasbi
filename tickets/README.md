@@ -19,5 +19,8 @@
 | TICKET-012 | [TICKET-012-data-governance.md](./TICKET-012-data-governance.md) | Governança de dados (Marco B) |
 | TICKET-013 | [TICKET-013-observability-enterprise.md](./TICKET-013-observability-enterprise.md) | Observabilidade / enterprise (Marco E) |
 | TICKET-014 | [TICKET-014-ci-quality-gates.md](./TICKET-014-ci-quality-gates.md) | CI e quality gates |
+| TICKET-015 | [TICKET-015-connector-framework.md](./TICKET-015-connector-framework.md) | Framework de conectores de dados |
+| TICKET-016 | [TICKET-016-semantic-web-bi.md](./TICKET-016-semantic-web-bi.md) | Camada semântica e BI Web |
+| TICKET-017 | [TICKET-017-desktop-authoring.md](./TICKET-017-desktop-authoring.md) | Desktop 4Pro_BI — autoração |
 
-**Ordem e paralelismo:** o plano é executado por **toda a equipa em paralelo** onde as dependências o permitem — ver [`docs/plans/EXECUCAO-MESTRE.md`](../docs/plans/EXECUCAO-MESTRE.md) §0; evolução (011+): [`PLANOS-POR-TICKET-011-014.md`](../docs/plans/PLANOS-POR-TICKET-011-014.md).
+**Ordem e paralelismo:** o plano é executado por **toda a equipa em paralelo** onde as dependências o permitem — ver [`docs/plans/EXECUCAO-MESTRE.md`](../docs/plans/EXECUCAO-MESTRE.md) §0; evolução (011+): [`PLANOS-POR-TICKET-011-014.md`](../docs/plans/PLANOS-POR-TICKET-011-014.md); plataforma BI: [`PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md`](../docs/plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) e [`PLANOS-POR-TICKET-015-017.md`](../docs/plans/PLANOS-POR-TICKET-015-017.md).

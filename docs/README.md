@@ -7,6 +7,8 @@
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
 | [VISION.md](./VISION.md) | Produto |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
+| [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
+| [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre plataforma BI |
 | [SECURITY.md](./SECURITY.md) | Política de segurança: reporte, divulgação responsável e controlos na implementação |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | Contribuição, gates locais, Dependabot, troubleshooting npm |
 | [SECURITY.md (raiz)](../SECURITY.md) | Entrada GitHub *Security policy* → remete a `docs/SECURITY.md` |
@@ -20,7 +22,7 @@
 
 | Área | Conteúdo |
 |------|----------|
-| [plans/README.md](./plans/README.md) | Plano mestre, resumos por ticket, planos detalhados TICKET-000–014 |
+| [plans/README.md](./plans/README.md) | Plano mestre, resumos por ticket, planos detalhados TICKET-000–017 |
 | [plans/EXECUCAO-MESTRE.md](./plans/EXECUCAO-MESTRE.md) | Ordem de trabalho, **execução paralela** (§0), marcos A–E |
 | [plans/PARALELA-5-FRENTES.md](./plans/PARALELA-5-FRENTES.md) | 5 frentes paralelas, agentes e prompts (projeto 4Pro_BI) |
 | [plans/ORQUESTRACAO-CHATS-AGENTES.md](./plans/ORQUESTRACAO-CHATS-AGENTES.md) | **Orquestração** — vários chats Cursor / worktrees, allowlists, rituais |
