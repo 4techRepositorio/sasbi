@@ -19,3 +19,6 @@ Formato:
 2. Riscos encontrados
 3. O que falta
 4. Pode ou não pode seguir
+
+Para revisão sénior completa (SOLID, DDD, OWASP, concorrência, P0–P3):
+usar a skill `.cursor/skills/senior-code-reviewer/SKILL.md`.

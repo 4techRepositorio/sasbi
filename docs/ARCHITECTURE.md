@@ -1,9 +1,32 @@
 # Arquitetura
 
+> **Blueprint canónico (Architect):** [`docs/architecture/BLUEPRINT.md`](./architecture/BLUEPRINT.md)  
+> Índice do pacote: [`docs/architecture/README.md`](./architecture/README.md) · Gate: [`CHECKLISTS/architecture-checklist.md`](./CHECKLISTS/architecture-checklist.md)  
+> Estilo aceite: **modular monolith + Clean Architecture + async Celery** — [ADR-002](./adr/002-modular-monolith-clean-architecture.md)
+
+Este ficheiro mantém a visão operacional (multitenancy, Core vs Data, quotas, aceleradores).  
+Estrutura de pastas, bounded contexts, eventos, filas, APIs e trade-offs vivem no **blueprint**.
+
+## Contexto do sistema (resumo)
+
+```mermaid
+flowchart LR
+  WEB[Web Angular] --> API[API FastAPI]
+  DESK[Desktop planeado] --> API
+  API --> PG[(PostgreSQL)]
+  API --> RD[(Redis)]
+  RD --> WRK[Worker Celery]
+  WRK --> PG
+  API --> S3[(Object storage)]
+  WRK --> S3
+  API --> CTR[packages/contracts]
+  WRK --> CTR
+```
+
 ## Blocos
 
-- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards.
-- **Desktop App** — `apps/desktop` (planeado, TICKET-017): autoração pesada e publicação para o tenant; mesmo auth/contratos que a API.
+- **Web App** — `apps/web` (Angular 19): portal administrativo, workspace, upload e (evolução) fontes de dados + dashboards. Stack alvo React/Next documentado em [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md) (proposto; sem migração até aceite).
+- **Desktop App** — `apps/desktop` (scaffold Electron, TICKET-017): autoração e publicação (`/desktop/publish/*`) para o tenant; mesmo auth/contratos que a API.
 - **API** — `apps/api` (FastAPI): identidade, tenancy, billing, ingestão, catálogo, conectores, semântica/query.
 - **Worker** — `apps/worker` (Celery + Redis): parsing, sync de conectores e jobs assíncronos.
 - **PostgreSQL** — dados de aplicativo e, no futuro, camadas analíticas conforme ADR.
@@ -13,7 +36,7 @@
 ## Pacotes
 
 - `packages/contracts` — DTOs Pydantic compartilhados (`fourpro_contracts`): `auth`, `ingestion`, `dataset`, `tenant`, `billing` (contexto `/me/context` e limites de plano); evolução `connectors`, `semantic`, `desktop_sync`. Ver [docs/adr/000-contract-slices.md](./adr/000-contract-slices.md). **Edição deste pacote:** Frente Architect (gestão em [5 frentes paralelas](./plans/PARALELA-5-FRENTES.md)); impacto documentado aqui ou em ADR.
-- `packages/connectors` — SPI e plugins de fontes de dados (planeado, TICKET-015).
+- `packages/connectors` — SPI e plugins O1 (`file`, `postgres`, `rest_json`) — TICKET-015.
 - `packages/ui` — biblioteca opcional de componentes partilhados do `apps/web` (ver `packages/ui/README.md`); evolução coordenada com a Frente Architect quando afectar contratos visuais ou tokens; reutilização no Desktop quando possível.
 - `packages/shared` — utilitários comuns (API + worker).
 
@@ -95,6 +118,24 @@ O produto aplica **três níveis** de limite sobre o total de bytes persistidos 
 **Impacto:** qualquer cliente (web, integrações) que consuma `/me/context` deve tolerar o campo opcional `storage`; UI de gestão de quotas é evolução da Frente Frontend.
 
 **Operação:** em deploy com contentores, o entrypoint da API aplica migrações ao arranque; rebuild da imagem incorpora `packages/contracts`. Detalhes e checklist staging/produção: `infra/portainer/README.md` (secção *Migrações e pacote contracts*); migração manual só com Postgres local: `scripts/run-db-migrate.sh`. Paridade com o CI (Postgres vazio + cadeia Alembic): `scripts/run-alembic-postgres-local.sh` (Docker).
+
+## Camadas de governação (TICKET-012 / ADR-004)
+
+- Metadado `file_ingestions.layer`: `bronze` (default no upload/sync) → `silver` → `gold`.
+- Promoção: `POST /api/v1/datasets/{id}/promote` cria nova ingestão `processed` com `source_ingestion_id` + `transform_version` (sem SQL ad-hoc do cliente).
+- Catálogo: `GET /datasets?layer=` e badge no DTO.
+
+## Workspace / dashboards (TICKET-011 / ADR-003)
+
+- Canvas nativo Angular; modelos `dashboards` + `dashboard_widgets` com `tenant_id`.
+- RBAC: admin/analyst escrevem; consumer lê. Export MVP: snapshot JSON.
+- Evolução: widgets via query semântica (`POST /api/v1/query`, TICKET-016).
+
+## Conectores (TICKET-015)
+
+- SPI em `packages/connectors`; APIs `/connectors`, `/data-sources`, test/sync.
+- Sync gera ingestão bronze no mesmo tenant e reutiliza o worker de parse.
+- Correlation ID (TICKET-013) partilhado entre HTTP, audit, ingestão e sync runs.
 
 ## Regra central
 
@@ -202,7 +243,8 @@ Política de geração e armazenamento de imagens para documentação (Mermaid, 
 
 ## Decisões em aberto (ADR futuro)
 
-- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-002.
+- Runtime exacto do Desktop (Electron vs Tauri) — spike em TICKET-017 → ADR-00x (não confundir com ADR-002 já aceite: modular monolith).
 - Motor embed avançado vs canvas-only no Web — fecho com TICKET-011 alinhado ao ADR-001 (híbrido preferido).
 - Warehouse analítico / camadas bronze–silver–gold — TICKET-012.
+- Outbox / bus de domínio quando Connectors e Semantic tiverem múltiplos consumidores — ver blueprint §11 e ADR-002.
 - Quais **famílias** adicionais de componente entram (identidade federada, orquestração de transformações além do Celery, etc.) versus implementação só no monorepo — ver `docs/wireframes/REFERENCIAS-MATERIAIS-LEGADOS.md` como histórico; cada escolha concreta deve referenciar esta secção e cumprir **experiência unificada** acima.

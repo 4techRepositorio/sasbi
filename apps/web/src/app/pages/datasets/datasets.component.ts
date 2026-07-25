@@ -11,6 +11,8 @@ interface DatasetRow {
   size_bytes: number;
   result_summary: string | null;
   created_at: string;
+  layer?: string;
+  source_ingestion_id?: string | null;
 }
 
 interface PaginatedDatasets {
@@ -45,6 +47,7 @@ interface PaginatedDatasets {
             <thead>
               <tr>
                 <th>Ficheiro</th>
+                <th>Camada</th>
                 <th>Tamanho</th>
                 <th>Resumo</th>
                 <th>Criado</th>
@@ -54,6 +57,7 @@ interface PaginatedDatasets {
               @for (r of rows(); track r.id) {
                 <tr>
                   <td>{{ r.original_filename }}</td>
+                  <td><span class="da-badge">{{ r.layer ?? 'bronze' }}</span></td>
                   <td>{{ r.size_bytes | number }} B</td>
                   <td class="da-cell-summary">{{ r.result_summary ?? '—' }}</td>
                   <td class="da-cell-date">{{ r.created_at | date: 'short' }}</td>

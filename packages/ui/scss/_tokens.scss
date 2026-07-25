@@ -1,0 +1,62 @@
+/* 4Pro_BI — design tokens (fonte de verdade)
+ * Consumido por apps/web/src/styles.scss
+ * Documentação: docs/DESIGN_SYSTEM.md
+ */
+
+:root {
+  /* Tipografia */
+  --da-font-display: "Inter", "Outfit", system-ui, sans-serif;
+  --da-font-body: "Inter", "Source Sans 3", system-ui, sans-serif;
+
+  /* Superfície e texto */
+  --da-bg-app: #f4f7f9;
+  --da-bg-card: #ffffff;
+  --da-border: #e8ecf1;
+  --da-text: #121626;
+  --da-text-secondary: #5c6578;
+  --da-text-muted: #8b95a8;
+
+  /* Shell / sidebar */
+  --da-sidebar-from: #121626;
+  --da-sidebar-to: #1a1f2e;
+  --da-sidebar-text: rgba(248, 250, 252, 0.92);
+  --da-sidebar-muted: rgba(148, 163, 184, 0.92);
+  --da-sidebar-border: rgba(255, 255, 255, 0.08);
+
+  /* Destaques de marca: magenta + azul */
+  --da-accent: #e91e63;
+  --da-accent-hover: #c2185b;
+  --da-accent-glow: rgba(233, 30, 99, 0.22);
+  --da-blue: #2196f3;
+  --da-blue-dark: #1565c0;
+
+  /* Charts */
+  --da-chart-head-from: #2196f3;
+  --da-chart-head-to: #e91e63;
+
+  /* Feedback semântico */
+  --da-success-bg: #ecfdf5;
+  --da-success-text: #166534;
+  --da-danger-text: #b91c1c;
+  --da-warning-text: #b45309;
+
+  /* Forma e elevação */
+  --da-radius: 12px;
+  --da-radius-sm: 8px;
+  --da-shadow-card: 0 1px 2px rgb(15 23 42 / 6%), 0 12px 32px rgb(15 23 42 / 8%);
+  --da-shadow-elevated: 0 4px 6px rgb(15 23 42 / 5%), 0 24px 48px rgb(15 23 42 / 12%);
+
+  /* Espaçamento (escala base 4px) */
+  --da-space-1: 0.25rem; /* 4px */
+  --da-space-2: 0.5rem; /* 8px */
+  --da-space-3: 0.75rem; /* 12px */
+  --da-space-4: 1rem; /* 16px */
+  --da-space-5: 1.25rem; /* 20px */
+  --da-space-6: 1.5rem; /* 24px */
+  --da-space-8: 2rem; /* 32px */
+
+  /* Grid / layout */
+  --da-shell-aside-width: 260px;
+  --da-content-max: 1120px;
+  --da-focus-ring: 0 0 0 3px var(--da-accent-glow);
+}

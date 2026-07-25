@@ -16,7 +16,12 @@ logger = logging.getLogger(__name__)
 _MAX_TEXT_SCAN = 20_000_000
 
 
-def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None:
+def run_ingestion_parse(
+    ingestion_id: str,
+    *,
+    db: Session | None = None,
+    correlation_id: str | None = None,
+) -> None:
     own_session = db is None
     if own_session:
         sm = get_session_maker()
@@ -26,8 +31,24 @@ def run_ingestion_parse(ingestion_id: str, *, db: Session | None = None) -> None
         repo = IngestionRepository(db)
         row = repo.get_by_id(UUID(ingestion_id))
         if row is None:
-            logger.warning("ingestion_not_found", extra={"id": ingestion_id})
+            logger.warning(
+                "ingestion_not_found",
+                extra={"id": ingestion_id, "correlation_id": correlation_id},
+            )
             return
+        if correlation_id and not row.correlation_id:
+            row.correlation_id = correlation_id
+            db.add(row)
+            db.commit()
+        cid = row.correlation_id or correlation_id
+        logger.info(
+            "ingestion_parse_start",
+            extra={
+                "ingestion_id": ingestion_id,
+                "correlation_id": cid,
+                "tenant_id": str(row.tenant_id),
+            },
+        )
 
         repo.update(row, status="validating")
         path = Path(row.storage_path)

@@ -1,0 +1,16 @@
+{
+  "name": "fourpro-bi-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop 4Pro_BI — autoração e publicação",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "test": "node --test src/api-client.test.js"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  }
+}
