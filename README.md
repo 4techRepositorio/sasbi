@@ -70,7 +70,8 @@ Sobe Postgres/Redis, aplica migrações, seed, `pytest` e indica smoke da API.
 | [docs/README.md](docs/README.md) | **Índice** da documentação (arquitectura, planos, wireframes, assets) |
 | [docs/assets/README.md](docs/assets/README.md) | Como **imagens e diagramas** são gerados e onde ficam |
 | [docs/plans/README.md](docs/plans/README.md) | Planos de execução e tickets |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Blocos e domínios |
+| [docs/architecture/BLUEPRINT.md](docs/architecture/BLUEPRINT.md) | Blueprint Architect (contextos, eventos, APIs) |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Blocos, multitenancy e Core vs Data |
 | [docs/VISION.md](docs/VISION.md) | Visão de produto |
 | [tickets/](tickets/) | Tickets do projeto 4Pro_BI |
 | [docs_planos_antigos/](docs_planos_antigos/plans/README.md) | Planos OSS históricos (P0–P8) |
