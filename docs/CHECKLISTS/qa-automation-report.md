@@ -73,9 +73,10 @@ _Gerado em 2026-07-25 21:47 UTC por `scripts/generate-qa-report.sh`._
 
 ## Prioridade (próximos passos)
 
-1. **P0** — E2E upload→catálogo + ferramenta de load em staging.
-2. **P1** — testes Postgres de corrida (billing/upload) e parse spreadsheet real.
-3. **P2** — unit tests frontend + worker Redis no CI.
+1. **P0** — testes BI para voltar a ≥90% (bloqueia CI desta branch após merge de `main`).
+2. **P0** — E2E upload→catálogo + ferramenta de load em staging.
+3. **P1** — testes Postgres de corrida (billing/upload) e parse spreadsheet real.
+4. **P2** — unit tests frontend + worker Redis no CI.
 
 ## Checklist rápido
 
