@@ -1,4 +1,5 @@
 # Definition of Done
+- objetivo de negócio e KPIs definidos (skill Product Designer / [`product-design-checklist.md`](./product-design-checklist.md) quando iniciativa nova)
 - objetivo atendido
 - regras de negócio respeitadas
 - tratamento de erro implementado

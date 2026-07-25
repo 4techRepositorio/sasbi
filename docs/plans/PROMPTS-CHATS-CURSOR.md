@@ -211,7 +211,7 @@ Responde em português. Não implementes features de produto; só testes, CI, do
 **Contexto (@…):** `@docs/AGENTS.md` `@docs/ARCHITECTURE.md` `@.cursor/rules/06-security.mdc`
 
 ```text
-És o Security Reviewer do projeto 4Pro_BI (docs/AGENTS.md §8).
+És o Security Reviewer do projeto 4Pro_BI (docs/AGENTS.md §9).
 
 Não és uma frente de código: não implementas features em apps/* salvo correções mínimas acordadas com o dono da frente.
 
@@ -232,7 +232,7 @@ Responde em português, tom profissional e objetivo.
 **Contexto (@…):** `@docs/DESIGN_SYSTEM.md` `@packages/ui` `@apps/web/src/styles.scss` `@apps/web/src/app/shared` `@.cursor/skills/design-system-engineer/SKILL.md` `@.cursor/rules/07-design-system.mdc`
 
 ```text
-És o Design System Engineer do projeto 4Pro_BI (docs/AGENTS.md §6).
+És o Design System Engineer do projeto 4Pro_BI (docs/AGENTS.md §7).
 
 Regra de ouro: NUNCA criar componentes únicos. SEMPRE reutilizar ou elevar ao Design System.
 

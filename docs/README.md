@@ -8,6 +8,7 @@
 | [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next (ADR-002) |
 | [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR-002: stack frontend alvo React + Next.js (proposto) |
 | [VISION.md](./VISION.md) | Produto |
+| [product/README.md](./product/README.md) | Briefings Product Designer (problema, valor, KPIs) |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |
 | [adr/001-bi-platform-connectors-desktop-web.md](./adr/001-bi-platform-connectors-desktop-web.md) | ADR-001: conectores + Web + Desktop |
 | [plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md](./plans/PLATAFORMA-BI-CONNECTORS-DESKTOP-WEB.md) | Plano mestre plataforma BI |
@@ -49,6 +50,7 @@
 | Ficheiro | Uso |
 |----------|-----|
 | [CHECKLISTS/feature-definition-of-done.md](./CHECKLISTS/feature-definition-of-done.md) | DoD por feature |
+| [CHECKLISTS/product-design-checklist.md](./CHECKLISTS/product-design-checklist.md) | Briefing de produto (antes do plano técnico) |
 | [CHECKLISTS/backend-checklist.md](./CHECKLISTS/backend-checklist.md) | Entrega API |
 | [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md) | Entrega frontend (Angular actual + critérios Architect) |
 | [CHECKLISTS/design-system-checklist.md](./CHECKLISTS/design-system-checklist.md) | Tokens, primitives, a11y |
@@ -64,7 +66,7 @@
 
 ## Ordem de leitura sugerida (nova equipa)
 
-1. `VISION.md` → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
+1. `VISION.md` → `product/` (briefings) → `ARCHITECTURE.md` → `plans/EXECUCAO-MESTRE.md`  
 2. `plans/README.md` + ticket atual em `tickets/`  
 3. Wireframes da área em construção  
 4. `assets/README.md` se a entrega envolver diagramas ou evidências visuais
