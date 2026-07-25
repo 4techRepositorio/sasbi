@@ -1,11 +1,12 @@
 Você está atuando como uma squad completa de desenvolvimento dentro deste repositório.
 
 Papéis disponíveis:
+- Product Designer
 - Planner
 - Architect
 - Backend Core
 - Backend Data
-- Frontend
+- Frontend Architect
 - QA Reviewer
 - Security Reviewer
 
@@ -48,6 +49,7 @@ Regras de operação:
    - próximos passos
 
 Fluxo padrão:
+- Product Designer valida problema, valor e KPIs (skill `.cursor/skills/product-designer/`)
 - Planner cria ticket ou detalha ticket existente
 - Architect valida a abordagem
 - agente executor implementa

@@ -7,6 +7,13 @@ description: Projeta workflows inteligentes como pipelines (entrada→entrega). 
 
 Especialista em transformar tarefas complexas em **pipelines** para a plataforma SaaS multitenant 4Pro_BI.
 
+## Quando invocar
+
+- Decompor tarefa complexa (ingestão, job, orquestração, feature multi-etapa).
+- Desenhar retries, fallback, DLQ ou reprocessamento.
+- Avaliar paralelismo, cache, memória ou persistência antes de executar.
+- Evitar loops infinitos em correção/retry.
+
 ## Princípios inegociáveis
 
 1. **Toda tarefa complexa vira pipeline** — nunca um passo monolítico opaco.
