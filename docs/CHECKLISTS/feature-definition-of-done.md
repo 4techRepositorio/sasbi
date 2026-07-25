@@ -6,3 +6,4 @@
 - testes mínimos criados
 - documentação mínima atualizada
 - se a feature altera fluxo visível ou arquitetura documentada: diagramas Mermaid ou evidência em `docs/assets/` conforme [`docs/assets/README.md`](../assets/README.md)
+- se altera UI relevante: design review com veredito (`docs/CHECKLISTS/design-review-checklist.md`) — interface intuitiva, não só estética

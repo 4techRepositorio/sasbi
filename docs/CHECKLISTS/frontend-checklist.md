@@ -4,6 +4,7 @@
 - erro tratado
 - estado vazio tratado
 - responsividade básica validada
+- design review (skill `.cursor/skills/design-reviewer/SKILL.md` + `docs/CHECKLISTS/design-review-checklist.md`) quando a UI mudar de forma relevante — veredito antes do merge
 - área admin (Equipa / tenant-users): só visível a `admin`; consome `GET /api/v1/tenant/members`
 - shell: tenant e papel visíveis; quando `plan` existe em `/me/context`, mostrar resumo do pacote (limite de uploads)
 - shell e upload: quando `storage` existe em `/me/context`, mostrar uso vs limite (tenant; opcional utilizador e grupo); após upload bem-sucedido, recarregar contexto para actualizar barras

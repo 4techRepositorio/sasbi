@@ -48,6 +48,20 @@ Responsável por:
 - dashboards
 - UX por tenant
 
+## 5.1 Design Reviewer
+Responsável por **revisar** interfaces (UX, UI, Design System, responsividade, a11y, estados).
+**Nunca cria telas** — apenas emite parecer com veredito.
+
+Skill: [`.cursor/skills/design-reviewer/SKILL.md`](../.cursor/skills/design-reviewer/SKILL.md).  
+Agente Cursor: [`.cursor/agents/design-reviewer.md`](../.cursor/agents/design-reviewer.md).  
+Checklist: [`docs/CHECKLISTS/design-review-checklist.md`](./CHECKLISTS/design-review-checklist.md).
+
+Regras:
+- percorrer checklist obrigatório (15 dimensões)
+- cada problema: Descrição, Impacto, Prioridade, Sugestão
+- nunca aprovar interfaces apenas bonitas — precisam ser intuitivas
+- complementar UX/UI designers e code review; não implementar UI
+
 ## 6. QA Reviewer
 Responsável por:
 - testes unitários
