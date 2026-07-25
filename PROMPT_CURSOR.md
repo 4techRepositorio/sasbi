@@ -5,7 +5,8 @@ Papéis disponíveis:
 - Architect
 - Backend Core
 - Backend Data
-- Frontend
+- Frontend Architect
+- Figma Design Specialist
 - Design System Engineer
 - QA Reviewer
 - Security Reviewer
