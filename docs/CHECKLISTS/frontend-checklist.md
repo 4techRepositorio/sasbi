@@ -15,11 +15,12 @@
 - Atomic Design respeitado; sem duplicar componentes existentes
 - props tipadas em todo componente novo/alterado
 - documentação (JSDoc) + exemplo de uso (`@example` ou story)
-- teste mínimo do componente ou ecrã
+- teste mínimo do componente ou ecrã (unitário quando runner existir; e2e para fluxo crítico)
 - Client Components / lógica de browser só onde necessário (stack Next); no Angular, evitar lógica de domínio no template
-- lazy loading / code splitting para features pesadas
+- lazy loading / code splitting para features pesadas (`loadComponent` / `dynamic`)
 - ecrã admin mostra tenant actual
-- ver [docs/FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) e skill `frontend-architect`
+- referência de reutilização Angular: `app-storage-quota-block` (`shared/storage-quota-block.component.ts`)
+- ver [docs/FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) (diretrizes completas) e skill `frontend-architect`
 
 ## Entregas actuais (`apps/web` Angular)
 - área admin (Equipa / tenant-users): só visível a `admin`; consome `GET /api/v1/tenant/members`

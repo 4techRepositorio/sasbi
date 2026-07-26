@@ -33,6 +33,8 @@ Fixar o mandato do **Frontend Architect** e o stack alvo React · Next.js · Typ
 - [x] Skill `create-next-screen` para scaffold de ecrã
 - [x] `FRONTEND_ARCHITECTURE.md` + ADR-002 proposto
 - [x] Rule `03-frontend.mdc` referencia stack alvo sem forçar React em Angular
+- [x] Diretrizes operacionais no doc canónico + agente Cursor `frontend.md` alinhado
+- [x] Skill `create-angular-screen` alinhada ao contrato de componente
 - [ ] Decisão Product/Architect sobre ADR-002
 
 ## Riscos e mitigações

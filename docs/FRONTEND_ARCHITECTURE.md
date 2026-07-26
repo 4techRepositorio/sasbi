@@ -4,7 +4,16 @@ Documento de referência do **Frontend Architect**. Complementa [ARCHITECTURE.md
 
 ## Objectivo
 
-Criar UIs **escaláveis**, **modulares**, **performáticas** e **reutilizáveis**, com isolamento por tenant e experiência nativa 4Pro_BI.
+Criar aplicações UI **escaláveis**, **modulares**, **performáticas** e **reutilizáveis**, com isolamento por tenant e experiência nativa 4Pro_BI.
+
+| Qualidade | Expectativa |
+|-----------|-------------|
+| Escalável | Features isoladas; rotas thin; sem god-components |
+| Modular | Feature-First + Atomic Design; API pública via `index.ts` / barrels |
+| Performática | SSR/RSC por defeito (alvo); lazy loading; code splitting; Client só quando necessário |
+| Reutilizável | Nunca duplicar; extrair no 2.º uso para `shared` / `packages/ui` |
+
+---
 
 ## Stack
 
@@ -14,7 +23,7 @@ Criar UIs **escaláveis**, **modulares**, **performáticas** e **reutilizáveis*
 |------|--------|
 | App | `apps/web` |
 | Framework | Angular 19 |
-| Estilo | SCSS corporativo |
+| Estilo | SCSS corporativo (`--da-*`) |
 | Skills | `create-angular-screen` |
 
 ### Alvo (ADR-002)
@@ -25,20 +34,74 @@ Criar UIs **escaláveis**, **modulares**, **performáticas** e **reutilizáveis*
 | Framework | Next.js (App Router) |
 | Linguagem | TypeScript strict |
 | Estilo | Tailwind CSS |
-| Componentes | shadcn/ui (tokens 4Pro_BI) |
+| Design system | shadcn/ui (tokens nativos 4Pro_BI) |
 | Server state | TanStack Query |
 | Forms | React Hook Form + Zod |
 | Skills | `frontend-architect`, `create-next-screen` |
 
-Estado da decisão: ver [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md).
+Estado da decisão: [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) (**proposto** — sem scaffold React em `apps/web` até aceite).
 
-## Convenções obrigatórias
+---
 
-### Feature First
+## Diretrizes obrigatórias (sempre utilizar)
 
-Código agrupado por capacidade de negócio (`auth`, `datasets`, `billing`, …). Cada feature expõe uma API pública mínima via `index.ts`. Rotas (`app/` ou Angular routes) ficam finas.
+1. **Feature First** — organizar por domínio/feature, não só por tipo técnico.
+2. **Atomic Design** — `atoms` → `molecules` → `organisms` → `templates` → `pages`.
+3. **Componentes reutilizáveis** — nunca duplicar; partilhar via `shared` / `packages/ui`.
+4. **Lazy loading** — rotas e widgets pesados sob demanda.
+5. **Code splitting** — `loadComponent` (Angular) / `dynamic()` · `React.lazy` (Next) por feature.
+6. **SSR quando necessário** — Server Components / RSC por defeito no alvo; SEO e dados sensíveis no servidor.
+7. **Client Components somente quando necessário** — `"use client"` só para estado, efeitos, event handlers, APIs do browser.
+8. **Sem regras de domínio críticas só no cliente** — validação UX no form; authz/tenant na API.
+9. **Multitenancy visível** — ecrãs admin mostram o tenant actual.
+10. **Contrato de componente** — props tipadas + documentação + exemplo + testes (ver abaixo).
 
-### Atomic Design
+---
+
+## Feature First
+
+Código agrupado por capacidade de negócio (`auth`, `datasets`, `billing`, …). Cada feature expõe uma API pública mínima. Rotas ficam finas (só composição + guards).
+
+### Mapa alvo (Next.js App Router)
+
+```text
+apps/web-next/          # ou apps/web após migração (só com ADR aceite)
+  app/                  # rotas thin
+  features/
+    auth/
+      api/              # fetchers / server actions / query hooks
+      components/
+      hooks/
+      schemas/          # Zod
+      types/
+      index.ts          # API pública da feature
+    datasets/
+    ...
+  shared/
+    ui/
+      atoms/
+      molecules/
+      organisms/
+    lib/                # utils, cn(), api client
+    hooks/
+    config/
+```
+
+### Mapa actual (Angular `apps/web`) — convergência
+
+| Conceito | Local actual | Evolução recomendada |
+|----------|--------------|----------------------|
+| Rotas thin | `app.routes.ts` + `loadComponent` | Manter; evitar lógica no ficheiro de rotas |
+| Features | `pages/<feature>/` | Preferir `features/<feature>/` em código novo quando o custo for baixo |
+| Core (auth, tenant, HTTP) | `core/` | Manter partilhado; sem UI |
+| UI partilhada | `shared/` (+ barrel `shared/index.ts`) | Atoms/molecules aqui; extrair no 2.º uso |
+| API pública | barrels `index.ts` | Exportar só o necessário |
+
+Exemplo de referência de reutilização: `app-storage-quota-block` em `shared/storage-quota-block.component.ts`.
+
+---
+
+## Atomic Design
 
 | Nível | Responsabilidade | Exemplo |
 |-------|------------------|---------|
@@ -48,64 +111,193 @@ Código agrupado por capacidade de negócio (`auth`, `datasets`, `billing`, …)
 | Templates | Layouts | AdminShell, AuthLayout |
 | Pages | Composição + dados | DatasetsPage |
 
-### Reutilização
+Antes de criar um componente: **grep** em `shared/`, `packages/ui` e na feature. Se já existir, reutilizar ou estender.
 
-- Proibido duplicar markup/comportamento já existente.
-- Após o 2.º uso, extrair para `shared/ui` ou `packages/ui`.
-- Aceleradores OSS (shadcn, etc.) só como implementação interna — UX final sem marcas externas.
+---
 
-### Rendering & performance
+## Contrato obrigatório de todo componente
 
-1. Preferir Server Components / SSR para dados e layout.
-2. Client Components apenas para estado, eventos e APIs do browser.
-3. Lazy loading e code splitting por rota/feature.
-4. Evitar `"use client"` no root sem necessidade.
+| Requisito | Como |
+|-----------|------|
+| Props tipadas | `type XProps` / `input()` tipado; sem `any` |
+| Documentação | JSDoc no export público / classe |
+| Exemplo de uso | bloco `@example` no JSDoc ou story |
+| Testes | `*.test.tsx` / `*.spec.ts` — render + caminho crítico ou estados vazios/erro |
 
-### Qualidade por componente (contrato)
+Estados de ecrã obrigatórios: **loading**, **erro**, **vazio**, **sucesso**.
 
-Cada componente deve incluir:
+### Template (alvo React/Next)
 
-1. **Props tipadas** (TypeScript; sem `any`).
-2. **Documentação** (JSDoc no export público).
-3. **Exemplo de uso** (`@example` ou story).
-4. **Testes** mínimos (render + caminho crítico ou estados vazios/erro).
+```tsx
+/**
+ * Filtra datasets por nome.
+ *
+ * @example
+ * <DatasetSearch value={q} onChange={setQ} />
+ */
+export type DatasetSearchProps = {
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+};
 
-Cada ecrã deve tratar: **loading**, **erro**, **vazio**, **sucesso**. Ecrãs administrativos devem mostrar o **tenant actual**.
+export function DatasetSearch({ value, onChange, disabled }: DatasetSearchProps) {
+  // ...
+}
+```
+
+### Template (Angular actual)
+
+```ts
+/**
+ * Filtra datasets por nome.
+ *
+ * @example
+ * <app-dataset-search [value]="q" (valueChange)="q = $event" />
+ */
+@Component({ selector: 'app-dataset-search', /* ... */ })
+export class DatasetSearchComponent {
+  readonly value = input.required<string>();
+  readonly valueChange = output<string>();
+  readonly disabled = input(false);
+}
+```
+
+### Teste mínimo (alvo)
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { DatasetSearch } from "./dataset-search";
+
+test("chama onChange ao escrever", async () => {
+  const onChange = vi.fn();
+  render(<DatasetSearch value="" onChange={onChange} />);
+  await userEvent.type(screen.getByRole("searchbox"), "a");
+  expect(onChange).toHaveBeenCalled();
+});
+```
+
+> Nota: `apps/web` Angular ainda não tem runner unitário dedicado no `package.json`. Novos componentes devem cumprir tipagem + JSDoc + `@example`; testes unitários entram com o ticket de CI/unitários ou no cutover Next. E2E Playwright continua a cobrir fluxos críticos.
+
+---
+
+## Receitas (stack alvo)
+
+### Server vs Client
+
+```tsx
+// Server Component (default) — dados, layout, SEO
+export default async function DatasetsPage() {
+  // fetch no servidor quando cache/auth cookie permitir
+}
+
+// Client Component — só interação
+"use client";
+export function DatasetFilters(/* tipado */) { /* ... */ }
+```
+
+### TanStack Query (keys com tenant)
+
+```tsx
+export const datasetKeys = {
+  all: (tenantId: string) => ["datasets", tenantId] as const,
+  list: (tenantId: string, q: string) => [...datasetKeys.all(tenantId), "list", q] as const,
+  detail: (tenantId: string, id: string) => [...datasetKeys.all(tenantId), id] as const,
+};
+```
+
+- Queries/mutations por feature em `features/<name>/api` ou `hooks`.
+- Keys estáveis e **scoped por `tenantId`** quando o cache for partilhado.
+- Nunca confiar em `tenant_id` enviado pelo cliente sem sessão validada na API.
+
+### React Hook Form + Zod
+
+```tsx
+const schema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(8, "Mínimo 8 caracteres"),
+});
+type FormValues = z.infer<typeof schema>;
+
+const form = useForm<FormValues>({
+  resolver: zodResolver(schema),
+  defaultValues: { email: "", password: "" },
+});
+```
+
+- Schema Zod = fonte de verdade tipada (`z.infer`).
+- Mensagens amigáveis; erros técnicos só em log/telemetria.
+
+### Performance
+
+- Split por rota/feature (`next/dynamic` com `ssr: false` só se inevitável).
+- Imagens com componente otimizado do Next.
+- Evitar bundles UI pesados no caminho crítico login/shell.
+- Preferir Server Components para listas estáticas; Client para filtros interativos.
+
+### Design system
+
+- **Consumir** tokens `--da-*` e primitives existentes; dono: skill `design-system-engineer` (`docs/DESIGN_SYSTEM.md`, `packages/ui`).
+- Stack alvo: wrappers shadcn em `shared/ui` com tokens CSS alinhados a 4Pro_BI (não expor a marca shadcn na UX).
+- Padrão novo (botão, input, modal, …): elevar via Design System Engineer — não criar one-off no ecrã.
+- Na UX final: **zero** marcas de libs externas (ver ARCHITECTURE.md § Aceleradores).
+
+---
 
 ## Fronteiras
 
 ```text
 Browser UI  →  API (contratos)  →  Domain / Services
      ↑                ↑
-  Zod (UX)      Auth + tenant + RBAC (fonte da verdade)
+  Zod / forms (UX)   Auth + tenant + RBAC (fonte da verdade)
 ```
 
 - Não embutir regras críticas de billing/RBAC só no frontend.
 - `tenant_id` nunca é confiado a partir do body/query sem sessão validada.
 - Contratos partilhados em `packages/contracts` (impacto documentado antes de mudar).
 
-## Mapa de pastas (alvo Next.js)
+---
 
-```text
-features/<feature>/{api,components,hooks,schemas,types,index.ts}
-shared/ui/{atoms,molecules,organisms}
-shared/{lib,hooks,config}
-app/…/page.tsx          # composição de rotas
-```
+## Anti-padrões
+
+- Duplicar botões/inputs em vez de atoms partilhados.
+- `"use client"` no layout raiz sem necessidade.
+- Lógica de billing/RBAC só no frontend.
+- Componentes sem props tipadas, sem docs, sem exemplo ou sem teste (quando runner existir).
+- Importar uma feature inteira noutra (usar API pública via `index.ts`).
+- Introduzir React dentro de `apps/web` Angular sem aceite do ADR-002.
+- God-components (página com toda a lógica + markup sem extrair organismos).
+
+---
+
+## Fluxo ao criar UI nova
+
+1. Confirmar se existe componente reutilizável (grep em `shared/` / `packages/ui`).
+2. Escolher nível atómico; tipar props; documentar + `@example` (+ teste quando aplicável).
+3. Colocar na feature correcta; expor só o necessário no barrel.
+4. Wire na rota com lazy/`loadComponent` se pesado.
+5. Tratar loading / erro / vazio / sucesso + tenant visível se admin.
+6. Checklist [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md).
+
+---
 
 ## Relação com Angular actual
 
 Enquanto `apps/web` for Angular:
 
 - Manter separação layout / estado / serviços / componentes.
-- Aplicar Feature-First e Atomic Design na organização de pastas sempre que possível.
+- Aplicar Feature-First e Atomic Design na organização sempre que possível.
 - Componentes partilhados em `apps/web/src/app/shared` e evolução de `packages/ui`.
 - Novos ecrãs: skill `create-angular-screen` + checklist frontend.
-- Migração React/Next: apenas após aceite do ADR-002 e plano por feature (sem big-bang).
+- Migração React/Next: apenas após aceite do ADR-002 e plano por feature (sem big-bang). Fatias previstas: scaffold → auth → shell/tenant → upload/catálogo → billing/admin → workspace/BI.
+
+---
 
 ## Checklists e agentes
 
 - Checklist: [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md)
-- Agente: [AGENTS.md](./AGENTS.md) § Frontend Architect
+- Agente: [AGENTS.md](./AGENTS.md) § Frontend Architect · Cursor: `.cursor/agents/frontend.md`
 - Regras Cursor: `.cursor/rules/03-frontend.mdc`
+- Skills: `.cursor/skills/frontend-architect`, `create-angular-screen`, `create-next-screen`
 - Ticket: [TICKET-018](../tickets/TICKET-018-frontend-architect-react-next.md) · [plano detalhado](./plans/TICKET-018-frontend-architect-detailed-plan.md)
