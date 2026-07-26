@@ -9,10 +9,23 @@ class Settings(BaseSettings):
 
     environment: str = Field(default="development", alias="ENVIRONMENT")
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
+    log_json: bool = Field(
+        default=True,
+        alias="LOG_JSON",
+        description="Logs estruturados JSON com correlation_id (TICKET-013).",
+    )
 
     database_url: str = Field(..., alias="DATABASE_URL")
 
     jwt_secret: str = Field(..., alias="JWT_SECRET")
+    credentials_fernet_key: str | None = Field(
+        default=None,
+        alias="CREDENTIALS_FERNET_KEY",
+        description=(
+            "Chave Fernet url-safe para cofre de conectores. "
+            "Se omitida em desenvolvimento, deriva de JWT_SECRET."
+        ),
+    )
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
     access_token_expire_minutes: int = Field(default=15, alias="ACCESS_TOKEN_EXPIRE_MINUTES")
     refresh_token_expire_days: int = Field(default=7, alias="REFRESH_TOKEN_EXPIRE_DAYS")

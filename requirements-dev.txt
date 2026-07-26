@@ -1,6 +1,7 @@
 # Instalação do monorepo Python (API + pacotes locais)
 -e ./packages/contracts
 -e ./packages/shared
+-e ./packages/connectors
 -e ./apps/api
 -e ./apps/worker
 

@@ -25,6 +25,12 @@ class IngestionRepository:
         status: str = "uploaded",
         content_sha256: str | None = None,
         uploaded_by_user_id: UUID | None = None,
+        layer: str = "bronze",
+        source_ingestion_id: UUID | None = None,
+        transform_version: str | None = None,
+        correlation_id: str | None = None,
+        result_summary: str | None = None,
+        technical_log: str | None = None,
     ) -> FileIngestion:
         now = datetime.now(tz=UTC)
         row = FileIngestion(
@@ -36,6 +42,12 @@ class IngestionRepository:
             uploaded_by_user_id=uploaded_by_user_id,
             size_bytes=size_bytes,
             status=status,
+            layer=layer,
+            source_ingestion_id=source_ingestion_id,
+            transform_version=transform_version,
+            correlation_id=correlation_id,
+            result_summary=result_summary,
+            technical_log=technical_log,
             created_at=now,
             updated_at=now,
         )
@@ -95,11 +107,14 @@ class IngestionRepository:
         *,
         limit: int,
         offset: int,
+        layer: str | None = None,
     ) -> tuple[list[FileIngestion], int]:
-        filters = (
+        filters = [
             FileIngestion.tenant_id == tenant_id,
             FileIngestion.status == "processed",
-        )
+        ]
+        if layer:
+            filters.append(FileIngestion.layer == layer)
         count_stmt = select(func.count()).select_from(FileIngestion).where(*filters)
         total = int(self._db.scalar(count_stmt) or 0)
         stmt = (
