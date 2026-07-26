@@ -30,9 +30,7 @@ class SemanticModel(Base):
     dimensions_json: Mapped[list[dict[str, Any]]] = mapped_column(
         JSON, nullable=False, default=list
     )
-    measures_json: Mapped[list[dict[str, Any]]] = mapped_column(
-        JSON, nullable=False, default=list
-    )
+    measures_json: Mapped[list[dict[str, Any]]] = mapped_column(JSON, nullable=False, default=list)
     created_by_user_id: Mapped[uuid.UUID | None] = mapped_column(
         Uuid(as_uuid=True),
         ForeignKey("users.id", ondelete="SET NULL"),

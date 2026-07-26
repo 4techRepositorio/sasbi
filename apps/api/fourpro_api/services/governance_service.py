@@ -77,8 +77,7 @@ class GovernanceService:
             correlation_id=cid,
             result_summary=f"Promovido de {src.layer} → {target_layer} ({transform_version})",
             technical_log=(
-                f"promote source={src.id} target={target_layer} "
-                f"version={transform_version}"
+                f"promote source={src.id} target={target_layer} version={transform_version}"
             ),
         )
         self._audit.record(

@@ -6,9 +6,7 @@ from sqlalchemy.orm import Session
 from tests.test_auth import _bind_tenant, _create_user
 
 
-def test_desktop_publish_dataset_and_dashboard(
-    client: TestClient, db_session: Session
-) -> None:
+def test_desktop_publish_dataset_and_dashboard(client: TestClient, db_session: Session) -> None:
     u = _create_user(db_session, "desk@example.com", "pw")
     _bind_tenant(db_session, u)
     token = client.post(

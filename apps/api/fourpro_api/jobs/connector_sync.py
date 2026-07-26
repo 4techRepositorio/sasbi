@@ -96,9 +96,7 @@ def run_data_source_sync(sync_run_id: str, *, db: Session | None = None) -> None
         if not own:
             from fourpro_api.jobs.ingestion_parse import run_ingestion_parse
 
-            run_ingestion_parse(
-                str(ing.id), db=db, correlation_id=run.correlation_id
-            )
+            run_ingestion_parse(str(ing.id), db=db, correlation_id=run.correlation_id)
         else:
             enqueue_ingestion_parse(str(ing.id), correlation_id=run.correlation_id)
         logger.info(

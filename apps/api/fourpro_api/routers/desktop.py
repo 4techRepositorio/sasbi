@@ -64,9 +64,7 @@ def publish_dataset(
         tenant_id=principal.tenant_id,
         context={"dataset_id": str(row.id)},
     )
-    return DesktopPublishDatasetResponse(
-        dataset_id=str(row.id), status=row.status, layer=row.layer
-    )
+    return DesktopPublishDatasetResponse(dataset_id=str(row.id), status=row.status, layer=row.layer)
 
 
 @router.post(

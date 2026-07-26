@@ -14,9 +14,7 @@ class DashboardRepository:
     def __init__(self, db: Session) -> None:
         self._db = db
 
-    def list_page(
-        self, tenant_id: UUID, *, limit: int, offset: int
-    ) -> tuple[list[Dashboard], int]:
+    def list_page(self, tenant_id: UUID, *, limit: int, offset: int) -> tuple[list[Dashboard], int]:
         filters = (Dashboard.tenant_id == tenant_id,)
         total = int(
             self._db.scalar(select(func.count()).select_from(Dashboard).where(*filters)) or 0
@@ -79,9 +77,7 @@ class DashboardRepository:
         self._db.commit()
         return self.get(dash.id, tenant_id)  # type: ignore[return-value]
 
-    def replace_widgets(
-        self, dash: Dashboard, widgets: list[dict[str, Any]]
-    ) -> Dashboard:
+    def replace_widgets(self, dash: Dashboard, widgets: list[dict[str, Any]]) -> Dashboard:
         for existing in list(dash.widgets):
             self._db.delete(existing)
         self._db.flush()
