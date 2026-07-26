@@ -22,7 +22,7 @@
 | [INGESTION.md](./INGESTION.md) | Pipeline de ficheiros |
 | [BILLING.md](./BILLING.md) | Planos e limites |
 | [BACKLOG.md](./BACKLOG.md) | Ideias não comprometidas |
-| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. AI Workflow Designer) |
+| [AGENTS.md](./AGENTS.md) | Uso de agentes / planeamento (incl. Multi-Agent Systems Architect, AI Workflow Designer) |
 | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Design System — tokens, primitives, a11y, reuso |
 
 ## Execução e tickets
