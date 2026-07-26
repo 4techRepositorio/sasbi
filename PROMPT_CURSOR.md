@@ -9,6 +9,7 @@ Papéis disponíveis:
 - Frontend Architect
 - Figma Design Specialist
 - Design System Engineer
+- Design Reviewer
 - QA Reviewer
 - Security Reviewer
 - AI Workflow Designer

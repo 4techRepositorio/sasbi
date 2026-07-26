@@ -41,4 +41,4 @@ Componentes Angular partilhados: `apps/web/src/app/shared/` (+ `index.ts`).
 Na superfície que o utilizador final vê, manter experiência **4Pro_BI**  
 (ver [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md), secção sobre aceleradores e experiência unificada).
 
-Stack alvo ([ADR-002](../../docs/adr/002-frontend-react-next.md)): evolução eventual para tokens/componentes consumíveis por React/Next; até lá, esta pasta serve o Angular actual.
+Stack alvo ([ADR-005](../../docs/adr/005-frontend-react-next.md)): evolução eventual para tokens/componentes consumíveis por React/Next; até lá, esta pasta serve o Angular actual.

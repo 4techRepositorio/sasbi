@@ -7,9 +7,9 @@
 | [architecture/BLUEPRINT.md](./architecture/BLUEPRINT.md) | **Blueprint Architect** — pastas, bounded contexts, portas, eventos, filas, APIs, versionamento, trade-offs |
 | [architecture/README.md](./architecture/README.md) | Índice do pacote de arquitectura |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Blocos do sistema, multitenancy, integração de aceleradores OSS, experiência unificada |
-| [adr/002-modular-monolith-clean-architecture.md](./adr/002-modular-monolith-clean-architecture.md) | ADR modular monolith + Clean Architecture + Celery (**colisão de número 002** — ver nota no PR) |
+| [adr/002-modular-monolith-clean-architecture.md](./adr/002-modular-monolith-clean-architecture.md) | ADR-002 modular monolith + Clean Architecture + Celery |
 | [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) | Frontend Architect: Feature-First, Atomic Design, stack alvo React/Next |
-| [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md) | ADR stack frontend alvo React + Next.js (proposto; **colisão de número 002**) |
+| [adr/005-frontend-react-next.md](./adr/005-frontend-react-next.md) | ADR-005 stack frontend alvo React + Next.js (proposto) |
 | [VISION.md](./VISION.md) | Produto |
 | [product/README.md](./product/README.md) | Briefings Product Designer (problema, valor, KPIs) |
 | [ROADMAP.md](./ROADMAP.md) | Fases e ligação a tickets |

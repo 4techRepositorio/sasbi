@@ -1,9 +1,10 @@
-# ADR-002 — Stack frontend alvo: React + Next.js
+# ADR-005 — Stack frontend alvo: React + Next.js
 
 **Estado:** proposto  
 **Data:** 2026-07-25  
 **Decisores:** Frontend Architect · Architect · Product · QA · Security  
-**Relacionados:** `docs/FRONTEND_ARCHITECTURE.md`, `docs/ARCHITECTURE.md`, ADR-001 (cliente Web), TICKET-011, TICKET-018
+**Relacionados:** `docs/FRONTEND_ARCHITECTURE.md`, `docs/ARCHITECTURE.md`, ADR-001 (cliente Web), ADR-002 (modular monolith), TICKET-011, TICKET-018  
+**Nota de numeração:** Anteriormente circulou como ficheiro `002-frontend-react-next.md`, em colisão com [ADR-002 modular monolith](./002-modular-monolith-clean-architecture.md). Renumerado para **ADR-005** no merge com `main`.
 
 ## Contexto
 

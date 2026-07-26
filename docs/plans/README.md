@@ -13,7 +13,7 @@
 | [PARALELA-5-FRENTES.md](./PARALELA-5-FRENTES.md) | **5 frentes paralelas**, agentes e prompts (gestão técnica 4Pro_BI) |
 | [../wireframes/](../wireframes/) | Validação de wireframes e referências |
 | [../adr/001-bi-platform-connectors-desktop-web.md](../adr/001-bi-platform-connectors-desktop-web.md) | ADR-001 plataforma BI |
-| [../adr/002-frontend-react-next.md](../adr/002-frontend-react-next.md) | ADR-002 stack frontend React/Next (proposto) |
+| [../adr/005-frontend-react-next.md](../adr/005-frontend-react-next.md) | ADR-005 stack frontend React/Next (proposto) |
 | [../FRONTEND_ARCHITECTURE.md](../FRONTEND_ARCHITECTURE.md) | Arquitectura frontend (Frontend Architect) |
 
 ## Planos detalhados por ticket
