@@ -13,6 +13,8 @@ from fourpro_api.core.principal import Principal
 from fourpro_api.db.session import get_db
 from fourpro_api.dependencies.auth import require_roles
 from fourpro_api.limiter import limiter
+from fourpro_api.middleware.correlation import get_correlation_id
+from fourpro_api.repositories.audit_repository import AuditAction, AuditRepository
 from fourpro_api.repositories.ingestion_repository import IngestionRepository
 from fourpro_api.services.billing_service import BillingService
 from fourpro_api.services.upload_validation import UploadContentError, validate_upload_content
@@ -82,6 +84,7 @@ async def create_upload(
     dest = base_dir / f"{uid}_{safe}"
     dest.write_bytes(body)
 
+    cid = get_correlation_id()
     repo = IngestionRepository(db)
     ing = repo.create(
         tenant_id=principal.tenant_id,
@@ -92,9 +95,18 @@ async def create_upload(
         status="uploaded",
         content_sha256=content_sha256,
         uploaded_by_user_id=principal.user_id,
+        layer="bronze",
+        correlation_id=cid,
+    )
+    AuditRepository(db).record(
+        action=AuditAction.UPLOAD_CREATED,
+        actor_user_id=principal.user_id,
+        tenant_id=principal.tenant_id,
+        context={"ingestion_id": str(ing.id), "filename": raw, "size_bytes": len(body)},
+        correlation_id=cid,
     )
 
-    enqueue_ingestion_parse(str(ing.id))
+    enqueue_ingestion_parse(str(ing.id), correlation_id=cid)
 
     return UploadCreatedResponse(
         id=str(ing.id),

@@ -27,10 +27,29 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
       {
+        path: 'dashboards',
+        data: { shellTitle: 'Dashboards BI' },
+        loadComponent: () =>
+          import('./pages/dashboards/dashboards-list.component').then((m) => m.DashboardsListComponent),
+      },
+      {
+        path: 'dashboards/:id',
+        data: { shellTitle: 'Dashboard BI' },
+        loadComponent: () =>
+          import('./pages/dashboards/dashboard-view.component').then((m) => m.DashboardViewComponent),
+      },
+      {
         path: 'upload',
         canActivate: [roleGuard(['admin', 'analyst'])],
         data: { shellTitle: 'Upload' },
         loadComponent: () => import('./pages/upload/upload.component').then((m) => m.UploadComponent),
+      },
+      {
+        path: 'data-sources',
+        canActivate: [roleGuard(['admin', 'analyst'])],
+        data: { shellTitle: 'Fontes de dados' },
+        loadComponent: () =>
+          import('./pages/data-sources/data-sources.component').then((m) => m.DataSourcesComponent),
       },
       {
         path: 'datasets',

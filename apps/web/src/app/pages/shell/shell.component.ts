@@ -37,6 +37,12 @@ function isAdmin(role: string | null | undefined): boolean {
             class="da-shell__link"
             >Dashboard</a
           >
+          <a
+            routerLink="/app/dashboards"
+            routerLinkActive="da-shell__link--active"
+            class="da-shell__link"
+            >Dashboards BI</a
+          >
         </nav>
         <p class="da-shell__label">ETL &amp; dados</p>
         <nav class="da-shell__nav">
@@ -46,6 +52,12 @@ function isAdmin(role: string | null | undefined): boolean {
               routerLinkActive="da-shell__link--active"
               class="da-shell__link"
               >Upload</a
+            >
+            <a
+              routerLink="/app/data-sources"
+              routerLinkActive="da-shell__link--active"
+              class="da-shell__link"
+              >Fontes</a
             >
           }
           <a
