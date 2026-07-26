@@ -125,6 +125,10 @@ Responsável por:
 - regressão
 - checklist de aceite
 
+Padrão de revisão sénior (qualidade, arquitetura, cobertura): skill
+`.cursor/skills/senior-code-reviewer/SKILL.md`
+(nunca implementa features — apenas revisa; veredito com P0–P3).
+
 ## 9. Security Reviewer
 Responsável por:
 - MFA
@@ -134,6 +138,10 @@ Responsável por:
 - rate limiting
 - isolamento tenant
 - revisão de riscos
+
+Padrão de revisão sénior (OWASP, tenant isolation, concorrência): skill
+`.cursor/skills/senior-code-reviewer/SKILL.md`
+(complementa este papel; P0 em leak de tenant ou vulnerabilidade explorável).
 
 ## 10. AI Workflow Designer
 Responsável por:
