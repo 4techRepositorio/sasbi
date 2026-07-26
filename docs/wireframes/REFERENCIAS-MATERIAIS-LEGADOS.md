@@ -58,7 +58,7 @@ Mapeamento **conceitual** (não 1:1 com IDs P*-*):
 | Área | Planos antigos (`00-STACK-E-FLUXOS`) | Regras `.cursor/rules` do repo 4Pro_BI |
 |------|--------------------------------------|----------------------------------------|
 | Identidade | Keycloak (OIDC, MFA, grupos) | FastAPI + auth na **apps/api** (JWT/sessão) |
-| Frontend | Portal **React** whitelabel | **Angular** (`apps/web`) |
+| Frontend | Portal **React** whitelabel | **Angular** (`apps/web`); stack alvo React/Next em [ADR-005](../adr/005-frontend-react-next.md) (proposto) |
 | Orquestração / ETL | Dagster + dbt + camadas Bronze/Silver/Gold | Celery/worker + pipeline (tickets 007–008) |
 | BI / dashboards | Apache Superset + Cube | Programa actual: **ADR-001** — híbrido Web (canvas Angular ± motor via BFF) + Desktop (TICKET-017); aceleradores OSS só com experiência unificada |
 

@@ -29,6 +29,19 @@ Agradecemos a divulgação coordenada para permitir análise e patch antes de di
 - Limite por tipo e tamanho de ficheiro
 - Isolamento por tenant: não confiar em `tenant_id` vindo só do cliente sem validação de sessão
 
+## Observabilidade e retenção (TICKET-013)
+
+- Toda a resposta HTTP inclui `X-Request-ID` (UUID). O mesmo ID propaga-se para tasks Celery de parse/sync e para `audit_log.correlation_id` / `file_ingestions.correlation_id`.
+- Métricas operacionais: `GET /api/v1/metrics` (formato Prometheus; não expor no portal do cliente sem autenticação de edge).
+- Logs estruturados JSON quando `LOG_JSON=true` (campo `correlation_id`).
+- **Retenção recomendada:** logs de aplicação 30 dias; `audit_log` 365 dias (ou até encerramento do tenant); samples de métricas 90 dias. Amostragem só para eventos não críticos — acções de auth, upload, sync e dashboards são sempre persistidas.
+
+## Cofre de conectores (TICKET-015)
+
+- Segredos em `connector_credentials.secret_encrypted` (Fernet; chave `CREDENTIALS_FERNET_KEY` ou derivada de `JWT_SECRET` em desenvolvimento).
+- Respostas de listagem/detalhe de fontes **nunca** incluem o segredo — apenas `has_secret`.
+- REST JSON: allowlist de hosts; bloqueio de IPs privados por defeito.
+
 ## Ponto de entrada na raiz do repositório
 
 O ficheiro [SECURITY.md](../SECURITY.md) na raiz existe para o GitHub mostrar a *Security policy* e remete a este documento.

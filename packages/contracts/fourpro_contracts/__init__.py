@@ -1,11 +1,57 @@
 """Contratos Pydantic compartilhados."""
 
+from fourpro_contracts.auth import (
+    ForgotPasswordRequest,
+    ForgotPasswordResponse,
+    LoginRequest,
+    MfaChallengeResponse,
+    MfaVerifyRequest,
+    RefreshRequest,
+    ResetPasswordRequest,
+    TokenResponse,
+    TokenTypeBearer,
+)
 from fourpro_contracts.billing import MeContextResponse, PlanSummary, StorageContext
+from fourpro_contracts.connectors import (
+    ConnectionTestResponse,
+    ConnectorCapability,
+    ConnectorCatalogResponse,
+    DataSourceCreate,
+    DataSourceItem,
+    DataSourceUpdate,
+    PaginatedDataSourceList,
+    SyncEnqueueResponse,
+    SyncRunItem,
+)
+from fourpro_contracts.dashboard import (
+    DashboardCreate,
+    DashboardDetail,
+    DashboardExportPackage,
+    DashboardSummary,
+    DashboardUpdate,
+    DashboardWidgetIn,
+    DashboardWidgetOut,
+    PaginatedDashboardList,
+)
 from fourpro_contracts.dataset import DatasetItem, PaginatedDatasetList
+from fourpro_contracts.desktop_sync import (
+    DesktopPublishDashboardRequest,
+    DesktopPublishDashboardResponse,
+    DesktopPublishDatasetRequest,
+    DesktopPublishDatasetResponse,
+)
+from fourpro_contracts.governance import PromoteDatasetRequest, PromoteDatasetResponse
 from fourpro_contracts.ingestion import (
     IngestionItem,
     IngestionLifecycleStatus,
     UploadCreatedResponse,
+)
+from fourpro_contracts.semantic import (
+    PaginatedSemanticModelList,
+    QueryRequest,
+    QueryResponse,
+    SemanticModelCreate,
+    SemanticModelItem,
 )
 from fourpro_contracts.tenant import (
     MemberStorageQuotaPatch,
@@ -17,18 +63,6 @@ from fourpro_contracts.tenant import (
     TenantQuotaGroupItem,
     TenantQuotaGroupListResponse,
     TenantQuotaGroupPatch,
-)
-
-from fourpro_contracts.auth import (
-    ForgotPasswordRequest,
-    ForgotPasswordResponse,
-    LoginRequest,
-    MfaChallengeResponse,
-    MfaVerifyRequest,
-    RefreshRequest,
-    ResetPasswordRequest,
-    TokenResponse,
-    TokenTypeBearer,
 )
 
 __all__ = [
@@ -58,4 +92,32 @@ __all__ = [
     "ForgotPasswordRequest",
     "ForgotPasswordResponse",
     "ResetPasswordRequest",
+    "DashboardCreate",
+    "DashboardUpdate",
+    "DashboardSummary",
+    "DashboardDetail",
+    "DashboardWidgetIn",
+    "DashboardWidgetOut",
+    "PaginatedDashboardList",
+    "DashboardExportPackage",
+    "PromoteDatasetRequest",
+    "PromoteDatasetResponse",
+    "ConnectorCapability",
+    "ConnectorCatalogResponse",
+    "DataSourceCreate",
+    "DataSourceUpdate",
+    "DataSourceItem",
+    "PaginatedDataSourceList",
+    "ConnectionTestResponse",
+    "SyncEnqueueResponse",
+    "SyncRunItem",
+    "SemanticModelCreate",
+    "SemanticModelItem",
+    "PaginatedSemanticModelList",
+    "QueryRequest",
+    "QueryResponse",
+    "DesktopPublishDatasetRequest",
+    "DesktopPublishDatasetResponse",
+    "DesktopPublishDashboardRequest",
+    "DesktopPublishDashboardResponse",
 ]

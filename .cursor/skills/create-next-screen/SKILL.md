@@ -1,6 +1,6 @@
 ---
 name: create-next-screen
-description: Cria um ecrã Next.js (Feature-First) com estados, testes e documentação
+description: Cria um ecrã Next.js (Feature-First) com estados, testes e documentação. Usar com a skill frontend-architect no stack React/Next.
 ---
 
 # Skill: create-next-screen
@@ -12,11 +12,11 @@ Usar quando o alvo for React/Next.js (stack da skill `frontend-architect`). Para
 1. **Feature folder** — `features/<nome>/` com `components/`, `hooks/`, `schemas/`, `api/`, `types/`, `index.ts`.
 2. **Rota thin** — página em `app/.../page.tsx` (Server Component por defeito); interatividade em Client Components filhos.
 3. **Atomic Design** — reutilizar atoms/molecules em `shared/ui` antes de criar novos; nunca duplicar.
-4. **Formulários** — React Hook Form + Zod quando houver input; schema tipado.
-5. **Dados** — TanStack Query (client) ou fetch server; keys com tenant quando aplicável.
+4. **Formulários** — React Hook Form + Zod quando houver input; schema tipado com `z.infer`.
+5. **Dados** — TanStack Query (client) ou fetch server; query keys com `tenantId` quando o cache for partilhado.
 6. **Estados de UI** — loading, erro, vazio, sucesso.
 7. **Tenant** — ecrãs admin mostram tenant actual.
-8. **Componente** — props tipadas + JSDoc `@example` + teste mínimo.
+8. **Componente** — props tipadas + JSDoc `@example` + teste mínimo (`*.test.tsx`).
 9. **Performance** — `dynamic()` / lazy para widgets pesados; `"use client"` só onde necessário.
 10. **Checklist** — preencher itens relevantes em `docs/CHECKLISTS/frontend-checklist.md`.
 
@@ -38,4 +38,18 @@ export type DatasetSearchProps = {
 export function DatasetSearch({ value, onChange, disabled }: DatasetSearchProps) {
   // ...
 }
+```
+
+## Estrutura sugerida por ecrã
+
+```text
+features/<feature>/
+  components/<screen>-view.tsx       # composição
+  components/<widget>.tsx            # Client se precisar
+  components/<widget>.test.tsx
+  api/query-keys.ts
+  api/use-<resource>.ts
+  schemas/<form>.ts
+  index.ts
+app/(app)/<route>/page.tsx           # Server Component thin
 ```

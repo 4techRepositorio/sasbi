@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    />
+    <title>Desktop 4Pro_BI</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --fg: #e2e8f0;
+        --accent: #38bdf8;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "IBM Plex Sans", sans-serif;
+        background: radial-gradient(1200px 600px at 10% -10%, #1e3a5f, var(--bg));
+        color: var(--fg);
+        min-height: 100vh;
+      }
+      main {
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+        letter-spacing: -0.03em;
+        margin: 0 0 0.35rem;
+      }
+      p {
+        opacity: 0.85;
+      }
+      label {
+        display: grid;
+        gap: 0.35rem;
+        margin: 0.75rem 0;
+      }
+      input {
+        padding: 0.65rem 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #334155;
+        background: #0b1220;
+        color: var(--fg);
+      }
+      button {
+        margin-top: 1rem;
+        background: var(--accent);
+        color: #0f172a;
+        border: 0;
+        border-radius: 6px;
+        padding: 0.7rem 1rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #status {
+        margin-top: 1rem;
+        min-height: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>4Pro_BI</h1>
+      <p>Desktop de autoração — publique datasets e dashboards no tenant.</p>
+      <form id="login">
+        <label>Email <input name="email" type="email" required /></label>
+        <label>Palavra-passe <input name="password" type="password" required /></label>
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="status"></p>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

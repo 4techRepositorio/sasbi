@@ -1,6 +1,6 @@
 ---
 name: frontend-architect
-description: Arquitetura frontend Feature-First + Atomic Design (React, Next.js, TypeScript, Tailwind, shadcn/ui, TanStack Query, RHF, Zod)
+description: Arquitetura frontend Feature-First + Atomic Design (React, Next.js, TypeScript, Tailwind, shadcn/ui, TanStack Query, RHF, Zod). Usar ao criar/revisar UI, estrutura de pastas, design system ou migração frontend.
 ---
 
 # Skill: Frontend Architect
@@ -15,22 +15,32 @@ description: Arquitetura frontend Feature-First + Atomic Design (React, Next.js,
 | Framework | Next.js (App Router) |
 | Linguagem | TypeScript (strict) |
 | Estilo | Tailwind CSS |
-| Design system | shadcn/ui (tokens nativos 4Pro_BI) |
+| Design system | Tokens `--da-*` (`packages/ui`, skill `design-system-engineer`); stack alvo: wrappers shadcn/ui com tokens nativos 4Pro_BI |
 | Dados servidor | TanStack Query |
 | Formulários | React Hook Form + Zod |
 
-> **Estado no monorepo 4Pro_BI:** `apps/web` continua em **Angular 19** até decisão formal em [ADR-002](../../../docs/adr/002-frontend-react-next.md). Esta skill aplica-se a (1) greenfield React/Next, (2) revisão de PRs frontend, (3) migração faseada após aceite do ADR. Princípios (Feature-First, Atomic Design, props tipadas, testes) adaptam-se também ao Angular actual.
+> **Estado no monorepo 4Pro_BI:** `apps/web` continua em **Angular 19** até decisão formal em [ADR-005](../../../docs/adr/005-frontend-react-next.md). Esta skill aplica-se a (1) greenfield React/Next, (2) revisão de PRs frontend, (3) migração faseada após aceite do ADR. Princípios (Feature-First, Atomic Design, props tipadas, testes) adaptam-se também ao Angular actual.
 
-## Princípios obrigatórios
+## Objectivos de toda aplicação UI
+
+| Qualidade | Expectativa |
+|-----------|-------------|
+| Escalável | Features isoladas; rotas thin; sem god-components |
+| Modular | Feature-First + Atomic Design; API pública via `index.ts` |
+| Performática | SSR/RSC por defeito; lazy loading; code splitting; Client só quando necessário |
+| Reutilizável | Nunca duplicar; extrair no 2.º uso para `shared/ui` ou `packages/ui` |
+
+## Princípios obrigatórios (sempre utilizar)
 
 1. **Feature First** — organizar por domínio/feature, não só por tipo técnico.
-2. **Atomic Design** — `atoms` → `molecules` → `organisms` → `templates` → `pages` (ou `app` routes).
-3. **Componentes reutilizáveis** — nunca duplicar; extrair para `shared/ui` ou `packages/ui` quando houver 2+ usos.
-4. **Lazy loading & code splitting** — rotas e features pesadas via `dynamic()` / `React.lazy` / import dinâmico.
-5. **SSR quando necessário** — Server Components / RSC por defeito; dados sensíveis ou SEO no servidor.
-6. **Client Components só quando necessário** — `"use client"` apenas para estado, efeitos, event handlers, APIs do browser.
-7. **Sem regras de domínio críticas só no cliente** — validação UX com Zod; autorização e isolamento tenant na API.
-8. **Multitenancy visível** — ecrãs admin mostram o tenant actual.
+2. **Atomic Design** — `atoms` → `molecules` → `organisms` → `templates` → `pages`.
+3. **Componentes reutilizáveis** — nunca duplicar; partilhar via `shared/ui` / `packages/ui`.
+4. **Lazy loading** — rotas e widgets pesados sob demanda.
+5. **Code splitting** — `dynamic()` / `React.lazy` / import dinâmico por feature.
+6. **SSR quando necessário** — Server Components / RSC por defeito; SEO e dados sensíveis no servidor.
+7. **Client Components somente quando necessário** — `"use client"` só para estado, efeitos, event handlers, APIs do browser.
+8. **Sem regras de domínio críticas só no cliente** — Zod para UX; authz/tenant na API.
+9. **Multitenancy visível** — ecrãs admin mostram o tenant actual.
 
 ## Estrutura Feature-First (Next.js App Router)
 
@@ -39,39 +49,73 @@ apps/web-next/   # ou apps/web após migração
   app/                    # rotas (thin)
   features/
     auth/
-      api/                # fetchers / server actions
+      api/                # fetchers / server actions / query hooks
       components/         # UI da feature
       hooks/
       schemas/            # Zod
       types/
-      index.ts
+      index.ts            # API pública da feature
     datasets/
     ...
   shared/
-    ui/                   # atoms/molecules reutilizáveis (shadcn wrappers)
+    ui/                   # atoms/molecules/organisms (wrappers shadcn)
       atoms/
       molecules/
       organisms/
     lib/                  # utils, cn(), api client
     hooks/
     config/
-  tests/                  # ou colocalizados *.test.tsx
 ```
 
-## Checklist de todo componente
+## Contrato obrigatório de todo componente
 
 Todo componente **deve** ter:
 
 | Requisito | Como |
 |-----------|------|
-| Props tipadas | `type XProps = { ... }` ou `interface`; sem `any` |
-| Documentação | JSDoc no export + secção no Story/README da feature |
-| Exemplo de uso | bloco `@example` no JSDoc ou ficheiro `*.stories.tsx` / `examples.md` |
-| Testes | teste mínimo (render + interação crítica ou estado vazio/erro) |
+| Props tipadas | `type XProps = { ... }` exportado; sem `any` |
+| Documentação | JSDoc no export público |
+| Exemplo de uso | bloco `@example` no JSDoc ou `*.stories.tsx` |
+| Testes | `*.test.tsx` (ou colocalizado) — render + caminho crítico ou estados vazios/erro |
 
 Estados de ecrã obrigatórios: **loading**, **erro**, **vazio**, **sucesso**.
 
-## Padrões de implementação
+### Template mínimo
+
+```tsx
+/**
+ * Filtra datasets por nome.
+ *
+ * @example
+ * <DatasetSearch value={q} onChange={setQ} />
+ */
+export type DatasetSearchProps = {
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+};
+
+export function DatasetSearch({ value, onChange, disabled }: DatasetSearchProps) {
+  // ...
+}
+```
+
+### Teste mínimo
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { DatasetSearch } from "./dataset-search";
+
+test("chama onChange ao escrever", async () => {
+  const onChange = vi.fn();
+  render(<DatasetSearch value="" onChange={onChange} />);
+  await userEvent.type(screen.getByRole("searchbox"), "a");
+  expect(onChange).toHaveBeenCalled();
+});
+```
+
+## Receitas de implementação
 
 ### Server vs Client
 
@@ -86,27 +130,50 @@ export default async function DatasetsPage() {
 export function DatasetFilters(/* tipado */) { /* ... */ }
 ```
 
-### Dados (TanStack Query)
+### TanStack Query (keys com tenant)
+
+```tsx
+export const datasetKeys = {
+  all: (tenantId: string) => ["datasets", tenantId] as const,
+  list: (tenantId: string, q: string) => [...datasetKeys.all(tenantId), "list", q] as const,
+  detail: (tenantId: string, id: string) => [...datasetKeys.all(tenantId), id] as const,
+};
+```
 
 - Queries/mutations por feature em `features/<name>/api` ou `hooks`.
-- Keys estáveis e scoped por `tenantId` quando o cache for partilhado.
+- Keys estáveis e **scoped por `tenantId`** quando o cache for partilhado.
 - Nunca confiar em `tenant_id` enviado pelo cliente sem sessão validada na API.
 
-### Formulários (RHF + Zod)
+### React Hook Form + Zod
 
-- Schema Zod como fonte de verdade; inferir tipos com `z.infer`.
+```tsx
+const schema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(8, "Mínimo 8 caracteres"),
+});
+type FormValues = z.infer<typeof schema>;
+
+const form = useForm<FormValues>({
+  resolver: zodResolver(schema),
+  defaultValues: { email: "", password: "" },
+});
+```
+
+- Schema Zod = fonte de verdade; tipar com `z.infer`.
 - Mensagens amigáveis; erros técnicos só em log/telemetria.
 
 ### Performance
 
-- Split por rota/feature.
+- Split por rota/feature (`next/dynamic` com `ssr: false` só se inevitável).
 - Imagens com componente otimizado do Next.
-- Evitar bundles de UI pesados no caminho crítico do login/shell.
+- Evitar bundles UI pesados no caminho crítico login/shell.
 - Preferir Server Components para listas estáticas; Client para filtros interativos.
 
 ### Design system
 
-- Wrappers shadcn em `shared/ui`; tokens CSS alinhados a 4Pro_BI.
+- **Consumir** tokens `--da-*` e primitives existentes; dono: skill `design-system-engineer` (`docs/DESIGN_SYSTEM.md`, `packages/ui`).
+- Stack alvo: wrappers shadcn em `shared/ui` com tokens CSS alinhados a 4Pro_BI (não expor a marca shadcn na UX).
+- Padrão novo (botão, input, modal, …): elevar via Design System Engineer — não criar one-off no ecrã.
 - Na UX final: **zero** marcas de libs externas (ver `docs/ARCHITECTURE.md` § Aceleradores).
 
 ## Anti-padrões
@@ -114,17 +181,18 @@ export function DatasetFilters(/* tipado */) { /* ... */ }
 - Duplicar botões/inputs em vez de atoms partilhados.
 - `"use client"` no layout raiz sem necessidade.
 - Lógica de billing/RBAC só no frontend.
-- Componentes sem props tipadas ou sem teste mínimo.
+- Componentes sem props tipadas, sem docs, sem exemplo ou sem teste.
 - Importar uma feature inteira noutra (usar API pública via `index.ts`).
+- Introduzir React dentro de `apps/web` Angular sem aceite do ADR-005.
 
 ## Fluxo ao criar UI nova
 
-1. Confirmar se existe componente reutilizável (grep em `shared/ui` / `packages/ui`).
-2. Escolher nível atómico; tipar props; documentar + exemplo.
+1. Confirmar se existe componente reutilizável (grep em `shared/ui` / `packages/ui` / Angular `shared/`).
+2. Escolher nível atómico; tipar props; documentar + exemplo + teste.
 3. Colocar na feature correcta; expor só o necessário no `index.ts`.
 4. Wire na rota (`app/`) com lazy/dynamic se pesado.
 5. Tratar loading/erro/vazio/sucesso + tenant visível se admin.
-6. Teste mínimo + checklist `docs/CHECKLISTS/frontend-checklist.md`.
+6. Checklist `docs/CHECKLISTS/frontend-checklist.md`.
 
 ## Resposta padrão (entregas)
 
@@ -137,6 +205,7 @@ export function DatasetFilters(/* tipado */) { /* ... */ }
 ## Referências
 
 - [docs/FRONTEND_ARCHITECTURE.md](../../../docs/FRONTEND_ARCHITECTURE.md)
-- [docs/adr/002-frontend-react-next.md](../../../docs/adr/002-frontend-react-next.md)
+- [docs/adr/005-frontend-react-next.md](../../../docs/adr/005-frontend-react-next.md)
 - [docs/CHECKLISTS/frontend-checklist.md](../../../docs/CHECKLISTS/frontend-checklist.md)
-- Skill irmã: `create-next-screen` (scaffold de ecrã); Angular legado: `create-angular-screen`
+- Skill irmã: `create-next-screen` (scaffold de ecrã); Angular actual: `create-angular-screen`
+- UI tokens: skill `senior-ui-designer` (quando disponível no repo)

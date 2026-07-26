@@ -10,9 +10,9 @@ Frontend stack base (actual — `apps/web`):
 - responsivo
 - preparado para PWA
 
-Stack alvo (ADR-002, proposto): React · Next.js · TypeScript · Tailwind · shadcn/ui · TanStack Query · React Hook Form · Zod.
+Stack alvo (ADR-005, proposto): React · Next.js · TypeScript · Tailwind · shadcn/ui · TanStack Query · React Hook Form · Zod.
 Referência: `docs/FRONTEND_ARCHITECTURE.md`, skill `frontend-architect`.
-Não introduzir React/Next em `apps/web` sem aceite do ADR-002.
+Não introduzir React/Next em `apps/web` sem aceite do ADR-005.
 
 Regras:
 1. Separar layout, estado, serviços e componentes (Feature-First + Atomic Design).

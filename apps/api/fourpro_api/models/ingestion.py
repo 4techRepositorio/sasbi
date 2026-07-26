@@ -38,6 +38,15 @@ class FileIngestion(Base):
     friendly_error: Mapped[str | None] = mapped_column(Text(), nullable=True)
     technical_log: Mapped[str | None] = mapped_column(Text(), nullable=True)
     result_summary: Mapped[str | None] = mapped_column(Text(), nullable=True)
+    layer: Mapped[str] = mapped_column(String(16), nullable=False, default="bronze")
+    source_ingestion_id: Mapped[uuid.UUID | None] = mapped_column(
+        Uuid(as_uuid=True),
+        ForeignKey("file_ingestions.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    transform_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    correlation_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 

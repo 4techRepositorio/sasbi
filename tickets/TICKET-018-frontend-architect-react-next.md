@@ -1,4 +1,4 @@
-# TICKET-018 — Frontend Architect: stack React/Next (ADR-002)
+# TICKET-018 — Frontend Architect: stack React/Next (ADR-005)
 
 ## Objetivo
 
@@ -8,9 +8,10 @@ Formalizar o papel **Frontend Architect** e o stack alvo (React, Next.js, TypeSc
 
 - Skill `frontend-architect` e `create-next-screen`
 - `docs/FRONTEND_ARCHITECTURE.md`
-- ADR-002 (estado: proposto)
+- ADR-005 (estado: proposto)
 - Actualização de AGENTS, checklist frontend e rule `03-frontend.mdc`
 - Referência em `ARCHITECTURE.md`
+- Plano detalhado em `docs/plans/TICKET-018-frontend-architect-detailed-plan.md`
 
 ## Fora de escopo
 
@@ -32,8 +33,8 @@ Formalizar o papel **Frontend Architect** e o stack alvo (React, Next.js, TypeSc
 ## Subtarefas
 
 1. [x] Publicar skills e documentação
-2. [x] ADR-002 proposto
-3. [ ] Revisão Product/Architect — aceitar ou rejeitar ADR-002
+2. [x] ADR-005 proposto
+3. [ ] Revisão Product/Architect — aceitar ou rejeitar ADR-005
 4. [ ] Se aceite: ticket de scaffold Next + plano de migração por fatias
 5. [ ] Se rejeitado: manter Angular e arquivar stack alvo como referência opcional
 
@@ -42,7 +43,7 @@ Formalizar o papel **Frontend Architect** e o stack alvo (React, Next.js, TypeSc
 - [x] Skill e docs disponíveis no repo
 - [x] Agents não misturam React em `apps/web` sem ADR aceite
 - [x] Checklist frontend inclui critérios de arquitectura
-- [ ] Decisão explícita sobre ADR-002 registada (aceite / rejeitado / adiado)
+- [ ] Decisão explícita sobre ADR-005 registada (aceite / rejeitado / adiado)
 
 ## Riscos
 
@@ -53,3 +54,7 @@ Formalizar o papel **Frontend Architect** e o stack alvo (React, Next.js, TypeSc
 
 - ADR-001 (cliente Web / BI híbrido)
 - CI e e2e actuais de `apps/web`
+
+## Plano detalhado
+
+[`docs/plans/TICKET-018-frontend-architect-detailed-plan.md`](../docs/plans/TICKET-018-frontend-architect-detailed-plan.md)

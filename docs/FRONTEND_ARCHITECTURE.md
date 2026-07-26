@@ -17,7 +17,7 @@ Criar UIs **escaláveis**, **modulares**, **performáticas** e **reutilizáveis*
 | Estilo | SCSS corporativo |
 | Skills | `create-angular-screen` |
 
-### Alvo (ADR-002)
+### Alvo (ADR-005)
 
 | Item | Valor |
 |------|--------|
@@ -30,7 +30,7 @@ Criar UIs **escaláveis**, **modulares**, **performáticas** e **reutilizáveis*
 | Forms | React Hook Form + Zod |
 | Skills | `frontend-architect`, `create-next-screen` |
 
-Estado da decisão: ver [adr/002-frontend-react-next.md](./adr/002-frontend-react-next.md).
+Estado da decisão: ver [adr/005-frontend-react-next.md](./adr/005-frontend-react-next.md).
 
 ## Convenções obrigatórias
 
@@ -61,7 +61,7 @@ Código agrupado por capacidade de negócio (`auth`, `datasets`, `billing`, …)
 3. Lazy loading e code splitting por rota/feature.
 4. Evitar `"use client"` no root sem necessidade.
 
-### Qualidade por componente
+### Qualidade por componente (contrato)
 
 Cada componente deve incluir:
 
@@ -101,10 +101,11 @@ Enquanto `apps/web` for Angular:
 - Aplicar Feature-First e Atomic Design na organização de pastas sempre que possível.
 - Componentes partilhados em `apps/web/src/app/shared` e evolução de `packages/ui`.
 - Novos ecrãs: skill `create-angular-screen` + checklist frontend.
-- Migração React/Next: apenas após aceite do ADR-002 e plano por feature (sem big-bang).
+- Migração React/Next: apenas após aceite do ADR-005 e plano por feature (sem big-bang).
 
 ## Checklists e agentes
 
 - Checklist: [CHECKLISTS/frontend-checklist.md](./CHECKLISTS/frontend-checklist.md)
 - Agente: [AGENTS.md](./AGENTS.md) § Frontend Architect
 - Regras Cursor: `.cursor/rules/03-frontend.mdc`
+- Ticket: [TICKET-018](../tickets/TICKET-018-frontend-architect-react-next.md) · [plano detalhado](./plans/TICKET-018-frontend-architect-detailed-plan.md)
