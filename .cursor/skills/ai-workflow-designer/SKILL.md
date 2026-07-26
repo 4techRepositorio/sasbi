@@ -1,11 +1,15 @@
 ---
 name: ai-workflow-designer
-description: Projeta workflows inteligentes como pipelines (entrada→entrega). Usar ao decompor tarefas complexas, desenhar ingestão/jobs/orquestrações, retries/fallback, ou evitar loops infinitos.
+description: >-
+  Projeta workflows inteligentes como pipelines (entrada→entrega). Usar ao
+  decompor tarefas complexas, desenhar ingestão/jobs/orquestrações,
+  retries/fallback, ou evitar loops infinitos. Pedidos explícitos:
+  "AI Workflow Designer", "pipeline de trabalho", "workflow inteligente".
 ---
 
 # Skill: AI Workflow Designer
 
-Especialista em transformar tarefas complexas em **pipelines** para a plataforma SaaS multitenant 4Pro_BI.
+Você projeta **workflows inteligentes**. Sempre transforma tarefas complexas em **pipelines** para a plataforma SaaS multitenant **4Pro_BI**.
 
 ## Quando invocar
 
@@ -13,6 +17,16 @@ Especialista em transformar tarefas complexas em **pipelines** para a plataforma
 - Desenhar retries, fallback, DLQ ou reprocessamento.
 - Avaliar paralelismo, cache, memória ou persistência antes de executar.
 - Evitar loops infinitos em correção/retry.
+- Pedidos explícitos: «AI Workflow Designer», «pipeline de trabalho», «workflow inteligente».
+
+## Complementar (não substituir)
+
+| Papel | Skill / artefacto | Fronteira |
+| --- | --- | --- |
+| Plano de feature / ticket | `create-feature-plan` + Planner | Escopo, subtarefas, aceite |
+| Ingestão de ficheiros | `create-ingestion-pipeline` + Backend Data | Upload → catálogo e status de produto |
+| Multiagente | Multi-Agent Systems Architect (se existir) | **Quem** executa cada estágio |
+| Esta skill | `ai-workflow-designer` | **Como** o trabalho flui (pipeline + bounds) |
 
 ## Princípios inegociáveis
 
@@ -21,10 +35,13 @@ Especialista em transformar tarefas complexas em **pipelines** para a plataforma
 3. **Loops finitos** — toda correção/retry tem `max_attempts`, condição de saída e caminho para falha controlada (DLQ / `failed`).
 4. **Multitenancy** — `tenant_id` na entrada, nas mensagens e na persistência; sem acesso cruzado.
 5. **Observabilidade desde o desenho** — logs, métricas e status em cada estágio.
+6. **Nunca autorizar Execução** sem avaliação das 8 dimensões e bounds de Correção.
 
-Alinhar com: skill `create-ingestion-pipeline`, `docs/AGENTS.md` (Backend Data / Planner), worker Celery (`apps/worker`), estados de ingestão em `.cursor/rules/04-data.mdc`. Complementa (não substitui) multiagente: workflows = **pipeline de trabalho**; multiagente = **quem** executa cada estágio.
+Alinhar com: skill `create-ingestion-pipeline`, `docs/AGENTS.md` (Backend Data / Planner), worker Celery (`apps/worker`), estados de ingestão em `.cursor/rules/04-data.mdc`.
 
 ## Estágios canónicos (sempre)
+
+Cada workflow **deve** conter:
 
 | Estágio | Objetivo | Saída mínima | Falha típica |
 | --- | --- | --- | --- |
@@ -61,7 +78,7 @@ flowchart TD
 
 ## Avaliação obrigatória (antes de executar)
 
-Antes de despachar execução, avaliar e registar:
+Antes de despachar execução, **sempre** avaliar e registar:
 
 | Dimensão | Perguntas | Default 4Pro_BI |
 | --- | --- | --- |
@@ -92,6 +109,8 @@ Sempre definir:
 - condição de saída (`delivered` | `failed` | `cancelled`)
 - destino DLQ ou status `failed` com mensagem técnica + amigável
 - **deadline** absoluto do run (além de timeout por step)
+
+**Nunca permitir loops infinitos.**
 
 ## Envelope de entrada (mínimo)
 
@@ -152,7 +171,8 @@ Ao desenhar um workflow, **sempre** produzir:
 4. Avaliar as 8 dimensões; definir bounds de correção.
 5. Especificar métricas, logs e status finais.
 6. Ligar a skills/docs existentes (`create-ingestion-pipeline`, `create-feature-plan`, multiagente se houver vários papéis).
-7. Só então autorizar Execução.
+7. Preencher [`docs/CHECKLISTS/ai-workflow-checklist.md`](../../../docs/CHECKLISTS/ai-workflow-checklist.md).
+8. Só então autorizar Execução.
 
 ## Template de resposta (usar sempre)
 
@@ -183,6 +203,8 @@ Ao desenhar um workflow, **sempre** produzir:
 ## Próximos passos
 ```
 
+Resposta operacional do repo (além do template): objetivo, plano, arquivos alterados, riscos, próximos passos.
+
 ## Exemplo mínimo — ingestão de ficheiro
 
 | Estágio | Conteúdo |
@@ -195,7 +217,19 @@ Ao desenhar um workflow, **sempre** produzir:
 | Correção | Retry transitório `max_attempts=3`; schema inválido → `failed` sem retry |
 | Entrega | Catálogo + mensagem amigável; métricas de latência |
 
-Checklist operacional: `docs/CHECKLISTS/ai-workflow-checklist.md`.
+## Exemplo mínimo — orquestração de chats/agentes
+
+| Estágio | Conteúdo |
+| --- | --- |
+| Entrada | Pedido + constraints + allowlist de paths |
+| Validação | Escopo, conflitos de branch, secrets ausentes |
+| Planejamento | DAG de papéis (Planner → Workers → QA); sync points |
+| Execução | Chats/worktrees em paralelo seguro |
+| Verificação | Checklist + testes mínimos + isolamento tenant |
+| Correção | Re-run bounded do Worker falhado; escalate ao Planner |
+| Entrega | PR + evidências; métricas de tentativas |
+
+Checklist operacional: [`docs/CHECKLISTS/ai-workflow-checklist.md`](../../../docs/CHECKLISTS/ai-workflow-checklist.md).
 
 ## Definition of done
 
