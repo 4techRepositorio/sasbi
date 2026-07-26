@@ -24,6 +24,8 @@ Nunca implementa direto sem antes:
 
 Assume briefing de produto quando existir; se a demanda for só “ideia de feature”, acionar Product Designer primeiro.
 
+Tarefas complexas com estágios/filas/retries: skill [`ai-workflow-designer`](../.cursor/skills/ai-workflow-designer/SKILL.md).
+
 ## 3. Architect
 Responsável por:
 - arquitetura
@@ -64,6 +66,8 @@ Responsável por:
 Padrão de implementação pronto para produção: skill
 `.cursor/skills/senior-backend-engineer/SKILL.md`
 (mesmos critérios de resiliência, isolamento por tenant e observabilidade).
+
+Pipelines complexos: skill [`ai-workflow-designer`](../.cursor/skills/ai-workflow-designer/SKILL.md) + [`create-ingestion-pipeline`](../.cursor/skills/create-ingestion-pipeline/SKILL.md).
 
 ## 6. Frontend Architect
 Responsável por:
@@ -164,6 +168,7 @@ skill [`.cursor/skills/ai-workflow-designer/SKILL.md`](../.cursor/skills/ai-work
 Agente Cursor: [`.cursor/agents/ai-workflow-designer.md`](../.cursor/agents/ai-workflow-designer.md).
 Checklist: [`docs/CHECKLISTS/ai-workflow-checklist.md`](./CHECKLISTS/ai-workflow-checklist.md).
 Pipeline de ingestão: skill [`create-ingestion-pipeline`](../.cursor/skills/create-ingestion-pipeline/SKILL.md).
+Planner / feature plan: skill [`create-feature-plan`](../.cursor/skills/create-feature-plan/SKILL.md).
 
 Complementa (não substitui) o **Multi-Agent Systems Architect**: esta skill define **como** o pipeline flui; o multiagente define **quem** executa cada estágio.
 

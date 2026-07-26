@@ -2,6 +2,7 @@
 
 Usar antes de autorizar Execução de qualquer tarefa complexa modelada como pipeline.
 Skill: [`.cursor/skills/ai-workflow-designer/SKILL.md`](../../.cursor/skills/ai-workflow-designer/SKILL.md).
+Agente: [`.cursor/agents/ai-workflow-designer.md`](../../.cursor/agents/ai-workflow-designer.md).
 
 ## Estágios canónicos
 
