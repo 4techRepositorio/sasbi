@@ -76,7 +76,7 @@ Responsável por:
 - UX por tenant e indicação clara do tenant activo
 - performance (lazy loading, code splitting, SSR quando necessário)
 - componentes de ecrã/feature reutilizáveis (props tipadas, docs, exemplo, testes)
-- fronteira Server/Client e stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-002](./adr/002-frontend-react-next.md)
+- fronteira Server/Client e stack alvo React/Next — ver [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) e [ADR-005](./adr/005-frontend-react-next.md)
 - implementação actual em `apps/web` (Angular) até aceite da migração
 - **consumir** o Design System (tokens `--da-*`, `.da-*`, `shared/` / `packages/ui`) — não inventar UI one-off; padrões novos → Design System Engineer
 

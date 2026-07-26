@@ -19,7 +19,7 @@ description: Arquitetura frontend Feature-First + Atomic Design (React, Next.js,
 | Dados servidor | TanStack Query |
 | Formulários | React Hook Form + Zod |
 
-> **Estado no monorepo 4Pro_BI:** `apps/web` continua em **Angular 19** até decisão formal em [ADR-002](../../../docs/adr/002-frontend-react-next.md). Esta skill aplica-se a (1) greenfield React/Next, (2) revisão de PRs frontend, (3) migração faseada após aceite do ADR. Princípios (Feature-First, Atomic Design, props tipadas, testes) adaptam-se também ao Angular actual.
+> **Estado no monorepo 4Pro_BI:** `apps/web` continua em **Angular 19** até decisão formal em [ADR-005](../../../docs/adr/005-frontend-react-next.md). Esta skill aplica-se a (1) greenfield React/Next, (2) revisão de PRs frontend, (3) migração faseada após aceite do ADR. Princípios (Feature-First, Atomic Design, props tipadas, testes) adaptam-se também ao Angular actual.
 
 ## Objectivos de toda aplicação UI
 
@@ -183,7 +183,7 @@ const form = useForm<FormValues>({
 - Lógica de billing/RBAC só no frontend.
 - Componentes sem props tipadas, sem docs, sem exemplo ou sem teste.
 - Importar uma feature inteira noutra (usar API pública via `index.ts`).
-- Introduzir React dentro de `apps/web` Angular sem aceite do ADR-002.
+- Introduzir React dentro de `apps/web` Angular sem aceite do ADR-005.
 
 ## Fluxo ao criar UI nova
 
@@ -205,7 +205,7 @@ const form = useForm<FormValues>({
 ## Referências
 
 - [docs/FRONTEND_ARCHITECTURE.md](../../../docs/FRONTEND_ARCHITECTURE.md)
-- [docs/adr/002-frontend-react-next.md](../../../docs/adr/002-frontend-react-next.md)
+- [docs/adr/005-frontend-react-next.md](../../../docs/adr/005-frontend-react-next.md)
 - [docs/CHECKLISTS/frontend-checklist.md](../../../docs/CHECKLISTS/frontend-checklist.md)
 - Skill irmã: `create-next-screen` (scaffold de ecrã); Angular actual: `create-angular-screen`
 - UI tokens: skill `senior-ui-designer` (quando disponível no repo)

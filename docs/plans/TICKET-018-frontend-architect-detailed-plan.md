@@ -2,13 +2,13 @@
 
 ## Objectivo
 
-Fixar o mandato do **Frontend Architect** e o stack alvo React · Next.js · TypeScript · Tailwind · shadcn/ui · TanStack Query · React Hook Form · Zod, com Feature-First, Atomic Design e contrato de componente — **sem** migrar `apps/web` até aceite do ADR-002.
+Fixar o mandato do **Frontend Architect** e o stack alvo React · Next.js · TypeScript · Tailwind · shadcn/ui · TanStack Query · React Hook Form · Zod, com Feature-First, Atomic Design e contrato de componente — **sem** migrar `apps/web` até aceite do ADR-005.
 
 ## Contexto
 
 - Produção actual: Angular 19 em `apps/web` (CI `ng build`, e2e Playwright).
 - Skill e docs: `.cursor/skills/frontend-architect`, `docs/FRONTEND_ARCHITECTURE.md`.
-- ADR: [002-frontend-react-next.md](../adr/002-frontend-react-next.md) (proposto).
+- ADR: [005-frontend-react-next.md](../adr/005-frontend-react-next.md) (proposto).
 
 ## Escopo desta entrega (docs/skills)
 
@@ -31,9 +31,9 @@ Fixar o mandato do **Frontend Architect** e o stack alvo React · Next.js · Typ
 
 - [x] Skill `frontend-architect` com stack, princípios e receitas
 - [x] Skill `create-next-screen` para scaffold de ecrã
-- [x] `FRONTEND_ARCHITECTURE.md` + ADR-002 proposto
+- [x] `FRONTEND_ARCHITECTURE.md` + ADR-005 proposto
 - [x] Rule `03-frontend.mdc` referencia stack alvo sem forçar React em Angular
-- [ ] Decisão Product/Architect sobre ADR-002
+- [ ] Decisão Product/Architect sobre ADR-005
 
 ## Riscos e mitigações
 

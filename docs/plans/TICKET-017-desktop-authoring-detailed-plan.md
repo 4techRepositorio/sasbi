@@ -52,7 +52,7 @@ Escolher runtime:
 
 ## 6. Subtarefas
 
-1. Spike runtime → ADR-002.
+1. Spike runtime (Electron vs Tauri) → ADR-00x futuro (não usar ADR-002: já é modular monolith; scaffold Electron já existe em `apps/desktop`).
 2. Scaffold app + auth contra API local/staging.
 3. Wizard fontes (APIs 015).
 4. Publish dataset → verificar no Web.
