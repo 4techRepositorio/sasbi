@@ -1,10 +1,12 @@
 # Atalhos para desenvolvimento local (4Pro_BI).
 # Requer: bash, opcionalmente Docker para alvo alembic-pg-local / e2e-one-shot / qa-optional (parcial).
-.PHONY: help qa qa-alembic qa-optional qa-optional-full migrate alembic-pg-local e2e-api-local e2e-one-shot e2e-dispatch lint-actions wireframes-export stack-up stack-down stack-ps stack-logs
+.PHONY: help qa qa-alembic qa-coverage qa-report qa-optional qa-optional-full migrate alembic-pg-local e2e-api-local e2e-one-shot e2e-dispatch lint-actions wireframes-export stack-up stack-down stack-ps stack-logs
 
 help:
 	@echo "Alvos make (raiz do monorepo):"
-	@echo "  make qa               — Ruff + pytest API + typecheck/build web + smoke API Playwright (./scripts/run-qa-gates.sh)"
+	@echo "  make qa               — Ruff + pytest API (cov≥90%) + typecheck/build web + smoke API Playwright (./scripts/run-qa-gates.sh)"
+	@echo "  make qa-coverage      — pytest API com HTML/JSON de cobertura + relatório Markdown"
+	@echo "  make qa-report        — regenera docs/CHECKLISTS/qa-automation-report.md (requer coverage.json)"
 	@echo "  make qa-alembic       — como qa + Postgres Docker + Alembic (RUN_ALEMBIC_PG_LOCAL=1)"
 	@echo "  make qa-optional      — Alembic Postgres smoke + E2E browser se e2e/.env.e2e existir"
 	@echo "  make qa-optional-full — como qa-optional + E2E one-shot (Docker stack + Playwright completo)"
@@ -23,6 +25,12 @@ help:
 
 qa:
 	@chmod +x scripts/run-qa-gates.sh 2>/dev/null; ./scripts/run-qa-gates.sh
+
+qa-coverage:
+	@chmod +x scripts/run-qa-coverage.sh 2>/dev/null; ./scripts/run-qa-coverage.sh
+
+qa-report:
+	@chmod +x scripts/generate-qa-report.sh 2>/dev/null; ./scripts/generate-qa-report.sh
 
 qa-alembic:
 	@chmod +x scripts/run-qa-gates.sh 2>/dev/null; RUN_ALEMBIC_PG_LOCAL=1 ./scripts/run-qa-gates.sh

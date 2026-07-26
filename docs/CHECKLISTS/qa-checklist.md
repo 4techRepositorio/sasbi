@@ -7,7 +7,7 @@
 | Gate | Comando | Se falhar |
 |------|---------|-----------|
 | Ruff | `ruff check` + `ruff format --check` em `apps/api/fourpro_api` e `apps/api/tests` (linha 100; isort activo) | `ruff format apps/api/fourpro_api apps/api/tests` e `ruff check --fix` onde seguro |
-| API | `.venv/bin/python -m pytest apps/api/tests -q --tb=short` (após `pip install -r requirements-dev.txt` num venv) | Ver traceback; reexecutar: `.venv/bin/python -m pytest apps/api/tests/test_<area>.py -vv` |
+| API + cobertura ≥90% | `.venv/bin/python -m pytest apps/api/tests -q --tb=short --cov=fourpro_api --cov-config=.coveragerc --cov-fail-under=90` (ou `make qa-coverage`) | Ver traceback / linhas em falta; relatório: `docs/CHECKLISTS/qa-automation-report.md` |
 | Alembic + Postgres | **CI:** job `alembic-postgres` em `.github/workflows/ci.yml` (head único + `upgrade head` em Postgres vazio). **Local:** `./scripts/run-alembic-postgres-local.sh` (Docker + venv com Alembic) | Ver saída `alembic heads`; conflito de revisões = corrigir cadeia em `apps/api/alembic/versions/` |
 | Migrações (BD já a correr) | `./scripts/run-db-migrate.sh` com `DATABASE_URL` no `.env` | Postgres acessível; mesma ordem que entrypoint da API em deploy |
 | Web (tsc) | `cd apps/web && npm ci && npm run typecheck` | Erros de tipos em `src/` |
@@ -68,15 +68,20 @@ PRs automáticos semanais/mensais: [`.github/dependabot.yml`](../../.github/depe
 
 | Área | Ficheiros de teste (exemplos) |
 |------|--------------------------------|
-| Auth / sessão | `test_auth.py`, `test_audit_log.py` |
-| MFA | `test_mfa_flow.py` |
+| Auth / sessão | `test_auth.py`, `test_audit_log.py`, `test_auth_session_edge.py` |
+| MFA | `test_mfa_flow.py`, `test_auth_session_edge.py` (código inválido) |
 | Reset de senha | `test_password_reset.py`, `test_security_password.py` |
+| JWT / helpers | `test_security_jwt.py`, `test_rate_limit_login.py` |
 | Contexto tenant / me | `test_me_context.py`, `test_storage_quota.py` (campo `storage` em `/me/context`) |
 | RBAC / membros | `test_tenant_members.py`, `test_upload_rbac.py` |
-| Upload / ingestões | `test_upload_rbac.py`, `test_ingestions.py`, `test_parse_job.py` |
+| Quota-groups API | `test_quota_groups_api.py` |
+| Upload / ingestões | `test_upload_rbac.py`, `test_upload_validation_unit.py`, `test_upload_limits.py`, `test_ingestions.py`, `test_parse_job*.py`, `test_tasks_dispatch.py` |
 | Catálogo | `test_datasets_catalog.py` |
-| Billing / quotas | `test_billing_enforcement.py`, `test_storage_quota.py` (plano, utilizador, grupo) |
+| Billing / quotas | `test_billing_enforcement.py`, `test_billing_no_plan.py`, `test_billing_edge_unit.py`, `test_storage_quota.py` |
+| Perf / concorrência | `test_performance_concurrency.py` |
+| Rollback DB | `test_db_rollback.py` |
 | Health | `test_health.py` (`/health`, `/health/ready`) |
+| Relatório QA | `docs/CHECKLISTS/qa-automation-report.md` (`make qa-report`) |
 | E2E quotas UI | `context-storage-ui.spec.ts` — bloco na shell; `E2E_EXPECT_STORAGE_WARN=1` + seed/limpeza scripts; CI: `e2e-seed-storage-dispatch.yml` (scripts) e `e2e-storage-warn-browser-dispatch.yml` (API+ng+Playwright) |
 
 ## Critérios de aceite por feature

@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+- **QA Automation Engineer:** skill Cursor, markers pytest, cobertura API ≥90% (`pytest-cov`, `.coveragerc`, `make qa-coverage`), novos testes (quota-groups, JWT/MFA negativos, parse failures, rate limit, concurrency/perf smoke, rollback, CRUD BI connectors/dashboards/semantic/governança), E2E API 401, relatório `docs/CHECKLISTS/qa-automation-report.md`; fix `DashboardRepository.replace_widgets` (coleção deleted).
 - **Onda BI (execução 011–013, 015–017):** correlation ID + `/metrics` + logs JSON (013); camadas bronze/silver/gold + promote (012, ADR-004); dashboards canvas Angular + APIs (011, ADR-003); SPI conectores `packages/connectors` + fontes/sync (015); modelo semântico + `POST /query` (016); scaffold Desktop Electron + publish API (017). Briefing em `docs/product/onda-bi-marcos-bce.md`.
 - **Arquitectura (Architect):** blueprint canónico em `docs/architecture/BLUEPRINT.md` (bounded contexts, portas, eventos/filas, APIs, versionamento, trade-offs); ADR modular monolith + Clean Architecture + Celery em `docs/adr/002-modular-monolith-clean-architecture.md`; checklist `docs/CHECKLISTS/architecture-checklist.md`.
 - **Frontend Architect:** skill `frontend-architect` + `create-next-screen`; `docs/FRONTEND_ARCHITECTURE.md`; ADR React/Next proposto em `docs/adr/005-frontend-react-next.md` (ADR-005; evita colisão com ADR-002 modular monolith); TICKET-018 + plano detalhado; checklist e rule `03-frontend` actualizados. `apps/web` permanece Angular até aceite do ADR. Planos Desktop (017) deixam de apontar spike runtime para ADR-002.

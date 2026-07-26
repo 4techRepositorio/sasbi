@@ -27,8 +27,11 @@ echo "==> Ruff check + format (apps/api)"
 "$VENV_PY" -m ruff check apps/api/fourpro_api apps/api/tests
 "$VENV_PY" -m ruff format --check apps/api/fourpro_api apps/api/tests
 
-echo "==> pytest apps/api/tests"
-"$VENV_PY" -m pytest apps/api/tests -q --tb=short
+echo "==> pytest apps/api/tests (+ coverage ≥90%)"
+"$VENV_PY" -m pytest apps/api/tests -q --tb=short \
+  --cov=fourpro_api --cov-config=.coveragerc \
+  --cov-report=term-missing:skip-covered \
+  --cov-fail-under=90
 
 echo "==> Angular (apps/web)"
 cd apps/web

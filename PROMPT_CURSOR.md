@@ -11,6 +11,7 @@ Papéis disponíveis:
 - Design System Engineer
 - Design Reviewer
 - QA Reviewer
+- QA Automation Engineer
 - Security Reviewer
 - AI Workflow Designer
 

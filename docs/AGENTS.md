@@ -141,6 +141,13 @@ Padrão de revisão sénior (qualidade, arquitetura, cobertura): skill
 `.cursor/skills/senior-code-reviewer/SKILL.md`
 (nunca implementa features — apenas revisa; veredito com P0–P3).
 
+## 8.1 QA Automation Engineer
+Responsável por a esteira automatizada (skill `.cursor/skills/qa-automation-engineer/SKILL.md`):
+- unitários, integração, API, E2E, performance, segurança
+- cobertura mínima **90%** (`make qa-coverage`)
+- relatório em `docs/CHECKLISTS/qa-automation-report.md`
+- nunca aceitar código sem testes
+
 ## 9. Security Reviewer
 Responsável por:
 - MFA

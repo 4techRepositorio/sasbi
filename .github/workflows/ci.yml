@@ -33,8 +33,12 @@ jobs:
         run: |
           python -m ruff check apps/api/fourpro_api apps/api/tests
           python -m ruff format --check apps/api/fourpro_api apps/api/tests
-      - name: Pytest (apps/api/tests)
-        run: python -m pytest apps/api/tests -q --tb=short
+      - name: Pytest + coverage ≥90% (apps/api/tests)
+        run: >
+          python -m pytest apps/api/tests -q --tb=short
+          --cov=fourpro_api --cov-config=.coveragerc
+          --cov-report=term-missing:skip-covered
+          --cov-fail-under=90
         env:
           DATABASE_URL: "sqlite:///:memory:"
           JWT_SECRET: ci-jwt-secret-at-least-32-characters-long

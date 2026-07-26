@@ -1,0 +1,17 @@
+[run]
+source = fourpro_api
+branch = true
+omit =
+    */fourpro_api/dev_seed.py
+    */fourpro_api/db/session.py
+    */fourpro_api/logging_config.py
+
+[report]
+# Meta de produto: 90%. Não baixar o limiar sem actualizar
+# docs/CHECKLISTS/qa-automation-report.md.
+fail_under = 90
+show_missing = true
+skip_covered = true
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:

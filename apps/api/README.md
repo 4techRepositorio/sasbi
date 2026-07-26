@@ -38,8 +38,10 @@ uvicorn fourpro_api.main:app --reload --host 0.0.0.0 --port 7418
 ## Testes
 
 ```bash
-cd apps/api
-pytest -q
+# Na raiz do monorepo (recomendado — cobertura ≥90%):
+make qa-coverage
+# ou só pytest:
+pytest apps/api/tests -q --cov=fourpro_api --cov-config=.coveragerc --cov-fail-under=90
 ```
 
-Usa SQLite em memória por fixture; não exige Docker.
+Usa SQLite em memória por fixture; não exige Docker. Relatório: `docs/CHECKLISTS/qa-automation-report.md`.

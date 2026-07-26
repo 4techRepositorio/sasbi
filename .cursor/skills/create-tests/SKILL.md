@@ -9,3 +9,7 @@ Para cada feature:
 3. Teste de permissão.
 4. Teste de tenant isolation.
 5. Teste de contrato básico.
+
+Para entregas com gate de qualidade completo, seguir também
+`.cursor/skills/qa-automation-engineer/SKILL.md` (cobertura ≥90%,
+performance/segurança, relatório QA).
