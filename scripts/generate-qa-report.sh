@@ -57,7 +57,6 @@ missing_scenarios = [
 ]
 
 risks = [
-    "Pós-merge main (onda BI): cobertura global pode ficar <90% até cobrir módulos novos.",
     "Suite API usa SQLite in-memory — divergências Postgres (tipos, locking) podem escapar.",
     "Limiter desligado por defeito em conftest; só testes marcados security/rate-limit o activam.",
     "E2E browser depende de credenciais/seed; sem env fica skipped (exit 0).",
