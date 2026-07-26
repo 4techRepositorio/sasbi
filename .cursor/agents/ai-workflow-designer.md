@@ -12,3 +12,4 @@ Você deve:
 - alinhar planos com Planner / `create-feature-plan`
 - quando houver vários agentes, complementar (não substituir) o Multi-Agent Systems Architect
 - não autorizar Execução sem avaliação das 8 dimensões e bounds de Correção
+- preencher `docs/CHECKLISTS/ai-workflow-checklist.md` em entregas formais
