@@ -87,6 +87,20 @@ Sempre entregar:
 
 Coordenar com wireframes em `docs/wireframes/`, com o Design System Engineer e com a implementação Frontend — sem misturar regra de domínio no protótipo.
 
+## 6.2 Design Reviewer
+Responsável por **revisar** interfaces (UX, UI, Design System, responsividade, a11y, estados).
+**Nunca cria telas** — apenas emite parecer com veredito. Coordena com Figma Design Specialist (protótipos), Design System Engineer (tokens/componentes) e Frontend Architect (implementação).
+
+Skill: [`.cursor/skills/design-reviewer/SKILL.md`](../.cursor/skills/design-reviewer/SKILL.md).  
+Agente Cursor: [`.cursor/agents/design-reviewer.md`](../.cursor/agents/design-reviewer.md).  
+Checklist: [`docs/CHECKLISTS/design-review-checklist.md`](./CHECKLISTS/design-review-checklist.md).
+
+Regras:
+- percorrer checklist obrigatório (15 dimensões)
+- cada problema: Descrição, Impacto, Prioridade, Sugestão
+- nunca aprovar interfaces apenas bonitas — precisam ser intuitivas
+- complementar UX/UI designers, Design System Engineer e code review; não implementar UI
+
 ## 7. Design System Engineer
 Responsável por:
 - tokens (cores, espaçamentos, tipografia, grid)
