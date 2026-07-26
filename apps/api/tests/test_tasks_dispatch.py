@@ -117,3 +117,24 @@ def test_enqueue_data_source_sync_celery(monkeypatch) -> None:
     )
     tasks_dispatch._celery_app = None
     reset_settings_cache()
+
+
+@pytest.mark.unit
+@pytest.mark.ingestion
+def test_enqueue_data_source_sync_celery_failure_runs_inline(monkeypatch, db_session) -> None:
+    called: list[str] = []
+    monkeypatch.delenv("INGESTION_SYNC_PARSE_FALLBACK", raising=False)
+    monkeypatch.setenv("REDIS_URL", "redis://localhost:6379/0")
+    reset_settings_cache()
+    tasks_dispatch._celery_app = None
+    mock_app = MagicMock()
+    mock_app.send_task.side_effect = RuntimeError("broker down")
+    monkeypatch.setattr(tasks_dispatch, "_get_celery_app", lambda _url: mock_app)
+    monkeypatch.setattr(
+        "fourpro_api.jobs.connector_sync.run_data_source_sync",
+        lambda sync_run_id, db=None: called.append(sync_run_id),
+    )
+    tasks_dispatch.enqueue_data_source_sync("run-fb", db=db_session)
+    assert called == ["run-fb"]
+    tasks_dispatch._celery_app = None
+    reset_settings_cache()

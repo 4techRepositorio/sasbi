@@ -80,6 +80,8 @@ class DashboardRepository:
     def replace_widgets(self, dash: Dashboard, widgets: list[dict[str, Any]]) -> Dashboard:
         for existing in list(dash.widgets):
             self._db.delete(existing)
+        # Evita InvalidRequestError ao reassociar a coleção com instâncias deleted.
+        dash.widgets.clear()
         self._db.flush()
         for i, w in enumerate(widgets):
             self._db.add(

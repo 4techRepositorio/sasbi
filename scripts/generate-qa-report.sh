@@ -45,9 +45,9 @@ e2e_tests = sorted((root / "e2e/tests").glob("*.spec.ts"))
 
 # Lacunas conhecidas / prioridade (mantidas pelo skill QA; actualizar quando cobrir).
 missing_scenarios = [
-    ("P0", "Restaurar cobertura ≥90% após onda BI (connectors, dashboards, semantic, connector_sync)"),
     ("P0", "Stress/load real (k6/locust) contra API+Postgres em staging"),
     ("P0", "E2E browser: upload → parse → catálogo (fluxo feliz completo)"),
+    ("P1", "Ramos restantes connector_sync / semantic edge / parse XLSX"),
     ("P1", "Concorrência TOCTOU de upload/billing em Postgres (não SQLite)"),
     ("P1", "Rate limit refresh + trust-proxy sob burst com IP distinto"),
     ("P1", "Parse XLS/XLSX com workbook real (fourpro_shared.spreadsheet)"),
