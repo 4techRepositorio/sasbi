@@ -34,7 +34,9 @@ def upgrade() -> None:
         "file_ingestions",
         sa.Column("correlation_id", sa.String(length=64), nullable=True),
     )
-    op.create_index("ix_file_ingestions_source_ingestion_id", "file_ingestions", ["source_ingestion_id"])
+    op.create_index(
+        "ix_file_ingestions_source_ingestion_id", "file_ingestions", ["source_ingestion_id"]
+    )
     op.create_index("ix_file_ingestions_correlation_id", "file_ingestions", ["correlation_id"])
     op.create_foreign_key(
         "fk_file_ingestions_source_ingestion_id",
@@ -170,7 +172,9 @@ def downgrade() -> None:
     op.drop_table("dashboards")
     op.drop_index("ix_audit_log_correlation_id", table_name="audit_log")
     op.drop_column("audit_log", "correlation_id")
-    op.drop_constraint("fk_file_ingestions_source_ingestion_id", "file_ingestions", type_="foreignkey")
+    op.drop_constraint(
+        "fk_file_ingestions_source_ingestion_id", "file_ingestions", type_="foreignkey"
+    )
     op.drop_index("ix_file_ingestions_correlation_id", table_name="file_ingestions")
     op.drop_index("ix_file_ingestions_source_ingestion_id", table_name="file_ingestions")
     op.drop_column("file_ingestions", "correlation_id")
