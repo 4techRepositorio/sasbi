@@ -65,7 +65,7 @@ jobs:
       RATE_LIMIT_TRUST_PROXY: "false"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v5
         with:

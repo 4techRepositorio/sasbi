@@ -29,7 +29,7 @@ jobs:
       DATABASE_URL: postgresql+psycopg2://fourpro:fourpro_ci_test@localhost:5432/fourpro
       JWT_SECRET: ci-seed-storage-jwt-secret-at-least-32-chars
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
