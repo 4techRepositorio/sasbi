@@ -102,7 +102,7 @@ jobs:
           cat /tmp/fourpro-api.log
           exit 1
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         if: ${{ github.event.inputs.mode != 'api_stack' }}
         with:
           node-version: "20"
@@ -123,7 +123,7 @@ jobs:
           cat /tmp/fourpro-ng.log
           exit 1
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         if: ${{ github.event.inputs.mode == 'api_stack' }}
         with:
           node-version: "20"
