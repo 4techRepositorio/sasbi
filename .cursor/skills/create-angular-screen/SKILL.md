@@ -11,3 +11,4 @@ Ao criar tela:
 5. Tratar loading, erro, vazio e sucesso.
 6. Garantir responsividade.
 7. Seguir padrão visual corporativo e limpo (4Pro_BI).
+)

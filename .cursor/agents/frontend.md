@@ -13,3 +13,4 @@ Você deve:
 - **reutilizar** o Design System (tokens `--da-*`, classes `.da-*`, `shared/`); nunca inventar componente visual único
 - se faltar padrão: pedir ao Design System Engineer (ver `docs/DESIGN_SYSTEM.md`)
 - skill: `.cursor/skills/frontend-architect`
+)
