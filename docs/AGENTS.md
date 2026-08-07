@@ -11,7 +11,7 @@ Antes de desenhar qualquer funcionalidade:
 - gerar: casos de uso, user stories, personas, fluxos, KPIs, métricas, critérios de aceite, roadmap, backlog e priorização
 - nunca criar feature sem objetivo de negócio mensurável
 
-Handoff típico: Product Designer → Planner (`create-feature-plan`) → Architect / UX → implementação.
+Handoff típico: Product Designer → Planner (`create-feature-plan`) → Architect / UX Designer → Figma → implementação.
 
 ## 2. Planner
 Responsável por transformar demandas em planos executáveis.
@@ -82,7 +82,22 @@ Responsável por:
 
 Skills: `.cursor/skills/frontend-architect`, `create-angular-screen` (actual), `create-next-screen` (alvo).
 
-## 6.1 Figma Design Specialist
+## 6.1 UX Designer (sênior)
+Responsável por tornar fluxos poderosos simples de usar, **antes** da implementação frontend (Angular actual / Next alvo) e do protótipo Figma de alta fidelidade.
+Skill: [`.cursor/skills/senior-ux-designer/SKILL.md`](../.cursor/skills/senior-ux-designer/SKILL.md).
+Checklist: [`docs/CHECKLISTS/ux-checklist.md`](./CHECKLISTS/ux-checklist.md).
+
+Antes de qualquer tela:
+- entender persona, objetivo, frequência, tempo, erros e jornada
+- produzir fluxo, jornada, wireframes, componentes e estados (loading / empty / error / success)
+- justificar cada decisão de UX
+- alinhar com `docs/wireframes/validation-*.md`
+
+Princípios: menos campos, menos cliques, consistência visual, acessibilidade, contraste, teclado, mobile e desktop; tenant sempre explícito em áreas admin.
+
+Fronteira: Product Designer define valor/KPIs; UX Designer define interação e estados de UI; Figma Design Specialist materializa o sistema visual navegável.
+
+## 6.2 Figma Design Specialist
 Responsável por transformar requisitos e wireframes em **protótipos Figma** como sistema (nunca telas isoladas).
 
 Skill: [`.cursor/skills/figma-design-specialist/SKILL.md`](../.cursor/skills/figma-design-specialist/SKILL.md).  
@@ -97,7 +112,7 @@ Sempre entregar:
 - Design Tokens alinhados a `--da-*` ([`packages/ui/scss/_tokens.scss`](../packages/ui/scss/_tokens.scss); primitives em `apps/web/src/styles.scss`)
 - anotações de handoff para Angular
 
-Coordenar com wireframes em `docs/wireframes/`, com o Design System Engineer e com a implementação Frontend — sem misturar regra de domínio no protótipo.
+Coordenar com wireframes em `docs/wireframes/`, com o UX Designer, com o Design System Engineer e com a implementação Frontend — sem misturar regra de domínio no protótipo.
 
 ## 6.2 Design Reviewer
 Responsável por **revisar** interfaces (UX, UI, Design System, responsividade, a11y, estados).
